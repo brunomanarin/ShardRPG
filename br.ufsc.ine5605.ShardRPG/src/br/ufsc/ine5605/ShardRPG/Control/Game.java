@@ -1,7 +1,6 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -11,14 +10,14 @@ public class Game {
 
 	Scanner scanner;
 
-	Control control;
+	JsonHandler jsonHandler;
 
 	Player player;
 
 
-	public Game() throws IOException {
+	public Game() throws Exception {
 		scanner = new Scanner(System.in);
-		control = new Control();
+		jsonHandler = new JsonHandler();
 		Map<String, Player> mapList;
 		int input;
 		System.out.println("Digite 1 para começar um NOVO JOGO ou 2 para CARREGAR um jogo:");
@@ -30,14 +29,14 @@ public class Game {
 		} while (input != 1 && input != 2);
 
 		if (input == 1) {
-			System.out.println(control.registerPlayer(new RegisterControl().registerNewPlayer()));
+			System.out.println(jsonHandler.registerPlayer(new RegisterPlayerHandler().registerNewPlayer()));
 		} else {
 			String key;
-			final String playersList = control.playerListing();
+			final String playersList = jsonHandler.playerListing();
 			final File file = new File("PlayersList.json");
 			if (playersList == null || file.exists()) {
 				System.out.println("Não há jogos carregados!  Começaremos uma nova aventura: \n");
-				control.registerPlayer(new RegisterControl().registerNewPlayer());
+				jsonHandler.registerPlayer(new RegisterPlayerHandler().registerNewPlayer());
 				file.delete();
 			} else {
 				System.out.println(playersList);
@@ -45,7 +44,7 @@ public class Game {
 					System.out.println("Escolha uma chave: ");
 					System.out.print("> ");
 					key = scanner.nextLine().toUpperCase();
-					mapList = control.allPlayers();
+					mapList = jsonHandler.allPlayers();
 				} while (!mapList.containsKey(key));
 			}
 		}

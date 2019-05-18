@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 
-public class Control {
+public class JsonHandler {
 
 	public String playerListing() throws IOException {
 		String text = "";

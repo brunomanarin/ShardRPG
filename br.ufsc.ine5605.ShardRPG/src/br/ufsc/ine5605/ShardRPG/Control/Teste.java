@@ -1,10 +1,8 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
-import java.io.IOException;
-
 public class Teste {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		final Game game = new Game();
 
 	}
