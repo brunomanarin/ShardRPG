@@ -18,21 +18,21 @@ public class Game {
 
 
 	public Game() throws Exception {
+		playerHandler = new RegisterPlayerHandler();
+		scanner = new Scanner(System.in);
+		jsonHandler = new JsonHandler();
+		Map<String, Player> mapList;
+		int input = 0;
 		try {
-			playerHandler = new RegisterPlayerHandler();
-			scanner = new Scanner(System.in);
-			jsonHandler = new JsonHandler();
-			Map<String, Player> mapList;
-			int input = 0;
 			System.out.println("Digite 1 para começar um NOVO JOGO ou 2 para CARREGAR um jogo:");
 			do {
 				System.out.print("> ");
 				try {
 					input = scanner.nextInt();
-					if(input != 1 && input != 2) {
+					if (input != 1 && input != 2) {
 						System.out.println("Digite um numero entre 1 e 2.");
 					}
-				} catch(Exception e) {
+				} catch (final Exception e) {
 					System.out.println("Digite um numero entre 1 e 2.");
 					scanner.nextLine();
 				}
@@ -60,7 +60,7 @@ public class Game {
 						scanner.next();
 						key = scanner.nextLine().toUpperCase();
 						mapList = jsonHandler.allPlayers();
-						if(!mapList.containsKey(key)) {
+						if (!mapList.containsKey(key)) {
 							System.out.println("Chave invalida!");
 						}
 					} while (!mapList.containsKey(key));

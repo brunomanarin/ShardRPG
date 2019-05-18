@@ -1,6 +1,8 @@
 package br.ufsc.ine5605.ShardRPG.Info;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.ufsc.ine5605.ShardRPG.Item.Item;
 
@@ -16,12 +18,26 @@ public class Room {
 
 	private final ArrayList<Item> objects;
 
+	private final Map<Action, Room> adjacentRooms;
+
 
 	public Room(String name, String descriptionFirstVisit, String descriptionAfter, Item objects) {
 		this.name = name;
 		description = descriptionFirstVisit;
 		this.descriptionAfter = descriptionAfter;
 		this.objects = new ArrayList<>();
+		adjacentRooms = new HashMap<>();
+	}
+
+
+	public void setAdjacentRoom(Action a, Room r) {
+		setOneWayAdjacentRoom(a, r);
+		r.setOneWayAdjacentRoom(a.getOppositeDirection(), this);
+	}
+
+
+	public void setOneWayAdjacentRoom(Action a, Room r) {
+		adjacentRooms.put(a, r);
 	}
 
 
