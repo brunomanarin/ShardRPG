@@ -66,9 +66,12 @@ public class Game {
 
 	public void start() {
 		try {
+			final String input = "";
+			while (input.compareToIgnoreCase("quit") != 0) {
 
+			}
 		} catch (final Exception e) {
-			// TODO: handle exception
+			System.out.println("END GAME");
 		}
 	}
 
