@@ -14,38 +14,38 @@
         },
         {   
             "name": "FirstHub",
-            "firstDescription" : "",
-            "secondDescription": ""
+            "firstDescription" : "The light source shows itself to be a big chandelier, you feel the softness of a rug touching your bare feet. The room has four doors leading to another areas.\n The door leading to the south is big and hostile looking. \n The door to the east is halfway open, a big table and what appears to be chairs are visible.\n The door to the north has a big painting on top of it and is close shut. \n Lastly, the door to the west goes back to where you came from.",
+            "secondDescription": "The chandelier still flames on, you hear the rumbling of the candles in midst of the silence of the room."
 
         },
         {   
             "name": "DiningQuarters",
-            "firstDescription" : "",
-            "secondDescription": ""
+            "firstDescription" : "There are some leftovers of food here, some of it is spilled on the ground, some of the chairs are tumbled over. Is that blood on the walls?\n This is some kind of dining hall.\n There is a door to the east at the back of a bar table.",
+            "secondDescription": "The smell of rotten food and blood feels your senses, you can't distance yourself from the fact that something bad must've happened here."
 
         },
         {   
             "name": "DiningQuartersBack",
-            "firstDescription" : "",
-            "secondDescription": ""
+            "firstDescription" : "You open the door, you can't help but notice a chest. Somehow this room's energy fill you up with something. A feeling. A good feeling. It feels great! You smile away as you see a strange glow coming from insde the chest.",
+            "secondDescription": "This room still emanates a radiant energy, coming here makes you feel great! You smile! YOU SMILE MORE! ISN'T IT ALL JUST BEATIFUL? HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA."
 
         },
         {   
             "name": "DeathTrap1",
-            "firstDescription" : "",
-            "secondDescription": ""
+            "firstDescription" : "The only and last thing you hear is the sound of a blade cutting the air. You didn't even notice where it came from, were dead long before then.",
+            "secondDescription": "Wait, what? How did you? what? Are you cheating!? Let me tell Emmanuel about this..."
 
         },
         {   
             "name": "SecretRoom",
-            "firstDescription" : "",
-            "secondDescription": ""
+            "firstDescription" : "Dust is everywhere but in a certain path in this room, strangely it looks like someone has been here recently. Bookshelfs are everywhere and it smells like mold in here. There is a glow coming from the back.",
+            "secondDescription": "You can't stop laughing, it fills you up. That bright and shiny ener... OH GOD WHAT IS HAPPENING TO YOU?"
 
         },
         {   
             "name": "Corridor2",
-            "firstDescription" : "",
-            "secondDescription": ""
+            "firstDescription" : "This is a long hall, there are some decorations scattered aby. A shattered mirror is displayed at the wall, a blue rug on the ground is mushed to the left wall.",
+            "secondDescription": "This is a long hall, there are some decorations scattered aby. A shattered mirror is displayed at the wall, a blue rug on the ground is mushed to the left wall."
 
         },
         {   
