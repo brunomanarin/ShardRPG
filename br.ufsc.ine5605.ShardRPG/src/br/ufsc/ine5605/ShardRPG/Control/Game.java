@@ -76,6 +76,11 @@ public class Game {
 
 	public void start() {
 		try {
+			if (player.getCurrentRoom() == null) {
+				new br.ufsc.ine5605.ShardRPG.Info.Map();
+				player.setCurrentRoom(br.ufsc.ine5605.ShardRPG.Info.Map.shardDungeon());
+				System.out.println(player.getCurrentRoom().getDescription());
+			}
 			final String input = "";
 			while (input.compareToIgnoreCase("quit") != 0) {
 
