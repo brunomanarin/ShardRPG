@@ -11,6 +11,10 @@ public class Player {
 	private Integer progress;
 
 	private String password;
+	
+	private boolean isDead;
+	
+	private Room currentRoom;
 
 	public Player(String name, PlayerType type, PlayerRace race, Integer progress, String password) {
 		this.name = name;
@@ -18,6 +22,7 @@ public class Player {
 		this.type = type;
 		this.progress = progress;
 		this.password = password;
+		this.isDead = false;
 	}
 
 	public PlayerType getType() {
@@ -66,5 +71,10 @@ public class Player {
 
 	public void setRace(PlayerRace race) {
 		this.race = race;
+	}
+	
+	public void die() {
+		System.out.println("You died a horrible and tragic death. Your score:"+ this.progress + "out of 3 shards.");
+		this.isDead = true;
 	}
 }

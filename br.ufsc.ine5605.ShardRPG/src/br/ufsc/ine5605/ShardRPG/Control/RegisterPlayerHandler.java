@@ -21,6 +21,7 @@ public class RegisterPlayerHandler {
 		System.out.println("Antes de sua aventura começar, tenho algumas perguntas para você...");
 		System.out.println("Primeiro de tudo, como você se chama?");
 		while(playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")) {
+		System.out.print("> ");
 		 playerName = receiveString();
 		 if(playerName.length() == 0 || playerName == null || playerName.matches("^\\s+$")) {
 			 System.out.println("Por favor digite um nome valido.");
@@ -32,6 +33,7 @@ public class RegisterPlayerHandler {
 		System.out.println("2- Orc");
 		do {
 			try {
+				System.out.print("> ");
 				int playerRaceInteger = input.nextInt();
 				playerRace = null;
 				switch(playerRaceInteger) {
@@ -65,23 +67,24 @@ public class RegisterPlayerHandler {
 		System.out.println("3- Ladino");
 		do {
 			try {
+				System.out.print("> ");
 				int playerTypeInteger = receiveInteger();
 				playerType = null;
 				switch(playerTypeInteger) {
 					case 1:{
-						System.out.println("Não vê pelo meu porte que sou um guerreiro?");
+						System.out.println(playerName +":Não vê pelo meu porte que sou um guerreiro?");
 						playerType = PlayerType.warrior;
 						System.out.println("Oras mero mortal, me desafie e serás feito pó.");
 						break;
 					}
 					case 2:{
-						System.out.println("Me atenho as obras arcanas. Busque conhecimento.");
+						System.out.println(playerName +":Me atenho as obras arcanas. Busque conhecimento.");
 						playerType = PlayerType.mage;
 						System.out.println("Um apreciador de encantos! Boa sorte em sua aventura.");
 						break;
 					}
 					case 3:{
-						System.out.println("Você não notou que seu colar sumiu?");
+						System.out.println(playerName + ":Você não notou que seu colar sumiu?");
 						playerType = PlayerType.rogue;
 						System.out.println("Ladino! Volte aqui!");
 						break;
