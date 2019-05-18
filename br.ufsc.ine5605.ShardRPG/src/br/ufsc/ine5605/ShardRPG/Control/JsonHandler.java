@@ -18,13 +18,7 @@ import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 
 
 
-public class Control {
-
-	public static void main(String[] args) throws IOException {
-        final RegisterControl registerControl = new RegisterControl();
-        registerControl.registerNewPlayer();
-	}
-
+public class JsonHandler {
 
 	public String playerListing() throws IOException {
 		String text = "";
