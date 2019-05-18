@@ -22,7 +22,7 @@ public class Player {
 		this.type = type;
 		this.progress = progress;
 		this.password = password;
-		this.isDead = false;
+		this.setDead(false);
 	}
 
 	public PlayerType getType() {
@@ -73,8 +73,24 @@ public class Player {
 		this.race = race;
 	}
 	
+	public boolean isDead() {
+		return isDead;
+	}
+
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
 	public void die() {
 		System.out.println("You died a horrible and tragic death. Your score:"+ this.progress + "out of 3 shards.");
-		this.isDead = true;
+		this.setDead(true);
 	}
 }
