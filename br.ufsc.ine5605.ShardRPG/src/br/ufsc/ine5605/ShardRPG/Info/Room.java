@@ -2,6 +2,8 @@ package br.ufsc.ine5605.ShardRPG.Info;
 
 import java.util.ArrayList;
 
+import br.ufsc.ine5605.ShardRPG.Item.Item;
+
 public class Room {
 
 	private String name;

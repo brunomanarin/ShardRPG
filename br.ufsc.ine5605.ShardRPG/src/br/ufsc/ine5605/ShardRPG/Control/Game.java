@@ -23,13 +23,19 @@ public class Game {
 			scanner = new Scanner(System.in);
 			jsonHandler = new JsonHandler();
 			Map<String, Player> mapList;
-			int input;
+			int input = 0;
 			System.out.println("Digite 1 para começar um NOVO JOGO ou 2 para CARREGAR um jogo:");
 			do {
-				System.out.println("Digite um numero válido!");
 				System.out.print("> ");
-				input = scanner.nextInt();
-				scanner.nextLine();
+				try {
+					input = scanner.nextInt();
+					if(input != 1 && input != 2) {
+						System.out.println("Digite um numero entre 1 e 2.");
+					}
+				} catch(Exception e) {
+					System.out.println("Digite um numero entre 1 e 2.");
+					scanner.nextLine();
+				}
 			} while (input != 1 && input != 2);
 
 			if (input == 1) {
@@ -51,8 +57,12 @@ public class Game {
 					do {
 						System.out.println("Escolha uma chave: ");
 						System.out.print("> ");
+						scanner.next();
 						key = scanner.nextLine().toUpperCase();
 						mapList = jsonHandler.allPlayers();
+						if(!mapList.containsKey(key)) {
+							System.out.println("Chave invalida!");
+						}
 					} while (!mapList.containsKey(key));
 					player = mapList.get(key);
 					System.out.println("Login efetuado com sucesso!");
