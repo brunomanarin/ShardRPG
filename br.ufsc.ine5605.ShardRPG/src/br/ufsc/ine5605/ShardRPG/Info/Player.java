@@ -11,10 +11,11 @@ public class Player {
 	private Integer progress;
 
 	private String password;
-	
+
 	private boolean isDead;
-	
+
 	private Room currentRoom;
+
 
 	public Player(String name, PlayerType type, PlayerRace race, Integer progress, String password) {
 		this.name = name;
@@ -22,75 +23,97 @@ public class Player {
 		this.type = type;
 		this.progress = progress;
 		this.password = password;
-		this.setDead(false);
+		setDead(false);
 	}
+
+
+	public void move(Action action) {
+
+	}
+
 
 	public PlayerType getType() {
 		return type;
 	}
 
+
 	public void setType(PlayerType type) {
 		this.type = type;
 	}
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	public Integer getProgress() {
 		return progress;
 	}
 
+
 	public void setProgress(Integer progress) {
 		this.progress = progress;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public PlayerType getClasse() {
 		return type;
 	}
 
+
 	public void setClasse(PlayerType type) {
 		this.type = type;
 	}
+
 
 	public PlayerRace getRace() {
 		return race;
 	}
 
+
 	public void setRace(PlayerRace race) {
 		this.race = race;
 	}
-	
+
+
 	public boolean isDead() {
 		return isDead;
 	}
+
 
 	public void setDead(boolean isDead) {
 		this.isDead = isDead;
 	}
 
+
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
+
 
 	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
 	}
 
+
 	public void die() {
-		System.out.println("You died a horrible and tragic death. Your score:"+ this.progress + "out of 3 shards.");
-		this.setDead(true);
+		System.out.println("You died a horrible and tragic death. Your score:" + progress + "out of 3 shards.");
+		setDead(true);
 	}
 }

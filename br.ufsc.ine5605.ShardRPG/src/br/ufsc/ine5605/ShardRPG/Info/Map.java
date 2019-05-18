@@ -11,7 +11,7 @@ public class Map {
 			"You wake up in a dim and dank room. You're confused and can't remember anything that happened. \n As you gather yourself you notice a source of light coming from a corridor to the east.",
 			"This room still gives you chills, the atmosphere feels your body and makes you unconfortable.\n If I were you, i'd get out of here.",
 			null);
-		spawn.setAdjacentRoom(Action.ActionGoNorth, Corridor);
+		spawn.setAdjacentRoom(Action.ActionGoEast, Corridor);
 		return spawn;
 	}
 

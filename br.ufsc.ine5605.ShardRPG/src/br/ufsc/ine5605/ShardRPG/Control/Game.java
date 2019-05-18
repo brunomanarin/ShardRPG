@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Map;
 import java.util.Scanner;
 
+import br.ufsc.ine5605.ShardRPG.Info.Action;
+import br.ufsc.ine5605.ShardRPG.Info.Intepreter;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 
 public class Game {
@@ -16,8 +18,11 @@ public class Game {
 
 	RegisterPlayerHandler playerHandler;
 
+	Intepreter intepreter;
+
 
 	public Game() throws Exception {
+		intepreter = new Intepreter();
 		Map<String, Player> mapList;
 		playerHandler = new RegisterPlayerHandler();
 		scanner = new Scanner(System.in);
@@ -81,13 +86,30 @@ public class Game {
 				player.setCurrentRoom(br.ufsc.ine5605.ShardRPG.Info.Map.shardDungeon());
 				System.out.println(player.getCurrentRoom().getDescription());
 			}
-			final String input = "";
+			String input = "";
 			while (input.compareToIgnoreCase("quit") != 0) {
+				System.out.print("> ");
+				input = scanner.nextLine();
+
+				final Action action = intepreter.stringInterpreter(input);
+				switch (action.getType()) {
+				case TYPE_WALK:
+
+					break;
+
+				default:
+					break;
+				}
 
 			}
 		} catch (final Exception e) {
 			System.out.println("END GAME");
 		}
+	}
+
+
+	private void move(Action a) {
+
 	}
 
 }
