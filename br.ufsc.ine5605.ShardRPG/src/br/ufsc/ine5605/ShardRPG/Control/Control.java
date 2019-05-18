@@ -15,38 +15,34 @@ import com.google.gson.Gson;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 
-
-
-
 public class Control {
-
-	public static void main(String[] args) throws IOException {
-        final RegisterControl registerControl = new RegisterControl();
-        registerControl.registerNewPlayer();
-	}
-
 
 	public String playerListing() throws IOException {
 		String text = "";
 		if (checkJsonPlayers()) {
-			final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
-			final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
-			final Map<String, Player> mapList = playerList.getPlayersList();
-			for (final Player player : mapList.values()) {
-				if (player != null) {
-					text += "Name: "
-						+ player.getName() + "\nTipo: " + player.getType() + "\nRace: " + player.getRace()
-						+ "\nProgresso: " + player.getProgress() + "\nChave: " + player.getPassword() + "\n\n";
+			try {
+				final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
+				final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
+				final Map<String, Player> mapList = playerList.getPlayersList();
+				for (final Player player : mapList.values()) {
+					if (player != null) {
+						text += "\nChave: " + player.getPassword() + "\nTipo: " + player.getType() + "\nRace: "
+							+ player.getRace() + "\nProgresso: " + player.getProgress() + "\nNome: "
+							+ player.getName() + "\n\n";
+					}
 				}
+			} catch (final Exception e) {
+				return null;
 			}
 		}
 		return text;
 	}
-	
-	public Map<String, Player> allPlayers() throws IOException{
+
+
+	public Map<String, Player> allPlayers() throws IOException {
 		final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
 		final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
-		Map<String, Player> mapList = playerList.getPlayersList();
+		final Map<String, Player> mapList = playerList.getPlayersList();
 		return mapList;
 	}
 
@@ -101,9 +97,9 @@ public class Control {
 				registerFirstPlayer(player);
 			}
 		} catch (final Exception e) {
-			return "Não foi possivel registrar o jogador!";
+			return "\nNão foi possivel registrar o jogador!";
 		}
-		return "Registro feito com sucesso!";
+		return "\nRegistro feito com sucesso!";
 	}
 
 
@@ -142,7 +138,8 @@ public class Control {
 		final File file = new File("PlayersList.json");
 		final String contentJson = getJasonContent(file.getAbsolutePath(), StandardCharsets.UTF_8);
 		final PlayerList list = new Gson().fromJson(contentJson, PlayerList.class);
-		final Map<String, Player> mapList = list.getPlayersList();
+		Map<String, Player> mapList;
+		mapList = list.getPlayersList();
 
 		mapList.put(player.getPassword(), player);
 		list.setPlayersList(mapList);
