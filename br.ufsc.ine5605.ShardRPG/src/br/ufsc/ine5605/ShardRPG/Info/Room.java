@@ -6,12 +6,14 @@ public class Room {
 	private String descriptionAfter;
 	private boolean wasVisited;
 	private Item objects;
+	
 	public Room(String name, String descriptionFirstVisit, String descriptionAfter, Item objects) {
 		this.name = name;
 		this.description = descriptionFirstVisit;
 		this.descriptionAfter = descriptionAfter;
 		this.objects = objects;
 	}
+	
 	public String getName() {
 		return name;
 	}
