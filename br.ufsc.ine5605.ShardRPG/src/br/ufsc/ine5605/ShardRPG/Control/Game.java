@@ -18,12 +18,12 @@ public class Game {
 
 
 	public Game() throws Exception {
+		Map<String, Player> mapList;
+		playerHandler = new RegisterPlayerHandler();
+		scanner = new Scanner(System.in);
+		jsonHandler = new JsonHandler();
+		int input = 0;
 		try {
-			playerHandler = new RegisterPlayerHandler();
-			scanner = new Scanner(System.in);
-			jsonHandler = new JsonHandler();
-			Map<String, Player> mapList;
-			int input = 0;
 			System.out.println("Digite 1 para começar um NOVO JOGO ou 2 para CARREGAR um jogo:");
 			do {
 				System.out.print("> ");
