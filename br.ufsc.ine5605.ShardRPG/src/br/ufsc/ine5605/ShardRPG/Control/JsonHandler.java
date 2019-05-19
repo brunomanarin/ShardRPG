@@ -97,9 +97,9 @@ public class JsonHandler {
 				registerFirstPlayer(player);
 			}
 		} catch (final Exception e) {
-			return "\nNão foi possivel registrar o jogador!";
+			return "\nNão foi possivel registrar o jogador! \n";
 		}
-		return "\nRegistro feito com sucesso!";
+		return "\nRegistro feito com sucesso! \n";
 	}
 
 
