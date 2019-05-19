@@ -167,14 +167,14 @@ public class Room {
 
 
 	public String showDescription() {
-		return wasVisited ? descriptionAfter : description + visibleObjects();
+		return wasVisited ? descriptionAfter : description;
 	}
 
 
 	public String visibleObjects() {
 		String visibleObjects = "";
 		for (final Item object : items) {
-			visibleObjects += "There is a " + object.getDescription() + "here \n";
+			visibleObjects += "There is a " + object.getName() + "here \n";
 		}
 		if(visibleObjects.length()==0) {
 			return "There are no visible objects here at the moment.";

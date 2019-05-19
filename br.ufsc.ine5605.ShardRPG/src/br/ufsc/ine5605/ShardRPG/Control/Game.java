@@ -116,6 +116,7 @@ public class Game {
 				System.out.println("ADJACENT ROOMS:");
 				System.out.println(player.getCurrentRoom().getAdjacentRooms());
 				System.out.println("----------------");
+				System.out.println("If you're new to the game i suggest using the command 'help'");
 			}
 			String input = "";
 			while (input.compareToIgnoreCase("quit") != 0) {

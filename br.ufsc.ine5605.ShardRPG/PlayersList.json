@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-{"PlayersList":{"HUAN":{"name":"huan","type":"mage","race":"human","progress":0,"password":"HUAN","isDead":false,"inventory":{}}}}
-=======
-{"PlayersList":{"HAS":{"name":"has","type":"mage","race":"human","progress":0,"password":"HAS","isDead":false,"inventory":{}},"FF":{"name":"ff","type":"rogue","race":"orc","progress":0,"password":"FF","isDead":false,"inventory":{}},"HUN":{"name":"huN","type":"rogue","race":"human","progress":0,"password":"HUN","isDead":false,"inventory":{}},"TESTE":{"name":"Teste","type":"rogue","race":"orc","progress":0,"password":"TESTE","isDead":false,"inventory":{}},"BRUNO":{"name":"Bruno","type":"rogue","race":"orc","progress":0,"password":"BRUNO","isDead":false,"inventory":{}},"GUILHERME":{"name":"Guilherme","type":"rogue","race":"orc","progress":0,"password":"GUILHERME","isDead":false,"inventory":{}}}}
->>>>>>> 76764932b25722f5b2f0eb30cbdb85f04e131c0c
