@@ -39,7 +39,7 @@ public class Player {
 		try {
 			if (currentRoom.getItems().contains(item)) {
 				inventory.put(item.getName(), item);
-				System.out.println(item.getName() + " Colocado no inventario! ");
+				System.out.println(item.getName() + " added to inventory! ");
 			}
 		} catch (final Exception e) {
 			System.out.println(e);
@@ -51,8 +51,7 @@ public class Player {
 		if (getCurrentRoom().canMoveToRoomInDirection(action)) {
 			setCurrentRoom(getCurrentRoom().getNextRoomDirection(action));
 			if (getCurrentRoom().getName().equals("Death Trap")) {
-				System.out.println(getCurrentRoom().getDescription());
-				die();
+				setDead(true);
 			}
 			if (!getCurrentRoom().getWasVisited()) {
 				System.out.println("--------" + getCurrentRoom().getName() + "--------");

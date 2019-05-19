@@ -42,6 +42,43 @@ public class Room {
 		setOneWayAdjacentRoom(a, r);
 		r.setOneWayAdjacentRoom(a.getOppositeDirection(), this);
 	}
+	public String getAdjacentRooms() {
+		String adjacent = "";
+		String roomDirection = "";
+		for(Action action: adjacentRooms.keySet()) {
+			if(action!=null) {
+				Room room = adjacentRooms.get(action);
+				switch(action.name()) {
+					case "ActionGoSouth":{
+						roomDirection = "South";
+						break;
+					}
+					case "ActionGoNorth":{
+						roomDirection = "North";
+						break;
+					}
+					case "ActionGoWest":{
+						roomDirection = "West";
+						break;
+					}
+					case "ActionGoEast":{
+						roomDirection = "East";
+						break;
+					}
+					default:{
+						roomDirection = "Secret";
+						break;
+					}
+				}
+				if(room != null) {
+					if(room.getName()!="" && !room.getName().matches("^\\s+$")) {
+						adjacent+= roomDirection+":"+room.getName()+"\n";
+					}
+				}
+			}
+		}
+		return adjacent;
+	}
 
 
 	public Boolean canMoveToRoomInDirection(Action action) {
@@ -139,7 +176,11 @@ public class Room {
 		for (final Item object : items) {
 			visibleObjects += "There is a " + object.getDescription() + "here \n";
 		}
-		return visibleObjects;
+		if(visibleObjects.length()==0) {
+			return "There are no visible objects here at the moment.";
+		} else {
+			return visibleObjects;
+		}
 	}
 
 }

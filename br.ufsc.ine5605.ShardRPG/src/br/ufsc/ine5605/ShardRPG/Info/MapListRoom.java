@@ -31,7 +31,7 @@ public class MapListRoom {
 		diningQuartersBack.setItem(Item.getInstance("shard"));
 
 		final Room deathTrap = new Room("Death Trap",
-			"The only and last thing you hear is the sound of a blade cutting the air. You didn't even notice where it came from, were dead long before then.",
+			"The only and last thing you hear is the sound of a blade cutting the air.",
 			"Wait, what? How did you? what? Are you cheating!?", null);
 		final Room secondHub = new Room("Second hub", "", "", null);
 
@@ -49,26 +49,29 @@ public class MapListRoom {
 		corridor.setAdjacentRoom(Action.ActionGoEast, firstHub);
 		corridor.setAdjacentRoom(Action.ActionGoWest, spawn);
 
-		firstHub.setAdjacentRoom(Action.ActionGoWest, corridor);
 		firstHub.setAdjacentRoom(Action.ActionGoEast, diningHall);
 		firstHub.setAdjacentRoom(Action.ActionGoSouth, deathTrap);
 		firstHub.setAdjacentRoom(Action.ActionGoNorth, secondHub);
-
+		firstHub.setAdjacentRoom(Action.ActionGoWest, corridor);
+		
 		diningHall.setAdjacentRoom(Action.ActionGoEast, diningQuartersBack);
-		diningHall.setAdjacentRoom(Action.ActionGoWest, firstHub);
-
 		diningQuartersBack.setAdjacentRoom(Action.ActionGoWest, diningHall);
 
 		secondHub.setAdjacentRoom(Action.ActionGoEast, corridor2);
 		secondHub.setAdjacentRoom(Action.ActionGoSouth, firstHub);
+		secondHub.setAdjacentRoom(Action.ActionGoWest, secretRoom);
 
 		corridor2.setAdjacentRoom(Action.ActionGoNorth, restingQuarters);
 		corridor2.setAdjacentRoom(Action.ActionGoEast, deathHub);
+		corridor2.setAdjacentRoom(Action.ActionGoWest, secondHub);
 
 		deathHub.setAdjacentRoom(Action.ActionGoNorth, deathTrap);
 		deathHub.setAdjacentRoom(Action.ActionGoSouth, deathTrap);
 		deathHub.setAdjacentRoom(Action.ActionGoEast, deathTrap);
 		deathHub.setAdjacentRoom(Action.ActionGoWest, corridor2);
+		
+		restingQuarters.setAdjacentRoom(Action.ActionGoSouth, corridor2);
+		
 		return spawn;
 	}
 
