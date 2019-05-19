@@ -27,6 +27,11 @@ public class Player {
 	}
 
 
+	public void move(Action action) {
+
+	}
+
+
 	public PlayerType getType() {
 		return type;
 	}
@@ -67,7 +72,7 @@ public class Player {
 	}
 
 
-	PlayerType getClasse() {
+	public PlayerType getClasse() {
 		return type;
 	}
 

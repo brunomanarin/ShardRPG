@@ -42,6 +42,7 @@ public class Item {
 		allItemsList.add(new ItemShard("Shard", "A glowing piece, what is it made of?", new String[] {"Shard", "piece"}));
 		
 		
+		
 	}
 	public static Item getInstance(String string) {
 		if(allItemsList == null) {

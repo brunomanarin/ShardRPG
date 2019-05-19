@@ -23,6 +23,9 @@ public class ItemPainting  extends Item implements Inspectable, Visible{
 		}
 		
 	}
+	public String getInspectMessage() {
+		return inspectMessage;
+	}
 
 	public void setInspectMessage(String string) {
 		this.inspectMessage = string;
