@@ -1,7 +1,7 @@
 package br.ufsc.ine5605.ShardRPG.Info;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import br.ufsc.ine5605.ShardRPG.Item.Item;
@@ -16,7 +16,7 @@ public class Room {
 
 	private boolean wasVisited;
 
-	private final ArrayList<Item> objects;
+	private final LinkedList<Item> items;
 
 	private final Map<Action, Room> adjacentRooms;
 
@@ -25,7 +25,7 @@ public class Room {
 		this.name = name;
 		description = descriptionFirstVisit;
 		this.descriptionAfter = descriptionAfter;
-		this.objects = new ArrayList<>();
+		items = new LinkedList<>();
 		adjacentRooms = new HashMap<>();
 	}
 
@@ -101,32 +101,26 @@ public class Room {
 	}
 
 
-	public void addObjects(ArrayList<Item> objects) {
-		for (final Item o : objects) {
-			this.objects.add(o);
+	public void putItems(LinkedList<Item> items) {
+		for (final Item i : items) {
+			this.items.add(i);
 		}
 	}
 
 
-	public void addSingleObject(Item object) {
-		objects.add(object);
+	public void setItem(Item item) {
+		items.add(item);
 	}
 
 
-	public void removeObject(Item object) {
-		boolean objectExists = false;
-		for (final Item o : objects) {
-			if (o.equals(object)) {
-				objectExists = true;
-			}
-		}
-		if (objectExists) {
-			objects.remove(object);
-			System.out.println("I'll take this " + object.getName() + ".");
+	public boolean remove(Item item) {
+		if (items.contains(item)) {
+			items.remove(item);
+			return true;
 		} else {
 			System.out.println("I can't see this object here.");
+			return false;
 		}
-
 	}
 
 
@@ -137,7 +131,7 @@ public class Room {
 
 	public String visibleObjects() {
 		String visibleObjects = "";
-		for (final Item object : objects) {
+		for (final Item object : items) {
 			visibleObjects += "There is a " + object.getDescription() + "here \n";
 		}
 		return visibleObjects;

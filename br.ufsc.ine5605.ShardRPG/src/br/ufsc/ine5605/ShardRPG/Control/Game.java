@@ -105,18 +105,74 @@ public class Game {
 				input = scanner.nextLine();
 
 				final Action action = intepreter.stringInterpreter(input);
+
 				switch (action.getType()) {
 				case TYPE_WALK:
 					move(action);
 					break;
 
-				default:
-					System.out.println("Não entendi seu comando, por favor escreva que nem gente. \n");
-					break;
+				case TYPE_NOOBJECTACTION:
+					switch (action) {
+					case ActionHelp: {
+						System.out.println("Ajuda");
+					}
+						break;
+					case ActionDie: {
+						System.out.println("morre");
+					}
+						break;
+					case ActionPass: {
+						System.out.println("passa");
+					}
+						break;
+					case ActionError: {
+						System.out.println("Erro");
+					}
+						break;
+					default:
+
+						break;
+					}
+				case TYPE_OBJECTACTION:
+					switch (action) {
+					case ActionLook: {
+						System.out.println("olhar");
+					}
+						break;
+					case ActionExamine: {
+						System.out.println("examina area");
+					}
+						break;
+					default:
+						break;
+					}
+
+				case TYPE_HASDIRECTOBJECT:
+					switch (action) {
+					case ActionPickUp: {
+						System.out.println("pega item");
+					}
+						break;
+					case ActionBreak: {
+						System.out.println("Quebra");
+					}
+						break;
+					case ActionInspect: {
+						System.out.println("inspect item");
+					}
+						break;
+					case ActionDrop: {
+						System.out.println("Joga item fora");
+					}
+						break;
+					default:
+
+						break;
+					}
 				}
 			}
 		} catch (final Exception e) {
-			System.out.println("END GAME");
+			System.out.println(e);
 		}
 	}
 
