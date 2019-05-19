@@ -122,6 +122,19 @@ public class Room {
 	}
 
 
+	public Room getRoomForDirection(Action a) {
+		if (canMoveToRoomInDirection(a)) {
+			return adjacentRooms.get(a);
+		}
+		return null;
+	}
+
+
+	public boolean canMoveToRoomInDirection(Action a) {
+		return adjacentRooms.containsKey(a);
+	}
+
+
 	public String visibleObjects() {
 		String visibleObjects = "";
 		for (final Item object : objects) {

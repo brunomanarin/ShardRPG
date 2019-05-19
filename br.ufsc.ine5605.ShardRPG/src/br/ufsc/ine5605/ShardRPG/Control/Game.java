@@ -94,13 +94,12 @@ public class Game {
 				final Action action = intepreter.stringInterpreter(input);
 				switch (action.getType()) {
 				case TYPE_WALK:
-
+					System.out.println("andei");
 					break;
 
 				default:
 					break;
 				}
-
 			}
 		} catch (final Exception e) {
 			System.out.println("END GAME");

@@ -72,7 +72,3 @@ public enum Action {
 	}
 
 };
-
-enum ActionType {
-	TYPE_WALK, TYPE_OBJECTACTION, TYPE_NOOBJECTACTION;
-}
