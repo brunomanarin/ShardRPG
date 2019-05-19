@@ -23,20 +23,20 @@ public class RegisterPlayerHandler {
 
 	public Player registerNewPlayer() throws Exception {
 		do {
-			System.out.println("Bem vindo!");
-			System.out.println("Antes de sua aventura começar, tenho algumas perguntas para você...");
-			System.out.println("Primeiro de tudo, como você se chama?");
+			System.out.println("Welcome!");
+			System.out.println("Before you begin, may i ask you some questions?");
+			System.out.println("First things first, what is your name?");
 			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")) {
 				System.out.print("> ");
 				playerName = receiveString();
 				if (playerName.length() == 0 || playerName == null || playerName.matches("^\\s+$")) {
-					System.out.println("Por favor digite um nome valido.");
+					System.out.println("Please enter a valid name.");
 				}
 			}
-			System.out.println(playerName + " han? Interessante.");
-			System.out.println("Diga, " + playerName + ", você se identifica como ser humano?");
-			System.out.println("1- Humano");
-			System.out.println("2- Orc");
+			System.out.println(playerName + " han? Interesting.");
+			System.out.println("So, " + playerName + ", do you consider yourself to be a human?");
+			System.out.println("1- Yes sure, human as it can be.");
+			System.out.println("2- I am an orc.");
 			do {
 				try {
 					System.out.print("> ");
@@ -44,33 +44,33 @@ public class RegisterPlayerHandler {
 					playerRace = null;
 					switch (playerRaceInteger) {
 					case 1: {
-						System.out.println("Entendi...");
+						System.out.println("Got it...");
 						playerRace = PlayerRace.human;
 						break;
 					}
 					case 2: {
-						System.out.println("Ah, um companheiro Orc! Sucesso seja suas lutas!");
+						System.out.println("Oh, a fellow orc! May your battles be fierce!");
 						playerRace = PlayerRace.orc;
 						break;
 					}
 					default: {
-						System.out.println("Por favor Insira um numero entre 1 e 2.");
+						System.out.println("The input must be a number between 1 and 2.");
 						continue;
 					}
 
 					}
 				} catch (final Exception e) {
-					System.out.println("Por favor Insira um numero entre 1 e 2.");
+					System.out.println("The input must be a number between 1 and 2.");
 					input.next();
 					continue;
 				}
 			} while (playerRace == null);
 
-			System.out.println("Bom, tenho mais uma pergunta antes de deixá-lo ir.");
-			System.out.println("Qual sua especialidade?");
-			System.out.println("1- Guerreiro");
-			System.out.println("2- Mago");
-			System.out.println("3- Ladino");
+			System.out.println("One more before you go.");
+			System.out.println("What do you consider to be your speciality?");
+			System.out.println("1- I am a Warrior, a soldier. Can't you see?");
+			System.out.println("2- I am a Mage, knowledge is my duty.");
+			System.out.println("3- I am a rogue, can't you see your medallion just vanished?");
 			do {
 				try {
 					System.out.print("> ");
@@ -78,37 +78,34 @@ public class RegisterPlayerHandler {
 					playerType = null;
 					switch (playerTypeInteger) {
 					case 1: {
-						System.out.println(playerName + ":Não vê pelo meu porte que sou um guerreiro?");
 						playerType = PlayerType.warrior;
-						System.out.println("Oras mero mortal, me desafie e serás feito pó.");
+						System.out.println("Challenge me and i will crush you.");
 						break;
 					}
 					case 2: {
-						System.out.println(playerName + ":Me atenho as obras arcanas. Busque conhecimento.");
 						playerType = PlayerType.mage;
-						System.out.println("Um apreciador de encantos! Boa sorte em sua aventura.");
+						System.out.println("Oh, i see, an apreciator of the arcane arts.");
 						break;
 					}
 					case 3: {
-						System.out.println(playerName + ":Você não notou que seu colar sumiu?");
 						playerType = PlayerType.rogue;
-						System.out.println("Ladino! Volte aqui!");
+						System.out.println("You thieve! Get Back here!");
 						break;
 					}
 					default: {
-						System.out.println("Por favor digite um numero entre 1 e 3.");
+						System.out.println("The input be a number between 1 and 3.");
 						input.next();
 						continue;
 					}
 					}
 				} catch (final Exception e) {
-					System.out.println("Por favor digite um numero entre 1 e 3.");
+					System.out.println("The input be a number between 1 and 3.");
 					input.next();
 				}
 			} while (playerType == null);
 			if (playerName == null || playerName == "" || playerType == null || playerRace == null) {
-				System.out.println("Ocorreu um erro em seu registro! Verifique os dados e tente novamente! \n"
-					+ "Seu nome:" + playerName + "\n Sua raca:" + playerRace + ",\n Sua classe:" + playerType);
+				System.out.println("An error ocurred while handling your registry! Please check your data and try again:\n"
+					+ "Name:" + playerName + "\n Race:" + playerRace + ",\n Class:" + playerType);
 			}
 		} while (playerName == null || playerName == "" || playerType == null || playerRace == null);
 		final Player player = new Player(playerName, playerType, playerRace, 0, playerName.toUpperCase());
@@ -127,7 +124,7 @@ public class RegisterPlayerHandler {
 			numberInput = input.nextInt();
 			input.nextLine();
 		} catch (final Exception e) {
-			System.out.println("Valor Invalido");
+			System.out.println("Invalid input");
 			input.next();
 		}
 		return numberInput;

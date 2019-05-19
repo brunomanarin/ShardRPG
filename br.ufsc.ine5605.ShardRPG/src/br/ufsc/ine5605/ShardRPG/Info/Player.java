@@ -113,7 +113,8 @@ public class Player {
 
 
 	public void die() {
-		System.out.println("You died a horrible and tragic death. Your score:" + progress + "out of 3 shards.");
+		System.out.println("You died a horrible and tragic death. Your score:" + progress + " out of 3 shards.");
 		setDead(true);
+		System.exit(0);
 	}
 }

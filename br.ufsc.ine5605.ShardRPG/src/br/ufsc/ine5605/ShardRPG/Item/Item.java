@@ -40,7 +40,8 @@ public class Item {
 	public static void initAllItemsList() {
 		allItemsList = new ArrayList<>();
 		allItemsList.add(new ItemShard("Shard", "A glowing piece, what is it made of?", new String[] {"Shard", "piece"}));
-		
+		allItemsList.add(new ItemPainting("Painting","A painting, looks antique.", new String[] {"Painting"}));
+		allItemsList.add(new ItemChair("Chair", "A chair, nothing special about it.", new String[] {"chair"}));
 		
 		
 	}
