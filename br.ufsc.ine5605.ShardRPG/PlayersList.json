@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"PlayersList":{"HUAN":{"name":"huan","type":"mage","race":"human","progress":0,"password":"HUAN","isDead":false},"HUANM":{"name":"huanm","type":"mage","race":"human","progress":0,"password":"HUANM","isDead":false},"HH":{"name":"hh","type":"warrior","race":"orc","progress":0,"password":"HH","isDead":false},"2":{"name":"2","type":"mage","race":"human","progress":0,"password":"2","isDead":false,"inventory":{}},"DD":{"name":"dd","type":"mage","race":"human","progress":0,"password":"DD","isDead":false,"inventory":{}},"OO":{"name":"oo","type":"mage","race":"human","progress":0,"password":"OO","isDead":false,"inventory":{}},"RR":{"name":"rr","type":"rogue","race":"orc","progress":0,"password":"RR","isDead":false,"inventory":{}}}}
+=======
+{"PlayersList":{"BRUNO":{"name":"Bruno","type":"rogue","race":"orc","progress":0,"password":"BRUNO","isDead":false}}}
+>>>>>>> 5a2c16b1964d32b4c60ff35e8cbd4654adadde03

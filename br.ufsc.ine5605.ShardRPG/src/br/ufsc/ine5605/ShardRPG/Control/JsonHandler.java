@@ -26,8 +26,8 @@ public class JsonHandler {
 				final Map<String, Player> mapList = playerList.getPlayersList();
 				for (final Player player : mapList.values()) {
 					if (player != null) {
-						text += "\nChave: " + player.getPassword() + "\nTipo: " + player.getType() + "\nRace: "
-							+ player.getRace() + "\nProgresso: " + player.getProgress() + "\nNome: "
+						text += "\nKey: " + player.getPassword() + "\nClass: " + player.getType() + "\nRace: "
+							+ player.getRace() + "\nProgress: " + player.getProgress() + "\nName: "
 							+ player.getName() + "\n\n";
 					}
 				}

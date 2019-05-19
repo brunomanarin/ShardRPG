@@ -9,6 +9,7 @@ public class ItemChair extends Item implements Breakable {
 
 	public ItemChair(String description, String name, String[] alias) {
 		super(description, name, alias);
+		destroyMessage = "You use your fury to smash up the chair, it's pieces fly everywhere. Why have you done this?";
 	}
 
 
