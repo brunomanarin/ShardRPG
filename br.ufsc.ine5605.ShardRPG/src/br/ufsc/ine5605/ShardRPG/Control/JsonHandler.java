@@ -39,6 +39,19 @@ public class JsonHandler {
 	}
 
 
+	public Map<String, Player> allPlayersMap() {
+		try {
+			final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
+			final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
+			final Map<String, Player> mapList = playerList.getPlayersList();
+			return mapList;
+		} catch (final Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+
 	public Map<String, Player> allPlayers() throws IOException {
 		final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
 		final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
@@ -147,6 +160,11 @@ public class JsonHandler {
 		setJsonInFile(list, file);
 
 		return true;
+	}
+
+
+	public void saveGame(Player player) throws IOException {
+
 	}
 
 

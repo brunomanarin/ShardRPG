@@ -26,11 +26,15 @@ public class RegisterPlayerHandler {
 			System.out.println("Welcome!\n");
 			System.out.println("Before you begin, may i ask you some questions?");
 			System.out.println("First things first, what is your name?");
-			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")) {
+			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")
+				|| new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
 				System.out.print("> ");
 				playerName = receiveString();
 				if (playerName.length() == 0 || playerName == null || playerName.matches("^\\s+$")) {
 					System.out.println("Please enter a valid name.");
+				}
+				if (new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
+					System.out.println("\nThis name is already in use, please choose another one!");
 				}
 			}
 			System.out.println(playerName + " han? Interesting.\n");

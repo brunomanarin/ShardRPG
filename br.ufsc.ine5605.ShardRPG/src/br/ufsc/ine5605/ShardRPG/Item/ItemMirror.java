@@ -1,32 +1,34 @@
 package br.ufsc.ine5605.ShardRPG.Item;
 
-import br.ufsc.ine5605.ShardRPG.Info.Room;
+public class ItemMirror extends Item implements Inspectable {
 
-public class ItemMirror extends Item implements Inspectable{
 	private String inspectMessage;
 
 
-
 	public ItemMirror(String description, String name, String[] alias) {
-		super(description, name, alias);
+		super(description, name, alias, false);
 	}
 
+
+	@Override
 	public void inspect() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(getDescription());
 	}
-	
+
+
 	public String getInspectMessage() {
 		return inspectMessage;
 	}
 
+
+	@Override
 	public void setInspectMessage(String string) {
-		if(this.inspectMessage!= null) {
-				System.out.println(this.getInspectMessage());
+		if (inspectMessage != null) {
+			System.out.println(getInspectMessage());
 		} else {
-			System.out.println("This is a "+ this +".");
+			System.out.println("This is a " + this + ".");
 		}
-		
+
 	}
 
 }

@@ -7,8 +7,13 @@ public class ItemChair extends Item implements Breakable {
 	private String destroyMessage;
 
 
+	public String getDestroyMessage() {
+		return destroyMessage;
+	}
+
+
 	public ItemChair(String description, String name, String[] alias) {
-		super(description, name, alias);
+		super(description, name, alias, false);
 		destroyMessage = "You use your fury to smash up the chair, it's pieces fly everywhere. Why have you done this?";
 	}
 

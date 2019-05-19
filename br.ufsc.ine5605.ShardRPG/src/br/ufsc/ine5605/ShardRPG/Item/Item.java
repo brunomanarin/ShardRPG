@@ -2,7 +2,7 @@ package br.ufsc.ine5605.ShardRPG.Item;
 
 import java.util.LinkedList;
 
-public class Item {
+public abstract class Item {
 
 	private String description;
 
@@ -12,16 +12,39 @@ public class Item {
 
 	private static LinkedList<Item> allItemsList;
 
+	private boolean isShard;
 
-	public Item(String description, String name, String[] alias) {
+
+	public Item(String description, String name, String[] alias, boolean isShard) {
 		this.name = name;
 		this.description = description;
 		setAlias(alias);
+		this.isShard = isShard;
 	}
 
 
 	public String getDescription() {
 		return description;
+	}
+
+
+	public static LinkedList<Item> getAllItemsList() {
+		return allItemsList;
+	}
+
+
+	public static void setAllItemsList(LinkedList<Item> allItemsList) {
+		Item.allItemsList = allItemsList;
+	}
+
+
+	public boolean isShard() {
+		return isShard;
+	}
+
+
+	public void setShard(boolean isShard) {
+		this.isShard = isShard;
 	}
 
 

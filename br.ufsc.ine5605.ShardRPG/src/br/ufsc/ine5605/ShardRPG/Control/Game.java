@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ import br.ufsc.ine5605.ShardRPG.Info.Intepreter;
 import br.ufsc.ine5605.ShardRPG.Info.MapListRoom;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
+import br.ufsc.ine5605.ShardRPG.Item.Breakable;
 import br.ufsc.ine5605.ShardRPG.Item.Item;
 
 public class Game {
@@ -55,11 +57,15 @@ public class Game {
 			} while (input != 1 && input != 2);
 
 			if (input == 1) {
+				final File file = new File("PlayersList.json");
 				try {
-					new Gson().fromJson(JsonHandler.getJasonContent("PlayersList.json", StandardCharsets.UTF_8),
+					final PlayerList playerList = new Gson().fromJson(
+						JsonHandler.getJasonContent("PlayersList.json", StandardCharsets.UTF_8),
 						PlayerList.class);
+					if (playerList == null) {
+						file.delete();
+					}
 				} catch (final Exception e) {
-					final File file = new File("PlayersList.json");
 					file.delete();
 				}
 				player = playerHandler.registerNewPlayer();
@@ -108,6 +114,7 @@ public class Game {
 				System.out.print("> ");
 				input = scanner.nextLine();
 				final Action action = intepreter.stringInterpreter(input);
+				final Item item = action.directObject();
 
 				switch (action.getType()) {
 				case TYPE_WALK:
@@ -159,22 +166,32 @@ public class Game {
 				case TYPE_HASDIRECTOBJECT:
 					switch (action) {
 					case ActionPickUp: {
-						final Item item = action.directObject();
 						player.pickUpItem(item);
 						player.getCurrentRoom().remove(item);
-						System.out.println();
+						if (item.isShard()) {
+							player.setProgress(player.getProgress() + 1);
+						}
 					}
 						break;
 					case ActionBreak: {
-						System.out.println("Quebra");
+						if (item instanceof Breakable) {
+							player.getCurrentRoom().remove(item);
+							System.out.println(item.getName() + " Destruido!");
+						}
 					}
 						break;
 					case ActionInspect: {
-						System.out.println("inspect item");
+						System.out.println(item.getDescription());
 					}
 						break;
 					case ActionDrop: {
-						System.out.println("Joga item fora");
+						if (player.getInventario().containsValue(item)) {
+							player.getInventario().remove(item.getName());
+							player.getCurrentRoom().setItem(item);
+
+						} else {
+							System.out.println("Voce não possui esse objeto.");
+						}
 					}
 						break;
 					default:
@@ -186,6 +203,11 @@ public class Game {
 		} catch (final Exception e) {
 			System.out.println(e);
 		}
+	}
+
+
+	public void saveTheGame(Player player) throws IOException {
+		new JsonHandler().saveGame(player);
 	}
 
 
