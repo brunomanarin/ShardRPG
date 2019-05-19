@@ -1,8 +1,8 @@
 package br.ufsc.ine5605.ShardRPG.Info;
 
-public class Map {
+public class MapListRoom {
 
-	public static Room shardDungeon() {
+	public Room shardDungeon() {
 		final Room Corridor = new Room("Corridor",
 			"The walls seems to be made of chipped up stone, carefully avoiding the gaps in the ground you hold yourself against the wall not to fall. The light source seems to be brighter here and coming from\n a door located to the east.",
 			"It is dark in here but no sign of anything new, be careful not to fall.", null);
@@ -12,6 +12,7 @@ public class Map {
 			"This room still gives you chills, the atmosphere feels your body and makes you unconfortable.\n If I were you, i'd get out of here.",
 			null);
 		spawn.setAdjacentRoom(Action.ActionGoEast, Corridor);
+		spawn.setWasVisited(true);
 		return spawn;
 	}
 
