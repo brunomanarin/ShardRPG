@@ -6,19 +6,22 @@ import java.util.Scanner;
 
 import br.ufsc.ine5605.ShardRPG.Info.Action;
 import br.ufsc.ine5605.ShardRPG.Info.Intepreter;
+import br.ufsc.ine5605.ShardRPG.Info.MapListRoom;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 
 public class Game {
 
-	Scanner scanner;
+	private final Scanner scanner;
 
-	JsonHandler jsonHandler;
+	private final JsonHandler jsonHandler;
 
-	Player player;
+	private Player player;
 
-	RegisterPlayerHandler playerHandler;
+	private final RegisterPlayerHandler playerHandler;
 
-	Intepreter intepreter;
+	private final Intepreter intepreter;
+
+	private final MapListRoom listRoom;
 
 
 	public Game() throws Exception {
@@ -27,6 +30,8 @@ public class Game {
 		playerHandler = new RegisterPlayerHandler();
 		scanner = new Scanner(System.in);
 		jsonHandler = new JsonHandler();
+		listRoom = new MapListRoom();
+
 		int input = 0;
 		try {
 			System.out.println("Digite 1 para começar um NOVO JOGO ou 2 para CARREGAR um jogo:");
@@ -62,7 +67,7 @@ public class Game {
 					do {
 						System.out.println("Escolha uma chave: ");
 						System.out.print("> ");
-						scanner.next();
+						scanner.nextLine();
 						key = scanner.nextLine().toUpperCase();
 						mapList = jsonHandler.allPlayers();
 						if (!mapList.containsKey(key)) {
@@ -82,22 +87,21 @@ public class Game {
 	public void start() {
 		try {
 			if (player.getCurrentRoom() == null) {
-				new br.ufsc.ine5605.ShardRPG.Info.Map();
-				player.setCurrentRoom(br.ufsc.ine5605.ShardRPG.Info.Map.shardDungeon());
-				System.out.println(player.getCurrentRoom().getDescription());
+				player.setCurrentRoom(listRoom.shardDungeon());
+				System.out.println("---"+ player.getCurrentRoom().getName().toUpperCase()+"---\n"+player.getCurrentRoom().getDescription()+"\n----------------");
 			}
 			String input = "";
 			while (input.compareToIgnoreCase("quit") != 0) {
 				System.out.print("> ");
 				input = scanner.nextLine();
-
 				final Action action = intepreter.stringInterpreter(input);
 				switch (action.getType()) {
 				case TYPE_WALK:
-					System.out.println("andei");
+					move(action);
 					break;
 
 				default:
+					System.out.println("Não entendi seu comando, por favor escreva que nem gente.");
 					break;
 				}
 			}
@@ -107,8 +111,14 @@ public class Game {
 	}
 
 
-	private void move(Action a) {
-
+	private void move(Action action) {
+		player.setCurrentRoom(player.getCurrentRoom().getNextRoomDirection(action));
+		if (!player.getCurrentRoom().getWasVisited()) {
+			System.out.println("---"+ player.getCurrentRoom().getName().toUpperCase()+"---\n"+player.getCurrentRoom().getDescription()+"\n----------------");
+		} else {
+			System.out.println("---"+ player.getCurrentRoom().getName().toUpperCase()+"---\n"+player.getCurrentRoom().getDescriptionAfter()+"\n----------------");
+		}
+		player.getCurrentRoom().setWasVisited(true);
 	}
 
 }

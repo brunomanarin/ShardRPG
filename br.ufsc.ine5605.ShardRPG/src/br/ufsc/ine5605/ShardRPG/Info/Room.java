@@ -30,9 +30,22 @@ public class Room {
 	}
 
 
+	public Room getNextRoomDirection(Action action) {
+		if (canMoveToRoomInDirection(action)) {
+			return adjacentRooms.get(action);
+		}
+		return null;
+	}
+
+
 	public void setAdjacentRoom(Action a, Room r) {
 		setOneWayAdjacentRoom(a, r);
 		r.setOneWayAdjacentRoom(a.getOppositeDirection(), this);
+	}
+
+
+	public Boolean canMoveToRoomInDirection(Action action) {
+		return adjacentRooms.containsKey(action);
 	}
 
 
@@ -119,19 +132,6 @@ public class Room {
 
 	public String showDescription() {
 		return wasVisited ? descriptionAfter : description + visibleObjects();
-	}
-
-
-	public Room getRoomForDirection(Action a) {
-		if (canMoveToRoomInDirection(a)) {
-			return adjacentRooms.get(a);
-		}
-		return null;
-	}
-
-
-	public boolean canMoveToRoomInDirection(Action a) {
-		return adjacentRooms.containsKey(a);
 	}
 
 
