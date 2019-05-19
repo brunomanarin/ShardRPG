@@ -40,7 +40,7 @@ public class Game {
 		int input = 0;
 		try {
 			shardLogoPrint();
-			System.out.println("Press 1 to START a new game or 2 to LOAD a save file:");
+			System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
 			do {
 				System.out.print("> ");
 				try {
@@ -69,7 +69,7 @@ public class Game {
 				final String playersList = jsonHandler.playerListing();
 				final File file = new File("PlayersList.json");
 				if (playersList == null || !file.exists()) {
-					System.out.println("No save files exist! Let's have ourselves a new adventure! \n");
+					System.out.println("\nNo save files exist! Let's have ourselves a new adventure! \n");
 					file.delete();
 					player = playerHandler.registerNewPlayer();
 					System.out.println(jsonHandler.registerPlayer(player));
@@ -100,7 +100,8 @@ public class Game {
 		try {
 			if (player.getCurrentRoom() == null) {
 				player.setCurrentRoom(listRoom.shardDungeon());
-				System.out.println("--------"+ player.getCurrentRoom().getName().toUpperCase()+"--------\n"+player.getCurrentRoom().getDescription()+"\n----------------");
+				System.out.println("\n--------" + player.getCurrentRoom().getName().toUpperCase() + "--------\n"
+					+ player.getCurrentRoom().getDescription() + "\n----------------");
 			}
 			String input = "";
 			while (input.compareToIgnoreCase("quit") != 0) {
@@ -139,11 +140,13 @@ public class Game {
 					switch (action) {
 					case ActionLook: {
 						if (!player.getCurrentRoom().getWasVisited()) {
-							System.out.println("--------"+player.getCurrentRoom().getName()+"--------");
+							System.out.println(
+								"\n--------" + player.getCurrentRoom().getName() + "--------");
 							System.out.println(player.getCurrentRoom().getDescription());
 							System.out.println("----------------");
 						} else {
-							System.out.println("--------"+player.getCurrentRoom().getName()+"-------");
+							System.out
+								.println("\n--------" + player.getCurrentRoom().getName() + "-------");
 							System.out.println(player.getCurrentRoom().getDescriptionAfter());
 							System.out.println("----------------");
 						}
@@ -189,16 +192,16 @@ public class Game {
 	private void move(Action action) {
 		if (player.getCurrentRoom().canMoveToRoomInDirection(action)) {
 			player.setCurrentRoom(player.getCurrentRoom().getNextRoomDirection(action));
-			if(player.getCurrentRoom().getName().equals("Death Trap")) {
+			if (player.getCurrentRoom().getName().equals("Death Trap")) {
 				System.out.println(player.getCurrentRoom().getDescription());
 				player.die();
 			}
 			if (!player.getCurrentRoom().getWasVisited()) {
-				System.out.println("--------"+player.getCurrentRoom().getName()+"--------");
+				System.out.println("\n--------" + player.getCurrentRoom().getName() + "--------");
 				System.out.println(player.getCurrentRoom().getDescription());
 				System.out.println("----------------");
 			} else {
-				System.out.println("--------"+player.getCurrentRoom().getName()+"-------");
+				System.out.println("\n--------" + player.getCurrentRoom().getName() + "-------");
 				System.out.println(player.getCurrentRoom().getDescriptionAfter());
 				System.out.println("----------------");
 			}
@@ -207,23 +210,41 @@ public class Game {
 			System.out.println("Ouch! You've just hit a wall! Try changing your directions you goof! \n");
 		}
 	}
+
+
 	public void shardLogoPrint() {
-		System.out.println ("   SSSSSSSSSSSSSSS HHHHHHHHH     HHHHHHHHH               AAA               RRRRRRRRRRRRRRRRR   DDDDDDDDDDDDD        ");    
-		  System.out.println (" SS:::::::::::::::SH:::::::H     H:::::::H              A:::A              R::::::::::::::::R  D::::::::::::DDD  ");  
-		  System.out.println ("S:::::SSSSSS::::::SH:::::::H     H:::::::H             A:::::A             R::::::RRRRRR:::::R D:::::::::::::::DD ");  
-		  System.out.println ("S:::::S     SSSSSSSHH::::::H     H::::::HH            A:::::::A            RR:::::R     R:::::RDDD:::::DDDDD:::::D  ");
-		  System.out.println ("S:::::S              H:::::H     H:::::H             A:::::::::A             R::::R     R:::::R  D:::::D    D:::::D ");
-		  System.out.println ("S:::::S              H:::::H     H:::::H            A:::::A:::::A            R::::R     R:::::R  D:::::D     D:::::D");
-		  System.out.println (" S::::SSSS           H::::::HHHHH::::::H           A:::::A A:::::A           R::::RRRRRR:::::R   D:::::D     D:::::D");      
-		  System.out.println ("  SS::::::SSSSS      H:::::::::::::::::H          A:::::A   A:::::A          R:::::::::::::RR    D:::::D     D:::::D");     
-		  System.out.println ("    SSS::::::::SS    H:::::::::::::::::H         A:::::A     A:::::A         R::::RRRRRR:::::R   D:::::D     D:::::D");  
-		  System.out.println ("       SSSSSS::::S   H::::::HHHHH::::::H        A:::::AAAAAAAAA:::::A        R::::R     R:::::R  D:::::D     D:::::D");  
-		  System.out.println ("            S:::::S  H:::::H     H:::::H       A:::::::::::::::::::::A       R::::R     R:::::R  D:::::D     D:::::D"); 
-		  System.out.println ("            S:::::S  H:::::H     H:::::H      A:::::AAAAAAAAAAAAA:::::A      R::::R     R:::::R  D:::::D    D:::::D");
-		  System.out.println ("SSSSSSS     S:::::SHH::::::H     H::::::HH   A:::::A             A:::::A   RR:::::R     R:::::RDDD:::::DDDDD:::::D");
-		  System.out.println ("S::::::SSSSSS:::::SH:::::::H     H:::::::H  A:::::A               A:::::A  R::::::R     R:::::RD:::::::::::::::DD");
-		  System.out.println ("S:::::::::::::::SS H:::::::H     H:::::::H A:::::A                 A:::::A R::::::R     R:::::RD::::::::::::DDD ");
-		  System.out.println (" SSSSSSSSSSSSSSS   HHHHHHHHH     HHHHHHHHHAAAAAAA                   AAAAAAARRRRRRRR     RRRRRRRDDDDDDDDDDDDD        \n\n");
+		System.out.println(
+			"   SSSSSSSSSSSSSSS HHHHHHHHH     HHHHHHHHH               AAA               RRRRRRRRRRRRRRRRR   DDDDDDDDDDDDD        ");
+		System.out.println(
+			" SS:::::::::::::::SH:::::::H     H:::::::H              A:::A              R::::::::::::::::R  D::::::::::::DDD  ");
+		System.out.println(
+			"S:::::SSSSSS::::::SH:::::::H     H:::::::H             A:::::A             R::::::RRRRRR:::::R D:::::::::::::::DD ");
+		System.out.println(
+			"S:::::S     SSSSSSSHH::::::H     H::::::HH            A:::::::A            RR:::::R     R:::::RDDD:::::DDDDD:::::D  ");
+		System.out.println(
+			"S:::::S              H:::::H     H:::::H             A:::::::::A             R::::R     R:::::R  D:::::D    D:::::D ");
+		System.out.println(
+			"S:::::S              H:::::H     H:::::H            A:::::A:::::A            R::::R     R:::::R  D:::::D     D:::::D");
+		System.out.println(
+			" S::::SSSS           H::::::HHHHH::::::H           A:::::A A:::::A           R::::RRRRRR:::::R   D:::::D     D:::::D");
+		System.out.println(
+			"  SS::::::SSSSS      H:::::::::::::::::H          A:::::A   A:::::A          R:::::::::::::RR    D:::::D     D:::::D");
+		System.out.println(
+			"    SSS::::::::SS    H:::::::::::::::::H         A:::::A     A:::::A         R::::RRRRRR:::::R   D:::::D     D:::::D");
+		System.out.println(
+			"       SSSSSS::::S   H::::::HHHHH::::::H        A:::::AAAAAAAAA:::::A        R::::R     R:::::R  D:::::D     D:::::D");
+		System.out.println(
+			"            S:::::S  H:::::H     H:::::H       A:::::::::::::::::::::A       R::::R     R:::::R  D:::::D     D:::::D");
+		System.out.println(
+			"            S:::::S  H:::::H     H:::::H      A:::::AAAAAAAAAAAAA:::::A      R::::R     R:::::R  D:::::D    D:::::D");
+		System.out.println(
+			"SSSSSSS     S:::::SHH::::::H     H::::::HH   A:::::A             A:::::A   RR:::::R     R:::::RDDD:::::DDDDD:::::D");
+		System.out.println(
+			"S::::::SSSSSS:::::SH:::::::H     H:::::::H  A:::::A               A:::::A  R::::::R     R:::::RD:::::::::::::::DD");
+		System.out.println(
+			"S:::::::::::::::SS H:::::::H     H:::::::H A:::::A                 A:::::A R::::::R     R:::::RD::::::::::::DDD ");
+		System.out.println(
+			" SSSSSSSSSSSSSSS   HHHHHHHHH     HHHHHHHHHAAAAAAA                   AAAAAAARRRRRRRR     RRRRRRRDDDDDDDDDDDDD        \n\n");
 	}
 
 }

@@ -1,7 +1,6 @@
 package br.ufsc.ine5605.ShardRPG.Info;
 
 import br.ufsc.ine5605.ShardRPG.Item.Item;
-import br.ufsc.ine5605.ShardRPG.Item.ItemShard;
 
 public class MapListRoom {
 
@@ -15,8 +14,7 @@ public class MapListRoom {
 		final Room corridor = new Room(" Dark Corridor",
 			"The walls seems to be made of chipped up stone, carefully avoiding the gaps in the ground you hold yourself against the wall not to fall.\n The light source seems to be brighter here and coming from a door located to the east.",
 			"It is dark in here but no sign of anything new, be careful not to fall.\n", null);
-		corridor.setItem(
-			new ItemShard("Anel amaldiçoado ", "Dizem que o anel pertençeu a Lúcifer", new String[] {"Anel", "shard"}));
+		corridor.setItem(Item.getInstance("anel"));
 
 		final Room firstHub = new Room("Hub",
 			"The light source shows itself to be a big chandelier, you feel the softness of a rug touching your bare feet. The room has four doors leading to another areas.\n The door leading to the south is big and hostile looking. \n The door to the east is halfway open, a big table and what appears to be chairs are visible.\n The door to the north has a big painting on top of it and is close shut. \n Lastly, the door to the west goes back to where you came from.\n.",

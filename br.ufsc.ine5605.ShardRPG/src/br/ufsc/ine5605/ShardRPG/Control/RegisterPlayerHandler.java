@@ -23,7 +23,7 @@ public class RegisterPlayerHandler {
 
 	public Player registerNewPlayer() throws Exception {
 		do {
-			System.out.println("Welcome!");
+			System.out.println("Welcome!\n");
 			System.out.println("Before you begin, may i ask you some questions?");
 			System.out.println("First things first, what is your name?");
 			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")) {
@@ -33,7 +33,7 @@ public class RegisterPlayerHandler {
 					System.out.println("Please enter a valid name.");
 				}
 			}
-			System.out.println(playerName + " han? Interesting.");
+			System.out.println(playerName + " han? Interesting.\n");
 			System.out.println("So, " + playerName + ", do you consider yourself to be a human?");
 			System.out.println("1- Yes sure, human as it can be.");
 			System.out.println("2- I am an orc.");
@@ -49,7 +49,7 @@ public class RegisterPlayerHandler {
 						break;
 					}
 					case 2: {
-						System.out.println("Oh, a fellow orc! May your battles be fierce!");
+						System.out.println("Oh, a fellow orc! May your battles be fierce!\n");
 						playerRace = PlayerRace.orc;
 						break;
 					}
@@ -67,7 +67,7 @@ public class RegisterPlayerHandler {
 			} while (playerRace == null);
 
 			System.out.println("One more before you go.");
-			System.out.println("What do you consider to be your speciality?");
+			System.out.println("What do you consider to be your speciality?\n");
 			System.out.println("1- I am a Warrior, a soldier. Can't you see?");
 			System.out.println("2- I am a Mage, knowledge is my duty.");
 			System.out.println("3- I am a rogue, can't you see your medallion just vanished?");
@@ -104,8 +104,9 @@ public class RegisterPlayerHandler {
 				}
 			} while (playerType == null);
 			if (playerName == null || playerName == "" || playerType == null || playerRace == null) {
-				System.out.println("An error ocurred while handling your registry! Please check your data and try again:\n"
-					+ "Name:" + playerName + "\n Race:" + playerRace + ",\n Class:" + playerType);
+				System.out.println(
+					"An error ocurred while handling your registry! Please check your data and try again:\n"
+						+ "Name:" + playerName + "\n Race:" + playerRace + ",\n Class:" + playerType);
 			}
 		} while (playerName == null || playerName == "" || playerType == null || playerRace == null);
 		final Player player = new Player(playerName, playerType, playerRace, 0, playerName.toUpperCase());
