@@ -64,6 +64,11 @@ public class Room {
 	}
 
 
+	public LinkedList<Item> getItems() {
+		return items;
+	}
+
+
 	public String getDescription() {
 		return description;
 	}

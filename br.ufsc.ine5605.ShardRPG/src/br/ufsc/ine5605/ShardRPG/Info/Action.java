@@ -53,7 +53,7 @@ public enum Action {
 	void setDirectObject(Item directObject) {
 		this.directObject = directObject;
 	}
-	Item directObject() {
+	public Item directObject() {
 		return directObject;
 	}
 

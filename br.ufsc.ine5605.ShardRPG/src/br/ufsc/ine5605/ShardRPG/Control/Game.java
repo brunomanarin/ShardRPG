@@ -12,6 +12,7 @@ import br.ufsc.ine5605.ShardRPG.Info.Intepreter;
 import br.ufsc.ine5605.ShardRPG.Info.MapListRoom;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
+import br.ufsc.ine5605.ShardRPG.Item.Item;
 
 public class Game {
 
@@ -150,7 +151,10 @@ public class Game {
 				case TYPE_HASDIRECTOBJECT:
 					switch (action) {
 					case ActionPickUp: {
-						System.out.println("pega item");
+						final Item item = action.directObject();
+						player.pickUpItem(item);
+						player.getCurrentRoom().remove(item);
+						System.out.println();
 					}
 						break;
 					case ActionBreak: {

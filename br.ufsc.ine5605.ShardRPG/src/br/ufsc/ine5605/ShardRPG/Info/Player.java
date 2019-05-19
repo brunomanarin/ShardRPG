@@ -1,5 +1,10 @@
 package br.ufsc.ine5605.ShardRPG.Info;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import br.ufsc.ine5605.ShardRPG.Item.Item;
+
 public class Player {
 
 	private String name;
@@ -16,6 +21,8 @@ public class Player {
 
 	private Room currentRoom;
 
+	Map<String, Item> inventory;
+
 
 	public Player(String name, PlayerType type, PlayerRace race, Integer progress, String password) {
 		this.name = name;
@@ -23,7 +30,20 @@ public class Player {
 		this.type = type;
 		this.progress = progress;
 		this.password = password;
+		inventory = new HashMap<>();
 		setDead(false);
+	}
+
+
+	public void pickUpItem(Item item) {
+		try {
+			if (currentRoom.getItems().contains(item)) {
+				inventory.put(item.getName(), item);
+				System.out.println(item.getName() + "Colocado no inventario! ");
+			}
+		} catch (final Exception e) {
+			System.out.println(e);
+		}
 	}
 
 
@@ -67,7 +87,17 @@ public class Player {
 	}
 
 
-	PlayerType getClasse() {
+	public Map<String, Item> getInventario() {
+		return inventory;
+	}
+
+
+	public void setInventario(Map<String, Item> invantory) {
+		inventory = invantory;
+	}
+
+
+	public PlayerType getClasse() {
 		return type;
 	}
 
