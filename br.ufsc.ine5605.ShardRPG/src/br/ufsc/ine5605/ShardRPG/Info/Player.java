@@ -48,6 +48,25 @@ public class Player {
 
 
 	public void move(Action action) {
+		if (this.getCurrentRoom().canMoveToRoomInDirection(action)) {
+			this.setCurrentRoom(this.getCurrentRoom().getNextRoomDirection(action));
+			if(this.getCurrentRoom().getName().equals("Death Trap")) {
+				System.out.println(this.getCurrentRoom().getDescription());
+				this.die();
+			}
+			if (!this.getCurrentRoom().getWasVisited()) {
+				System.out.println("--------"+this.getCurrentRoom().getName()+"--------");
+				System.out.println(this.getCurrentRoom().getDescription());
+				System.out.println("----------------");
+			} else {
+				System.out.println("--------"+this.getCurrentRoom().getName()+"-------");
+				System.out.println(this.getCurrentRoom().getDescriptionAfter());
+				System.out.println("----------------");
+			}
+			this.getCurrentRoom().setWasVisited(true);
+		} else {
+			System.out.println("Ouch! You've just hit a wall! Try changing your directions you goof! \n");
+		}
 	}
 
 

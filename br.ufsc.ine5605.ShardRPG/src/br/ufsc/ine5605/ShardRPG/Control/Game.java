@@ -110,7 +110,7 @@ public class Game {
 
 				switch (action.getType()) {
 				case TYPE_WALK:
-					move(action);
+					player.move(action);
 					break;
 
 				case TYPE_NOOBJECTACTION:
@@ -186,27 +186,6 @@ public class Game {
 	}
 
 
-	private void move(Action action) {
-		if (player.getCurrentRoom().canMoveToRoomInDirection(action)) {
-			player.setCurrentRoom(player.getCurrentRoom().getNextRoomDirection(action));
-			if(player.getCurrentRoom().getName().equals("Death Trap")) {
-				System.out.println(player.getCurrentRoom().getDescription());
-				player.die();
-			}
-			if (!player.getCurrentRoom().getWasVisited()) {
-				System.out.println("--------"+player.getCurrentRoom().getName()+"--------");
-				System.out.println(player.getCurrentRoom().getDescription());
-				System.out.println("----------------");
-			} else {
-				System.out.println("--------"+player.getCurrentRoom().getName()+"-------");
-				System.out.println(player.getCurrentRoom().getDescriptionAfter());
-				System.out.println("----------------");
-			}
-			player.getCurrentRoom().setWasVisited(true);
-		} else {
-			System.out.println("Ouch! You've just hit a wall! Try changing your directions you goof! \n");
-		}
-	}
 	public void shardLogoPrint() {
 		System.out.println ("   SSSSSSSSSSSSSSS HHHHHHHHH     HHHHHHHHH               AAA               RRRRRRRRRRRRRRRRR   DDDDDDDDDDDDD        ");    
 		  System.out.println (" SS:::::::::::::::SH:::::::H     H:::::::H              A:::A              R::::::::::::::::R  D::::::::::::DDD  ");  
