@@ -27,6 +27,8 @@ public class Game {
 	private final Intepreter intepreter;
 
 	private final MapListRoom listRoom;
+	
+	private Log log = new Log();
 
 
 	public Game() throws Exception {
@@ -102,34 +104,52 @@ public class Game {
 				player.setCurrentRoom(listRoom.shardDungeon());
 				System.out.println("\n--------" + player.getCurrentRoom().getName().toUpperCase() + "--------\n"
 					+ player.getCurrentRoom().getDescription() + "\n----------------");
+				System.out.println("OBJECTS IN THE ROOM:");
+				System.out.println(player.getCurrentRoom().visibleObjects());
+				System.out.println("----------------");
+				System.out.println("ADJACENT ROOMS:");
+				System.out.println(player.getCurrentRoom().getAdjacentRooms());
+				System.out.println("----------------");
 			}
 			String input = "";
 			while (input.compareToIgnoreCase("quit") != 0) {
 				System.out.print("> ");
 				input = scanner.nextLine();
-				final Action action = intepreter.stringInterpreter(input);
-
+				Action action = intepreter.stringInterpreter(input);
+				log.logActions(action,player);
+				if(player.isDead()) {
+					action = Action.ActionDie;
+				}
 				switch (action.getType()) {
 				case TYPE_WALK:
 					player.move(action);
+					
 					break;
 
 				case TYPE_NOOBJECTACTION:
 					switch (action) {
 					case ActionHelp: {
-						System.out.println("Ajuda");
+						help();
 					}
 						break;
 					case ActionDie: {
+						System.out.println("---- GAME OVER ----");
+						System.out.println("THESE ARE ALL THE ACTIONS YOU MADE IN THIS PLAYTHROUGH:");
+						System.out.println(log.listAllActions());
+						System.out.println("----------");
 						player.die();
-					}
 						break;
+					}
 					case ActionPass: {
+						System.out.println("----------");
 						System.out.println("You do nothing.");
+						System.out.println("---------- \n");
 					}
 						break;
 					case ActionError: {
-						System.out.println("Error! What have you done?");
+						System.out.println("----------");
+						System.out.println("Invalid Action! What have you done?");
+						System.out.println("---------- \n");
 					}
 						break;
 					default:
@@ -182,12 +202,18 @@ public class Game {
 						break;
 					}
 				}
+				System.out.println("OBJECTS IN THE ROOM:");
+				System.out.println(player.getCurrentRoom().visibleObjects());
+				System.out.println("----------------");
+				System.out.println("ADJACENT ROOMS:");
+				System.out.println(player.getCurrentRoom().getAdjacentRooms());
+				System.out.println("----------------");
+				
 			}
 		} catch (final Exception e) {
 			System.out.println(e);
 		}
 	}
-
 
 	public void shardLogoPrint() {
 		System.out.println(
@@ -222,6 +248,40 @@ public class Game {
 			"S:::::::::::::::SS H:::::::H     H:::::::H A:::::A                 A:::::A R::::::R     R:::::RD::::::::::::DDD ");
 		System.out.println(
 			" SSSSSSSSSSSSSSS   HHHHHHHHH     HHHHHHHHHAAAAAAA                   AAAAAAARRRRRRRR     RRRRRRRDDDDDDDDDDDDD        \n\n");
+	}
+	public void help() {
+		System.out.println("------ SHARD HELP ------");
+		System.out.println("This is a help menu.");
+		System.out.println("Shard is a text-based RPG, this means that all the actions in the game are done so by your inputs.");
+		System.out.println("Some examples:");
+		System.out.println("1- Object related actions:");
+		System.out.println("Some actions need objects to be performed. An example is picking up the shard to advance your progress in the game.");
+		System.out.println("You can do it by going into a room where exists a pickable object(shard) and typing 'get shard'");
+		System.out.println("If you done it correctly, you should see a message telling you that it was added to your inventory.");
+		System.out.println("Else, your character will tell you that he couldn't find the object you are looking for.");
+		System.out.println("2 - Non-object related actions:");
+		System.out.println("Some other actions can be done with no need of external stuff. This includes:");
+		System.out.println("2.1 - Walking:");
+		System.out.println("You can walk from room to room by using the command related to the direction you want to go in.");
+		System.out.println("Input = 'go + (North,South,East,West)'");
+		System.out.println("2.2 - Opening this menu:");
+		System.out.println("Well you're already here so...");
+		System.out.println("Input = '(h,help)'");
+		System.out.println("2.3 - Suicide");
+		System.out.println("Yes you can kill your character if you get stuck or if you just want to, you sadistic bastard.");
+		System.out.println("Input = '(die,suicide)'");
+		System.out.println("2.4 - Look");
+		System.out.println("You can use this command to look around the room you're in. Basically it will give you that room's description");
+		System.out.println("after you've already visited it. Useful if you're lost or just need to know where you're and don't want to");
+		System.out.println("scroll all the way back to where you entered the room.");
+		System.out.println("Input = '(look, l)'");
+		System.out.println("Well that's pretty much it. If you got any more questions I am sorry, figure it out by yourself! I know you can, I believe in you.");
+		System.out.println("----- ABOUT SHARD -----");
+		System.out.println("This engine was created by Huan Shan and Bruno Manarin in May,2019.");
+		System.out.println("We did this as an asignment to our class at INE5603, Federal University of Santa Catarina (UFSC) , Brazil.");
+		System.out.println("I hope you're having fun, Mr. Hauck.");
+		System.out.println("------ END OF MENU -----");
+		
 	}
 
 }

@@ -89,7 +89,7 @@ public class RegisterPlayerHandler {
 					}
 					case 3: {
 						playerType = PlayerType.rogue;
-						System.out.println("You thieve! Get Back here!");
+						System.out.println("You thief! Get Back here!");
 						break;
 					}
 					default: {
