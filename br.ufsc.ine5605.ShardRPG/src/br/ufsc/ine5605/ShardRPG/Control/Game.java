@@ -114,6 +114,7 @@ public class Game {
 				System.out.println("If you're new to the game i suggest using the command 'help'");
 			}
 			String input = "";
+			scanner.nextLine();
 			while (input.compareToIgnoreCase("quit") != 0) {
 				System.out.print("> ");
 				input = scanner.nextLine();
@@ -181,10 +182,13 @@ public class Game {
 				case TYPE_HASDIRECTOBJECT:
 					switch (action) {
 					case ActionPickUp: {
-						player.pickUpItem(item);
-						player.getCurrentRoom().remove(item);
-						if (item.isShard()) {
-							player.setProgress(player.getProgress() + 1);
+						try {
+							player.pickUpItem(item);
+							player.getCurrentRoom().remove(item);
+							if (item.isShard()) {
+								player.setProgress(player.getProgress() + 1);
+							}
+						} catch (final Exception e) {
 						}
 					}
 						break;
