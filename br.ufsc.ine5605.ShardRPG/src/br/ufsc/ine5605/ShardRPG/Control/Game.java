@@ -66,9 +66,11 @@ public class Game {
 						PlayerList.class);
 					if (playerList == null) {
 						file.delete();
+						jsonHandler.registerPlayer(new Player(null, null, null, null, null));
 					}
 				} catch (final Exception e) {
 					file.delete();
+					jsonHandler.registerPlayer(new Player(null, null, null, null, null));
 				}
 				player = playerHandler.registerNewPlayer();
 				System.out.println(jsonHandler.registerPlayer(player));
