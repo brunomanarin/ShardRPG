@@ -15,7 +15,7 @@ public abstract class Item {
 	private boolean isShard;
 
 
-	public Item(String description, String name, String[] alias, boolean isShard) {
+	public Item(String name, String description, String[] alias, boolean isShard) {
 		this.name = name;
 		this.description = description;
 		setAlias(alias);
@@ -74,13 +74,15 @@ public abstract class Item {
 
 
 	public static void initAllItemsList() {
-		final Item shard = new ItemShard("Shard", "A glowing piece, what is it made of?", new String[] {"shard", "piece"});
-		final Item painting = new ItemPainting("Painting", "A painting, looks antique.", new String[] {"Painting"});
-		final Item chair = new ItemChair("Chair", "A chair, nothing special about it.", new String[] {"chair"});
+		final Item shard = new ItemShard("shard", "A glowing piece, what is it made of?", new String[] {"shard", "piece"});
+		final Item painting = new ItemPainting("painting", "A painting, looks antique.", new String[] {"Painting"});
+		final Item chair = new ItemChair("chair", "A chair, nothing special about it.", new String[] {"chair"});
+		final Item rug = new ItemRug("rug", "A soft and red rug.", new String[] {"rug"});
 		allItemsList = new LinkedList<>();
 		allItemsList.add(shard);
 		allItemsList.add(painting);
 		allItemsList.add(chair);
+		allItemsList.add(rug);
 	}
 
 

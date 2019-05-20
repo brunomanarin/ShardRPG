@@ -10,9 +10,6 @@ public enum Action {
 	ActionGoSouth(new String[] {"south", "s"},ActionType.TYPE_WALK),
 	ActionGoNorth(new String[] {"north", "n"}, ActionType.TYPE_WALK),
 
-	// Acoes ligadas ao ambiente
-	ActionExamine(new String[] {"Examine", "e"},ActionType.TYPE_OBJECTACTION),
-
 	// Acoes ligadas ao jogador
 	ActionLook(new String[] {"look", "l"}, ActionType.TYPE_NOOBJECTACTION),
 	ActionHelp(new String[] {"help", "h", "commands"}, ActionType.TYPE_NOOBJECTACTION),
@@ -23,7 +20,7 @@ public enum Action {
 	// Acoes ligads a Itens
 	ActionPickUp(new String[]{"pickup", "get", "take","acquire", "grab"}, ActionType.TYPE_HASDIRECTOBJECT),
 	ActionBreak(new String[]{"break", "smash", "destroy", "obliterate"}, ActionType.TYPE_HASDIRECTOBJECT),
-	ActionInspect(new String[]{"inspect", "read", "view"}, ActionType.TYPE_HASDIRECTOBJECT),
+	ActionInspect(new String[]{"inspect", "read", "view", "examine"}, ActionType.TYPE_HASDIRECTOBJECT),
 	ActionDrop(new String[]{"drop"}, ActionType.TYPE_HASDIRECTOBJECT);
 
 	private String[] aliases;

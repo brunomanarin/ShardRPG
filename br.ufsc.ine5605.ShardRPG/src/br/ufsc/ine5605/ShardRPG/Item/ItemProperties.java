@@ -2,13 +2,6 @@ package br.ufsc.ine5605.ShardRPG.Item;
 
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 
-interface Inspectable {
-
-	public void inspect();
-
-
-	public void setInspectMessage(String string);
-}
 
 interface Visible {
 
@@ -26,9 +19,4 @@ interface PlotDevice {
 interface canDrop {
 
 	public void drop();
-}
-
-interface canPickUp {
-
-	public void pickUp();
 }

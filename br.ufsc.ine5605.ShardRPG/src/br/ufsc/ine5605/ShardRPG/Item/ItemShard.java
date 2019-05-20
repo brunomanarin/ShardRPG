@@ -1,17 +1,17 @@
 package br.ufsc.ine5605.ShardRPG.Item;
 
-import br.ufsc.ine5605.ShardRPG.Info.Player;
 
-public class ItemShard extends Item implements PlotDevice {
+public class ItemShard extends Item implements CanPickUp {
 
 	public ItemShard(String name, String description, String[] alias) {
-		super(description, name, alias, true);
+		super(name, description, alias, true);
 	}
 
 
 	@Override
-	public void advancePlayerProgress(Player player) {
-		player.setProgress(player.getProgress() + 1);
+	public void pickUp() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

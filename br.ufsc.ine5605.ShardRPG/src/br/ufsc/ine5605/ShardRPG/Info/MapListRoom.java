@@ -14,16 +14,20 @@ public class MapListRoom {
 		final Room corridor = new Room(" Dark Corridor",
 			"The walls seems to be made of chipped up stone, carefully avoiding the gaps in the ground you hold yourself against the wall not to fall.\n The light source seems to be brighter here and coming from a door located to the east.",
 			"It is dark in here but no sign of anything new, be careful not to fall.\n", null);
-		corridor.setItem(Item.getInstance("chair"));
 
 		final Room firstHub = new Room("Hub",
 			"The light source shows itself to be a big chandelier, you feel the softness of a rug touching your bare feet. The room has four doors leading to another areas.\n The door leading to the south is big and hostile looking. \n The door to the east is halfway open, a big table and what appears to be chairs are visible.\n The door to the north has a big painting on top of it and is close shut. \n Lastly, the door to the west goes back to where you came from.\n.",
 			"The chandelier still flames on, you hear the rumbling of the candles in midst of the silence of the room.",
 			null);
+		firstHub.setItem(Item.getInstance("painting"));
+		firstHub.setItem(Item.getInstance("rug"));
 		final Room diningHall = new Room("Dining Quarters",
 			"There are some leftovers of food here, some of it is spilled on the ground, some of the chairs are tumbled over. Is that blood on the walls?\\n This is some kind of dining hall.\\n There is a door to the east at the back of a bar table.",
 			"The smell of rotten food and blood feels your senses, you can't distance yourself from the fact that something bad must've happened here.",
 			null);
+		for(int i =0;i<5;i++) {
+			diningHall.setItem(Item.getInstance("chair"));
+		}
 		final Room diningQuartersBack = new Room("Room behind dining quarters",
 			"You open the door, you can't help but notice a chest. Somehow this room's energy fill you up with something. A feeling. A good feeling. It feels great! You smile away as you see a strange glow coming from insde the chest.",
 			"This room still emanates a radiant energy, coming here makes you feel great! You smile! YOU SMILE MORE! ISN'T IT ALL JUST BEATIFUL? HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA.",

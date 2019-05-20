@@ -14,6 +14,8 @@ import br.ufsc.ine5605.ShardRPG.Info.MapListRoom;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 import br.ufsc.ine5605.ShardRPG.Item.Breakable;
+import br.ufsc.ine5605.ShardRPG.Item.CanPickUp;
+import br.ufsc.ine5605.ShardRPG.Item.Inspectable;
 import br.ufsc.ine5605.ShardRPG.Item.Item;
 
 public class Game {
@@ -240,18 +242,23 @@ public class Game {
 				case TYPE_HASDIRECTOBJECT:
 					switch (action) {
 					case ActionPickUp: {
-						try {
-							player.pickUpItem(item);
-							player.getCurrentRoom().remove(item);
-							if (item.isShard()) {
-								player.setProgress(player.getProgress() + 1);
+						if(item instanceof CanPickUp) {
+							try {
+								player.pickUpItem(item);
+								player.getCurrentRoom().remove(item);
+								if (item.isShard()) {
+									player.setProgress(player.getProgress() + 1);
+								}
+							} catch (final Exception e) {
 							}
-						} catch (final Exception e) {
+						} else {
+							System.out.println("You can't pick this up.");
 						}
 					}
 						break;
 					case ActionBreak: {
 						if (item instanceof Breakable) {
+							((Breakable)item).destroy();
 							player.getCurrentRoom().remove(item);
 							System.out.println(item.getName() + " is destroyed!");
 						} else {
@@ -261,7 +268,11 @@ public class Game {
 						break;
 					case ActionInspect: {
 						if (player.getCurrentRoom().getItems().contains(item)) {
-							System.out.println(item.getDescription());
+							if(item instanceof Inspectable) {
+								((Inspectable)item).inspect();
+							}else {
+								System.out.println(item.getDescription());
+							}
 						} else {
 							System.out.println("\nI can't see this object!");
 						}

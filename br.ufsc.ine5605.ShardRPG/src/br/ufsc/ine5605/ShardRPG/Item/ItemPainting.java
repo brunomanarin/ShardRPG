@@ -21,7 +21,7 @@ public class ItemPainting extends Item implements Inspectable, Visible {
 			if (playerRecogniseItself) {
 				System.out.println(inspectMessage);
 			} else {
-				System.out.println(inspectMessage + "\n Wait, that's you!");
+				System.out.println(inspectMessage + "\n Wait, you're painted here!");
 			}
 		} else {
 			System.out.println("This is a " + this + ".");
