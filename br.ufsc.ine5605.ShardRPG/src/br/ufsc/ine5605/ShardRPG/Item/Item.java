@@ -74,13 +74,11 @@ public abstract class Item {
 
 
 	public static void initAllItemsList() {
-		final Item anel = new ItemShard("Anel amaldiçoado ", "Dizem que o anel pertençeu a Lúcifer", new String[] {"Anel"});
-		final Item shard = new ItemShard("Shard", "A glowing piece, what is it made of?", new String[] {"Shard", "piece"});
+		final Item shard = new ItemShard("Shard", "A glowing piece, what is it made of?", new String[] {"shard", "piece"});
 		final Item painting = new ItemPainting("Painting", "A painting, looks antique.", new String[] {"Painting"});
 		final Item chair = new ItemChair("Chair", "A chair, nothing special about it.", new String[] {"chair"});
 		allItemsList = new LinkedList<>();
 		allItemsList.add(shard);
-		allItemsList.add(anel);
 		allItemsList.add(painting);
 		allItemsList.add(chair);
 	}

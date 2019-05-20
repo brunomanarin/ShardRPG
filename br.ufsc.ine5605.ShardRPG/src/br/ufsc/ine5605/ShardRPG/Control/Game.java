@@ -44,7 +44,7 @@ public class Game {
 		int input = 0;
 		try {
 			shardLogoPrint();
-			System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
+			System.out.println("Press 1 to START a new game, 2 to LOAD a save file, 3 to DELETE an existing file or 4 to MODIFY a file:\n");
 			do {
 				System.out.print("> ");
 				try {
@@ -136,10 +136,10 @@ public class Game {
 					}
 
 					if (input != 1 && input != 2) {
-						System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
+						System.out.println("Press 1 to START a new game, 2 to LOAD a save file, 3 to DELETE an existing file or 4 to MODIFY a file:\n");
 					}
 				} catch (final Exception e) {
-					System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
+					System.out.println("Press 1 to START a new game, 2 to LOAD a save file, 3 to DELETE an existing file or 4 to MODIFY a file:\n");
 					scanner.nextLine();
 				}
 			} while (input != 1 && input != 2);
