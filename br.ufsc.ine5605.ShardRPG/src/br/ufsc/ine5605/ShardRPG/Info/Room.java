@@ -174,7 +174,7 @@ public class Room {
 	public String visibleObjects() {
 		String visibleObjects = "";
 		for (final Item object : items) {
-			visibleObjects += "There is a " + object.getName() + "here \n";
+			visibleObjects += "There is a " + object.getName() + " here \n";
 		}
 		if(visibleObjects.length()==0) {
 			return "There are no visible objects here at the moment.";

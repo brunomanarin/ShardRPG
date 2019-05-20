@@ -41,7 +41,7 @@ public class MapListRoom {
 		final Room corridor2 = new Room("Corridor", "This is a long hall, there are some decorations scattered aby. A shattered mirror is displayed at the wall, a blue rug on the ground is mushed to the left wall.", "Still a long hall. Nothing changed.", null);
 		final Room restingQuarters = new Room("Resting quarters", "This place is a mess, there are pieces of ragged cloth everywhere. Was this a party or did something bad happen here also?", "You wish you could get some sleep on the nice and comfy beds. The room is still a mess.", null);
 		restingQuarters.setItem(Item.getInstance("shard"));
-		final Room deathHub = new Room("Second Hub", "I wouldn't move too much if i were you", "Why are you here? Are you crazy?", null);
+		final Room deathHub = new Room("Third hub", "I wouldn't move too much if i were you...", "Why are you here? Are you crazy?", null);
 
 		spawn.setAdjacentRoom(Action.ActionGoEast, corridor);
 		spawn.setWasVisited(true);
@@ -54,12 +54,15 @@ public class MapListRoom {
 		firstHub.setAdjacentRoom(Action.ActionGoNorth, secondHub);
 		firstHub.setAdjacentRoom(Action.ActionGoWest, corridor);
 		
+		diningHall.setAdjacentRoom(Action.ActionGoWest, firstHub);
 		diningHall.setAdjacentRoom(Action.ActionGoEast, diningQuartersBack);
 		diningQuartersBack.setAdjacentRoom(Action.ActionGoWest, diningHall);
 
 		secondHub.setAdjacentRoom(Action.ActionGoEast, corridor2);
 		secondHub.setAdjacentRoom(Action.ActionGoSouth, firstHub);
 		secondHub.setAdjacentRoom(Action.ActionGoWest, secretRoom);
+		
+		secretRoom.setAdjacentRoom(Action.ActionGoEast, secondHub);
 
 		corridor2.setAdjacentRoom(Action.ActionGoNorth, restingQuarters);
 		corridor2.setAdjacentRoom(Action.ActionGoEast, deathHub);
