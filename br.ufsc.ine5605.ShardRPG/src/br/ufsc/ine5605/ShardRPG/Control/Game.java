@@ -107,15 +107,22 @@ public class Game {
 
 
 	public void start() {
+		String input = "";
 		try {
 			if (player.getCurrentRoom() == null) {
 				player.setCurrentRoom(listRoom.shardDungeon());
 				firstVisit();
 				System.out.println("If you're new to the game i suggest using the command 'help'");
 			}
-			String input = "";
-			scanner.nextLine();
 			while (input.compareToIgnoreCase("quit") != 0) {
+				if(player.getProgress()>=3) {
+					System.out.println("---CONGRATULATIONS!---");
+					System.out.println("THESE ARE ALL THE ACTIONS YOU MADE IN THIS PLAYTHROUGH:");
+					System.out.println(log.listAllActions());
+					System.out.println("You managed to get all Shards! Your score:" + player.getProgress() + " out of 3 shards.");
+					System.out.println("----------");
+					System.exit(0);
+				}
 				System.out.print("> ");
 				input = scanner.nextLine();
 				Action action = intepreter.stringInterpreter(input);
@@ -132,6 +139,7 @@ public class Game {
 						posteriorVisits();
 					}else {
 						firstVisit();
+						player.getCurrentRoom().setWasVisited(true);
 					}
 					break;
 
@@ -207,11 +215,11 @@ public class Game {
 						break;
 					case ActionDrop: {
 						if (player.getInventario().containsValue(item)) {
+							System.out.println("Dropping " + item.getName() + " on the ground.");
 							player.getInventario().remove(item.getName());
 							player.getCurrentRoom().setItem(item);
-
 						} else {
-							System.out.println("Voce não possui esse objeto.");
+							System.out.println("You don't have this object.");
 						}
 					}
 						break;
