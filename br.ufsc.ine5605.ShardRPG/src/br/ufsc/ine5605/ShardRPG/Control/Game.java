@@ -49,57 +49,100 @@ public class Game {
 				System.out.print("> ");
 				try {
 					input = scanner.nextInt();
+					final int playerNumbers = jsonHandler.allPlayersMap().size();
+					final String playersList = jsonHandler.playerListing();
+					switch (input) {
+					case 1: {
+						final File file = new File("PlayersList.json");
+						try {
+							final PlayerList playerList = new Gson().fromJson(JsonHandler.getJasonContent(
+								"PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
+							if (playerList == null) {
+								file.delete();
+								jsonHandler.registerPlayer(new Player(null, null, null, null, null));
+							}
+						} catch (final Exception e) {
+							file.delete();
+							jsonHandler.registerPlayer(new Player(null, null, null, null, null));
+						}
+						player = playerHandler.registerNewPlayer();
+						System.out.println(jsonHandler.registerPlayer(player));
+					}
+						break;
+					case 2: {
+						String key;
+						final File file = new File("PlayersList.json");
+						if (playersList == null || !file.exists() || playerNumbers <= 1) {
+							System.out.println(
+								"\nNo save files exist! Let's have ourselves a new adventure! \n");
+							file.delete();
+							player = playerHandler.registerNewPlayer();
+							System.out.println(jsonHandler.registerPlayer(player));
+
+						} else {
+							System.out.println(playersList);
+							do {
+								System.out.println("Choose a key: ");
+								System.out.print("> ");
+								key = scanner.nextLine().toUpperCase();
+								mapList = jsonHandler.allPlayers();
+								if (!mapList.containsKey(key)) {
+									System.out.println("Invalid key!\n");
+								}
+							} while (!mapList.containsKey(key));
+							player = mapList.get(key);
+							System.out.println("Success! You've just logged in!\n");
+						}
+					}
+						break;
+					case 3: {
+						if (playerNumbers > 1) {
+							String key;
+							do {
+								System.out.println(playersList);
+								System.out.println("Choose a valid key: ");
+								System.out.print("> ");
+								key = scanner.nextLine().toUpperCase();
+							} while (!jsonHandler.allPlayersMap().containsKey(key));
+							if (jsonHandler.allPlayersMap().containsKey(key)) {
+								jsonHandler.deletePlayer(key);
+								System.out.println("\nPlayer Deleted!");
+							}
+						}
+					}
+						break;
+					case 4: {
+						if (playerNumbers > 1) {
+							String key;
+							do {
+								System.out.println(playersList);
+								System.out.println("Choose a valid key: ");
+								System.out.print("> ");
+								key = scanner.nextLine().toUpperCase();
+							} while (!jsonHandler.allPlayersMap().containsKey(key));
+							if (jsonHandler.allPlayersMap().containsKey(key)) {
+								String name;
+								System.out.println("Choose a new Name: ");
+								System.out.print("> ");
+								name = scanner.nextLine().toUpperCase();
+								jsonHandler.changeName(key, name);
+								System.out.println("Name Changed!");
+							}
+						}
+					}
+						break;
+					default:
+						break;
+					}
+
 					if (input != 1 && input != 2) {
-						System.out.println("The input must be a number between 1 and 2.");
+						System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
 					}
 				} catch (final Exception e) {
-					System.out.println("The input must be a number between 1 and 2.");
+					System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
 					scanner.nextLine();
 				}
 			} while (input != 1 && input != 2);
-
-			if (input == 1) {
-				final File file = new File("PlayersList.json");
-				try {
-					final PlayerList playerList = new Gson().fromJson(
-						JsonHandler.getJasonContent("PlayersList.json", StandardCharsets.UTF_8),
-						PlayerList.class);
-					if (playerList == null) {
-						file.delete();
-						jsonHandler.registerPlayer(new Player(null, null, null, null, null));
-					}
-				} catch (final Exception e) {
-					file.delete();
-					jsonHandler.registerPlayer(new Player(null, null, null, null, null));
-				}
-				player = playerHandler.registerNewPlayer();
-				System.out.println(jsonHandler.registerPlayer(player));
-			} else {
-				String key;
-				final String playersList = jsonHandler.playerListing();
-				final File file = new File("PlayersList.json");
-				if (playersList == null || !file.exists()) {
-					System.out.println("\nNo save files exist! Let's have ourselves a new adventure! \n");
-					file.delete();
-					player = playerHandler.registerNewPlayer();
-					System.out.println(jsonHandler.registerPlayer(player));
-
-				} else {
-					System.out.println(playersList);
-					do {
-						System.out.println("Choose a key: ");
-						System.out.print("> ");
-						scanner.nextLine();
-						key = scanner.nextLine().toUpperCase();
-						mapList = jsonHandler.allPlayers();
-						if (!mapList.containsKey(key)) {
-							System.out.println("Invalid key!\n");
-						}
-					} while (!mapList.containsKey(key));
-					player = mapList.get(key);
-					System.out.println("Success! You've just logged in!\n");
-				}
-			}
 		} catch (final Exception e) {
 			System.out.println(e);
 		}
@@ -123,8 +166,10 @@ public class Game {
 					System.out.println("----------");
 					System.exit(0);
 				}
-				System.out.print("> ");
-				input = scanner.nextLine();
+				do{
+					System.out.print("> ");
+					input = scanner.nextLine();
+				}while(input.equalsIgnoreCase(""));
 				Action action = intepreter.stringInterpreter(input);
 				final Item item = action.directObject();
 
