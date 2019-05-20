@@ -53,15 +53,6 @@ public class Player {
 			if (getCurrentRoom().getName().equals("Death Trap")) {
 				setDead(true);
 			}
-			if (!getCurrentRoom().getWasVisited()) {
-				System.out.println("--------" + getCurrentRoom().getName() + "--------");
-				System.out.println(getCurrentRoom().getDescription());
-				System.out.println("----------------");
-			} else {
-				System.out.println("--------" + getCurrentRoom().getName() + "-------");
-				System.out.println(getCurrentRoom().getDescriptionAfter());
-				System.out.println("----------------");
-			}
 			getCurrentRoom().setWasVisited(true);
 		} else {
 			System.out.println("Ouch! You've just hit a wall! Try changing your directions you goof! \n");

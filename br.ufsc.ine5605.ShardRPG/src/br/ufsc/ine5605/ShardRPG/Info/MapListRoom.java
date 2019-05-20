@@ -33,15 +33,15 @@ public class MapListRoom {
 		final Room deathTrap = new Room("Death Trap",
 			"The only and last thing you hear is the sound of a blade cutting the air.",
 			"Wait, what? How did you? what? Are you cheating!?", null);
-		final Room secondHub = new Room("Second hub", "", "", null);
+		final Room secondHub = new Room("Second hub", "This room is almost uncorfortably empty, although there is a bump in the wall to the east. Could it be something?", "You look at the wall and feel smart, you know it os a secret passage because of how big your brain is.", null);
 
-		final Room secretRoom = new Room("Secret Room", "", "", null);
+		final Room secretRoom = new Room("Secret Room", "Dust is everywhere but in a certain path in this room, strangely it looks like someone has been here recently. Bookshelfs are everywhere and it smells like mold in here. There is a glow coming from the back.", "You can't stop laughing, it fills you up. That bright and shiny ener... OH GOD WHAT IS HAPPENING TO YOU?", null);
 		secretRoom.setItem(Item.getInstance("shard"));
 
-		final Room corridor2 = new Room("Corridor", "", "", null);
-		final Room restingQuarters = new Room("Resting quarters", "", "", null);
+		final Room corridor2 = new Room("Corridor", "This is a long hall, there are some decorations scattered aby. A shattered mirror is displayed at the wall, a blue rug on the ground is mushed to the left wall.", "Still a long hall. Nothing changed.", null);
+		final Room restingQuarters = new Room("Resting quarters", "This place is a mess, there are pieces of ragged cloth everywhere. Was this a party or did something bad happen here also?", "You wish you could get some sleep on the nice and comfy beds. The room is still a mess.", null);
 		restingQuarters.setItem(Item.getInstance("shard"));
-		final Room deathHub = new Room("Second Hub", "", "", null);
+		final Room deathHub = new Room("Second Hub", "I wouldn't move too much if i were you", "Why are you here? Are you crazy?", null);
 
 		spawn.setAdjacentRoom(Action.ActionGoEast, corridor);
 		spawn.setWasVisited(true);
