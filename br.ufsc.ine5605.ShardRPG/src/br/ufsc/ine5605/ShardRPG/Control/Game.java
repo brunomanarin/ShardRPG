@@ -128,9 +128,9 @@ public class Game {
 				switch (action.getType()) {
 				case TYPE_WALK:
 					player.move(action);
-					if(player.getCurrentRoom().getWasVisited()) {
+					if (player.getCurrentRoom().getWasVisited()) {
 						posteriorVisits();
-					}else {
+					} else {
 						firstVisit();
 					}
 					break;
@@ -196,7 +196,7 @@ public class Game {
 						if (item instanceof Breakable) {
 							player.getCurrentRoom().remove(item);
 							System.out.println(item.getName() + " is destroyed!");
-						}else {
+						} else {
 							System.out.println("You can't break this object!");
 						}
 					}
@@ -209,6 +209,9 @@ public class Game {
 						if (player.getInventario().containsValue(item)) {
 							player.getInventario().remove(item.getName());
 							player.getCurrentRoom().setItem(item);
+							if (item.isShard()) {
+								player.setProgress(player.getProgress() - 1);
+							}
 
 						} else {
 							System.out.println("Voce não possui esse objeto.");
@@ -302,27 +305,31 @@ public class Game {
 		System.out.println("2.5 - Quit");
 		System.out.println("This command quits the game. Pretty self explanatory.");
 		System.out.println("Input = '(quit)'");
-		System.out.println("Well that's pretty much it. If you got any more questions I am sorry, figure it out by yourself! I know you can, I believe in you.");
+		System.out.println(
+			"Well that's pretty much it. If you got any more questions I am sorry, figure it out by yourself! I know you can, I believe in you.");
 		System.out.println("----- ABOUT SHARD -----");
 		System.out.println("This engine was created by Huan Shan and Bruno Manarin in May,2019.");
-		System.out.println("We did this as an asignment to our class at INE5603, Federal University of Santa Catarina (UFSC) , Brazil.");
+		System.out.println(
+			"We did this as an asignment to our class at INE5603, Federal University of Santa Catarina (UFSC) , Brazil.");
 		System.out.println("I hope you're having fun, Mr. Hauck.");
 		System.out.println("------ END OF MENU -----");
 
 	}
-	
+
+
 	public void firstVisit() {
 		System.out.println("\n--------" + player.getCurrentRoom().getName() + "--------");
-			System.out.println(player.getCurrentRoom().getDescription());
-			System.out.println("----------------");
-			System.out.println("OBJECTS IN THE ROOM:");
-			System.out.println(player.getCurrentRoom().visibleObjects());
-			System.out.println("----------------");
-			System.out.println("ADJACENT ROOMS:");
-			System.out.println(player.getCurrentRoom().getAdjacentRooms());
-			System.out.println("----------------");
+		System.out.println(player.getCurrentRoom().getDescription());
+		System.out.println("----------------");
+		System.out.println("OBJECTS IN THE ROOM:");
+		System.out.println(player.getCurrentRoom().visibleObjects());
+		System.out.println("----------------");
+		System.out.println("ADJACENT ROOMS:");
+		System.out.println(player.getCurrentRoom().getAdjacentRooms());
+		System.out.println("----------------");
 	}
-	
+
+
 	public void posteriorVisits() {
 		System.out.println("\n--------" + player.getCurrentRoom().getName() + "-------");
 		System.out.println(player.getCurrentRoom().getDescriptionAfter());
