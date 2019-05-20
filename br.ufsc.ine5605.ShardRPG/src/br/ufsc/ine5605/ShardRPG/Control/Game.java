@@ -110,14 +110,7 @@ public class Game {
 		try {
 			if (player.getCurrentRoom() == null) {
 				player.setCurrentRoom(listRoom.shardDungeon());
-				System.out.println("\n--------" + player.getCurrentRoom().getName().toUpperCase() + "--------\n"
-					+ player.getCurrentRoom().getDescription() + "\n----------------");
-				System.out.println("OBJECTS IN THE ROOM:");
-				System.out.println(player.getCurrentRoom().visibleObjects());
-				System.out.println("----------------");
-				System.out.println("ADJACENT ROOMS:");
-				System.out.println(player.getCurrentRoom().getAdjacentRooms());
-				System.out.println("----------------");
+				firstVisit();
 				System.out.println("If you're new to the game i suggest using the command 'help'");
 			}
 			String input = "";
@@ -134,6 +127,11 @@ public class Game {
 				switch (action.getType()) {
 				case TYPE_WALK:
 					player.move(action);
+					if(player.getCurrentRoom().getWasVisited()) {
+						posteriorVisits();
+					}else {
+						firstVisit();
+					}
 					break;
 
 				case TYPE_NOOBJECTACTION:
@@ -170,15 +168,9 @@ public class Game {
 					switch (action) {
 					case ActionLook: {
 						if (!player.getCurrentRoom().getWasVisited()) {
-							System.out.println(
-								"\n--------" + player.getCurrentRoom().getName() + "--------");
-							System.out.println(player.getCurrentRoom().getDescription());
-							System.out.println("----------------");
+							firstVisit();
 						} else {
-							System.out
-								.println("\n--------" + player.getCurrentRoom().getName() + "-------");
-							System.out.println(player.getCurrentRoom().getDescriptionAfter());
-							System.out.println("----------------");
+							posteriorVisits();
 						}
 						break;
 					}
@@ -224,12 +216,6 @@ public class Game {
 						break;
 					}
 				}
-				System.out.println("OBJECTS IN THE ROOM:");
-				System.out.println(player.getCurrentRoom().visibleObjects());
-				System.out.println("----------------");
-				System.out.println("ADJACENT ROOMS:");
-				System.out.println(player.getCurrentRoom().getAdjacentRooms());
-				System.out.println("----------------");
 
 			}
 		} catch (final Exception e) {
@@ -309,7 +295,7 @@ public class Game {
 			"after you've already visited it. Useful if you're lost or just need to know where you're and don't want to");
 		System.out.println("scroll all the way back to where you entered the room.");
 		System.out.println("Input = '(look, l)'");
-		System.out.println("2.5 0 Quit");
+		System.out.println("2.5 - Quit");
 		System.out.println("This command quits the game. Pretty self explanatory.");
 		System.out.println("Input = '(quit)'");
 		System.out.println("Well that's pretty much it. If you got any more questions I am sorry, figure it out by yourself! I know you can, I believe in you.");
@@ -319,6 +305,30 @@ public class Game {
 		System.out.println("I hope you're having fun, Mr. Hauck.");
 		System.out.println("------ END OF MENU -----");
 
+	}
+	
+	public void firstVisit() {
+		System.out.println("\n--------" + player.getCurrentRoom().getName() + "--------");
+			System.out.println(player.getCurrentRoom().getDescription());
+			System.out.println("----------------");
+			System.out.println("OBJECTS IN THE ROOM:");
+			System.out.println(player.getCurrentRoom().visibleObjects());
+			System.out.println("----------------");
+			System.out.println("ADJACENT ROOMS:");
+			System.out.println(player.getCurrentRoom().getAdjacentRooms());
+			System.out.println("----------------");
+	}
+	
+	public void posteriorVisits() {
+		System.out.println("\n--------" + player.getCurrentRoom().getName() + "-------");
+		System.out.println(player.getCurrentRoom().getDescriptionAfter());
+		System.out.println("----------------");
+		System.out.println("OBJECTS IN THE ROOM:");
+		System.out.println(player.getCurrentRoom().visibleObjects());
+		System.out.println("----------------");
+		System.out.println("ADJACENT ROOMS:");
+		System.out.println(player.getCurrentRoom().getAdjacentRooms());
+		System.out.println("----------------");
 	}
 
 }
