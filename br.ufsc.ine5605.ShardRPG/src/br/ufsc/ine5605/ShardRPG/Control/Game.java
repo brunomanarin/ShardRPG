@@ -44,7 +44,7 @@ public class Game {
 		int input = 0;
 		try {
 			shardLogoPrint();
-			System.out.println("Press 1 to START a new game, 2 to LOAD a save file, 3 to DELETE an existing file or 4 to MODIFY a file:\n");
+			mainMenu();
 
 			final File file = new File("PlayersList.json");
 			try {
@@ -109,7 +109,7 @@ public class Game {
 								System.out.println("\nPlayer Deleted!");
 							}
 						} else {
-							System.out.println("\n Not players registred!");
+							System.out.println("\n No players registered!");
 						}
 					}
 						break;
@@ -131,7 +131,7 @@ public class Game {
 								System.out.println("Name Changed!");
 							}
 						} else {
-							System.out.println("\n Not players registred!");
+							System.out.println("\n No players registered!");
 						}
 					}
 						break;
@@ -199,6 +199,7 @@ public class Game {
 					}
 						break;
 					case ActionDie: {
+						gameOver();
 						System.out.println("---- GAME OVER ----");
 						System.out.println("THESE ARE ALL THE ACTIONS YOU MADE IN THIS PLAYTHROUGH:");
 						System.out.println(log.listAllActions());
@@ -262,7 +263,7 @@ public class Game {
 						if (player.getCurrentRoom().getItems().contains(item)) {
 							System.out.println(item.getDescription());
 						} else {
-							System.out.println("\nObject in not visible!");
+							System.out.println("\nI can't see this object!");
 						}
 					}
 						break;
@@ -327,6 +328,49 @@ public class Game {
 			"S:::::::::::::::SS H:::::::H     H:::::::H A:::::A                 A:::::A R::::::R     R:::::RD::::::::::::DDD ");
 		System.out.println(
 			" SSSSSSSSSSSSSSS   HHHHHHHHH     HHHHHHHHHAAAAAAA                   AAAAAAARRRRRRRR     RRRRRRRDDDDDDDDDDDDD        \n\n");
+	}
+	public void gameOver() {
+		System.out.println("     .... NO! ...                  ... MNO! ...");
+		System.out.println("   ..... MNO!! ...................... MNNOO! ...");
+		System.out.println(" ..... MMNO! ......................... MNNOO!! .");
+		System.out.println(".... MNOONNOO!   MMMMMMMMMMPPPOII!   MNNO!!!! .");
+		System.out.println(" ... !O! NNO! MMMMMMMMMMMMMPPPOOOII!! NO! ....");
+		System.out.println("    ...... ! MMMMMMMMMMMMMPPPPOOOOIII! ! ...");
+		System.out.println("   ........ MMMMMMMMMMMMPPPPPOOOOOOII!! .....");
+		System.out.println("   ........ MMMMMOOOOOOPPPPPPPPOOOOMII! ...  ");
+		System.out.println("    ....... MMMMM..    OPPMMP    .,OMI! ....");
+		System.out.println("     ...... MMMM::   o.,OPMP,.o   ::I!! ...");
+		System.out.println("         .... NNM:::.,,OOPM!P,.::::!! ....");
+		System.out.println("         .. MMNNNNNOOOOPMO!!IIPPO!!O! .....");
+		System.out.println("         ... MMMMMNNNNOO:!!:!!IPPPPOO! ....");
+		System.out.println("           .. MMMMMNNOOMMNNIIIPPPOO!! ......");
+		System.out.println("         ...... MMMONNMMNNNIIIOO!..........");
+		System.out.println("       ....... MN MOMMMNNNIIIIIO! OO ..........");
+		System.out.println("    ......... MNO! IiiiiiiiiiiiI OOOO ...........");
+		System.out.println("  ...... NNN.MNO! . O!!!!!!!!!O . OONO NO! ........");
+		System.out.println("   .... MNNNNNO! ...OOOOOOOOOOO .  MMNNON!........");
+		System.out.println("  ...... MNNNNO! .. PPPPPPPPP .. MMNON!........");
+		System.out.println("     ...... OO! ................. ON! .......");
+		System.out.println("        ................................");
+		
+	}
+	public void mainMenu() {
+		System.out.println("       ______________________________            |>>>");
+		System.out.println("      |  |                           |           |");
+		System.out.println("      |  |         MAIN MENU:        |       _  _|_  _");
+		System.out.println("      |  | Input the desired option: |      |;|_|;|_|;|");
+		System.out.println("      |  |                           |      \\\\.    .  /");
+		System.out.println("      |  |    1- START NEW GAME      |       \\\\:  .  /");
+		System.out.println("      |  |                           |        ||:   |");
+		System.out.println("      |  |    2- LOAD EXISTING FILE  |        ||:.  |");
+		System.out.println("      |  |                           |        ||:  .|");
+		System.out.println("      |  |    3- DELETE FILE         |        ||:   |       \\,/");
+		System.out.println("      |  |                           |        ||: , |            /`\\");
+		System.out.println("      |  |    4- CHANGE FILE NAME    |        ||:   |");
+		System.out.println("      |__|___________________________|        ||: . |");
+		System.out.println("               __                            _||_   |");
+		System.out.println("     ____--`~    '--~~__            __ ----~    ~`---,              ___");
+		System.out.println("-~--~                   ~---__ ,--~'                  ~~----_____-~'   `~----~~");
 	}
 
 
