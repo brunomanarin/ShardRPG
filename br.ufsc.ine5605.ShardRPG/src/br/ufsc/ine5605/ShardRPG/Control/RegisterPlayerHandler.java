@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
+import java.io.File;
 import java.util.Scanner;
 
 import br.ufsc.ine5605.ShardRPG.Info.Player;
@@ -26,6 +27,10 @@ public class RegisterPlayerHandler {
 			System.out.println("Welcome!\n");
 			System.out.println("Before you begin, may i ask you some questions?");
 			System.out.println("First things first, what is your name?");
+			final File file = new File("PlayersList.json");
+			if (!file.exists()) {
+				new JsonHandler().registerPlayer(new Player(null, null, null, null, null));
+			}
 			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")
 				|| new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
 				System.out.print("> ");
