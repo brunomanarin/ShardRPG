@@ -45,6 +45,18 @@ public class Game {
 		try {
 			shardLogoPrint();
 			System.out.println("Press 1 to START a new game or 2 to LOAD a save file:\n");
+			final File file = new File("PlayersList.json");
+			try {
+				final PlayerList playerList = new Gson().fromJson(
+					JsonHandler.getJasonContent("PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
+				if (playerList == null) {
+					file.delete();
+					jsonHandler.registerPlayer(new Player(null, null, null, null, null));
+				}
+			} catch (final Exception e) {
+				file.delete();
+				jsonHandler.registerPlayer(new Player(null, null, null, null, null));
+			}
 			do {
 				System.out.print("> ");
 				try {
@@ -53,25 +65,12 @@ public class Game {
 					final String playersList = jsonHandler.playerListing();
 					switch (input) {
 					case 1: {
-						final File file = new File("PlayersList.json");
-						try {
-							final PlayerList playerList = new Gson().fromJson(JsonHandler.getJasonContent(
-								"PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
-							if (playerList == null) {
-								file.delete();
-								jsonHandler.registerPlayer(new Player(null, null, null, null, null));
-							}
-						} catch (final Exception e) {
-							file.delete();
-							jsonHandler.registerPlayer(new Player(null, null, null, null, null));
-						}
 						player = playerHandler.registerNewPlayer();
 						System.out.println(jsonHandler.registerPlayer(player));
 					}
 						break;
 					case 2: {
 						String key;
-						final File file = new File("PlayersList.json");
 						if (playersList == null || !file.exists() || playerNumbers <= 1) {
 							System.out.println(
 								"\nNo save files exist! Let's have ourselves a new adventure! \n");
@@ -108,6 +107,8 @@ public class Game {
 								jsonHandler.deletePlayer(key);
 								System.out.println("\nPlayer Deleted!");
 							}
+						} else {
+							System.out.println("\n Not players registred!");
 						}
 					}
 						break;
@@ -128,6 +129,8 @@ public class Game {
 								jsonHandler.changeName(key, name);
 								System.out.println("Name Changed!");
 							}
+						} else {
+							System.out.println("\n Not players registred!");
 						}
 					}
 						break;
@@ -246,7 +249,11 @@ public class Game {
 					}
 						break;
 					case ActionInspect: {
-						System.out.println(item.getDescription());
+						if (player.getCurrentRoom().getItems().contains(item)) {
+							System.out.println(item.getDescription());
+						} else {
+							System.out.println("\nObject in not visible!");
+						}
 					}
 						break;
 					case ActionDrop: {
