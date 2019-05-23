@@ -1,8 +1,31 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
+import java.util.Scanner;
+
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 
 public class GameTextScreen {
+	static Scanner input = new Scanner(System.in);
+	public static void println(String string) {
+		System.out.println(string);
+	}
+	public static void print(String string) {
+		System.out.print(string);
+	}
+	public static String receiveString() {
+		return input.nextLine();
+	}
+	public static int receiveInteger() {
+		Integer numberInput = 0;
+		try {
+			numberInput = input.nextInt();
+			input.nextLine();
+		} catch (final Exception e) {
+			System.out.println("Invalid input");
+			input.next();
+		}
+		return numberInput;
+	}
 	public static void shardLogoPrint() {
 		System.out.println(
 			"   SSSSSSSSSSSSSSS HHHHHHHHH     HHHHHHHHH               AAA               RRRRRRRRRRRRRRRRR   DDDDDDDDDDDDD        ");

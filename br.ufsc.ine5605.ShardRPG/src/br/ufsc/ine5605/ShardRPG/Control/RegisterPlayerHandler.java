@@ -1,7 +1,6 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
 import java.io.File;
-import java.util.Scanner;
 
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerRace;
@@ -9,7 +8,6 @@ import br.ufsc.ine5605.ShardRPG.Info.PlayerType;
 
 public class RegisterPlayerHandler {
 
-	Scanner input = new Scanner(System.in);
 
 	String playerName;
 
@@ -24,96 +22,94 @@ public class RegisterPlayerHandler {
 
 	public Player registerNewPlayer() throws Exception {
 		do {
-			System.out.println("Welcome!\n");
-			System.out.println("Before you begin, may i ask you some questions?");
-			System.out.println("First things first, what is your name?");
+			GameTextScreen.println("Welcome!\n");
+			GameTextScreen.println("Before you begin, may i ask you some questions?");
+			GameTextScreen.println("First things first, what is your name?");
 			final File file = new File("PlayersList.json");
 			if (!file.exists()) {
 				new JsonHandler().registerPlayer(new Player(null, null, null, null, null));
 			}
 			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")
 				|| new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
-				System.out.print("> ");
-				playerName = receiveString();
+				GameTextScreen.print("> ");
+				playerName = GameTextScreen.receiveString();
 				if (playerName.length() == 0 || playerName == null || playerName.matches("^\\s+$")) {
-					System.out.println("Please enter a valid name.");
+					GameTextScreen.println("Please enter a valid name.");
 				}
 				if (new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
-					System.out.println("\nThis name is already in use, please choose another one!");
+					GameTextScreen.println("\nThis name is already in use, please choose another one!");
 				}
 			}
-			System.out.println(playerName + " han? Interesting.\n");
-			System.out.println("So, " + playerName + ", do you consider yourself to be a human?");
-			System.out.println("1- Yes sure, human as it can be.");
-			System.out.println("2- I am an orc.");
+			GameTextScreen.println(playerName + " han? Interesting.\n");
+			GameTextScreen.println("So, " + playerName + ", do you consider yourself to be a human?");
+			GameTextScreen.println("1- Yes sure, human as it can be.");
+			GameTextScreen.println("2- I am an orc.");
 			do {
 				try {
-					System.out.print("> ");
-					final int playerRaceInteger = input.nextInt();
+					GameTextScreen.print("> ");
+					final int playerRaceInteger = GameTextScreen.receiveInteger();
 					playerRace = null;
 					switch (playerRaceInteger) {
 					case 1: {
-						System.out.println("Got it...");
+						GameTextScreen.println("Got it...");
 						playerRace = PlayerRace.human;
 						break;
 					}
 					case 2: {
-						System.out.println("Oh, a fellow orc! May your battles be fierce!\n");
+						GameTextScreen.println("Oh, a fellow orc! May your battles be fierce!\n");
 						playerRace = PlayerRace.orc;
 						break;
 					}
 					default: {
-						System.out.println("The input must be a number between 1 and 2.");
+						GameTextScreen.println("The input must be a number between 1 and 2.");
 						continue;
 					}
 
 					}
 				} catch (final Exception e) {
-					System.out.println("The input must be a number between 1 and 2.");
-					input.next();
+					GameTextScreen.println("The input must be a number between 1 and 2.");
+				
 					continue;
 				}
 			} while (playerRace == null);
 
-			System.out.println("One more before you go.");
-			System.out.println("What do you consider to be your speciality?\n");
-			System.out.println("1- I am a Warrior, a soldier. Can't you see?");
-			System.out.println("2- I am a Mage, knowledge is my duty.");
-			System.out.println("3- I am a rogue, can't you see your medallion just vanished?");
+			GameTextScreen.println("One more before you go.");
+			GameTextScreen.println("What do you consider to be your speciality?\n");
+			GameTextScreen.println("1- I am a Warrior, a soldier. Can't you see?");
+			GameTextScreen.println("2- I am a Mage, knowledge is my duty.");
+			GameTextScreen.println("3- I am a rogue, can't you see your medallion just vanished?");
 			do {
 				try {
-					System.out.print("> ");
-					final int playerTypeInteger = receiveInteger();
+					GameTextScreen.print("> ");
+					final int playerTypeInteger = GameTextScreen.receiveInteger();
 					playerType = null;
 					switch (playerTypeInteger) {
 					case 1: {
 						playerType = PlayerType.warrior;
-						System.out.println("Challenge me and i will crush you.");
+						GameTextScreen.println("Challenge me and i will crush you.");
 						break;
 					}
 					case 2: {
 						playerType = PlayerType.mage;
-						System.out.println("Oh, i see, an apreciator of the arcane arts.");
+						GameTextScreen.println("Oh, i see, an apreciator of the arcane arts.");
 						break;
 					}
 					case 3: {
 						playerType = PlayerType.rogue;
-						System.out.println("You thief! Get Back here!");
+						GameTextScreen.println("You thief! Get Back here!");
 						break;
 					}
 					default: {
-						System.out.println("The input be a number between 1 and 3.");
-						input.next();
+						GameTextScreen.println("The input be a number between 1 and 3.");
 						continue;
 					}
 					}
 				} catch (final Exception e) {
-					System.out.println("The input be a number between 1 and 3.");
-					input.next();
+					GameTextScreen.println("The input be a number between 1 and 3.");
 				}
 			} while (playerType == null);
 			if (playerName == null || playerName == "" || playerType == null || playerRace == null) {
-				System.out.println(
+				GameTextScreen.println(
 					"An error ocurred while handling your registry! Please check your data and try again:\n"
 						+ "Name:" + playerName + "\n Race:" + playerRace + ",\n Class:" + playerType);
 			}
@@ -122,21 +118,4 @@ public class RegisterPlayerHandler {
 		return player;
 	}
 
-
-	public String receiveString() {
-		return input.nextLine();
-	}
-
-
-	public int receiveInteger() {
-		Integer numberInput = 0;
-		try {
-			numberInput = input.nextInt();
-			input.nextLine();
-		} catch (final Exception e) {
-			System.out.println("Invalid input");
-			input.next();
-		}
-		return numberInput;
-	}
 }
