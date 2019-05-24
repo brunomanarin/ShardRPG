@@ -16,6 +16,7 @@ public enum Action {
 	ActionDie(new String[] {"die", "suicide"},ActionType.TYPE_NOOBJECTACTION),
 	ActionPass(new String[] {"", " ", "nothing"},ActionType.TYPE_NOOBJECTACTION),
 	ActionError(new String[] {}, ActionType.TYPE_NOOBJECTACTION),
+	ActionViewInventory(new String[] {"i", "inv", "inventory"}, ActionType.TYPE_NOOBJECTACTION),
 
 	// Acoes ligads a Itens
 	ActionPickUp(new String[]{"pickup", "get", "take","acquire", "grab"}, ActionType.TYPE_HASDIRECTOBJECT),

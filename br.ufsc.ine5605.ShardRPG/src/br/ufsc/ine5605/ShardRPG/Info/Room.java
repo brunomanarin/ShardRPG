@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.ShardRPG.Info;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -173,8 +174,25 @@ public class Room {
 
 	public String visibleObjects() {
 		String visibleObjects = "";
-		for (final Item object : items) {
-			visibleObjects += "There is a " + object.getName() + " here \n";
+		ArrayList<Item> blacklist = new ArrayList<>();
+		int quantityCounter = 0;
+		for(int i = 0; i<items.size(); i++) {
+			if(blacklist.contains(items.get(i))){
+				i++;
+			}else {
+				for(int j = 0; j<items.size();j++) {
+					if(items.get(i).equals(items.get(j))) {
+						quantityCounter++;
+						blacklist.add(items.get(i));
+					}
+				}
+				if(quantityCounter > 1) {
+					visibleObjects += "There are x"+ quantityCounter + " " + items.get(i).getName() +" here. \n";
+				}else {
+					visibleObjects += "There is x"+ quantityCounter + " " + items.get(i).getName() +" here. \n";
+				}
+			quantityCounter = 0;	
+			}
 		}
 		if(visibleObjects.length()==0) {
 			return "There are no visible objects here at the moment.";

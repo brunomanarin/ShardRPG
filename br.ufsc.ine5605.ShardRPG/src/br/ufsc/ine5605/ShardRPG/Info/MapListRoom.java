@@ -10,6 +10,7 @@ public class MapListRoom {
 			"You wake up in a dim and dank room. You're confused and can't remember anything that happened. \n As you gather yourself you notice a source of light coming from a corridor to the east.\n",
 			"This room still gives you chills, the atmosphere feels your body and makes you unconfortable.\n If I were you, i'd get out of here.\n",
 			null);
+		spawn.setItem(Item.getInstance("rug"));
 
 		final Room corridor = new Room(" Dark Corridor",
 			"The walls seems to be made of chipped up stone, carefully avoiding the gaps in the ground you hold yourself against the wall not to fall.\n The light source seems to be brighter here and coming from a door located to the east.",
@@ -22,14 +23,16 @@ public class MapListRoom {
 		firstHub.setItem(Item.getInstance("painting"));
 		firstHub.setItem(Item.getInstance("rug"));
 		final Room diningHall = new Room("Dining Quarters",
-			"There are some leftovers of food here, some of it is spilled on the ground, some of the chairs are tumbled over. Is that blood on the walls?\\n This is some kind of dining hall.\\n There is a door to the east at the back of a bar table.",
+			"There are some leftovers of food here, some of it is spilled on the ground, some of the chairs are tumbled over. Is that blood on the walls?\n This is some kind of dining hall.\n There is a door to the east at the back of a bar table.",
 			"The smell of rotten food and blood feels your senses, you can't distance yourself from the fact that something bad must've happened here.",
 			null);
 		for(int i =0;i<5;i++) {
 			diningHall.setItem(Item.getInstance("chair"));
 		}
+		diningHall.setItem(Item.getInstance("table"));
+		diningHall.setItem(Item.getInstance("hammer"));
 		final Room diningQuartersBack = new Room("Room behind dining quarters",
-			"You open the door, you can't help but notice a chest. Somehow this room's energy fill you up with something. A feeling. A good feeling. It feels great! You smile away as you see a strange glow coming from insde the chest.",
+			"You open the door, you can't help but notice a chest. Somehow this room's energy fill you up with something.\n A feeling. A good feeling. It feels great! You smile away as you see a strange glow coming from insde the chest.",
 			"This room still emanates a radiant energy, coming here makes you feel great! You smile! YOU SMILE MORE! ISN'T IT ALL JUST BEATIFUL? HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA.",
 			null);
 		diningQuartersBack.setItem(Item.getInstance("shard"));

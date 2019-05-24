@@ -46,7 +46,7 @@ public class JsonHandler {
 			final Map<String, Player> mapList = playerList.getPlayersList();
 			return mapList;
 		} catch (final Exception e) {
-			System.out.println(e);
+			/*GameTextScreen.println(e);*/
 		}
 		return null;
 	}

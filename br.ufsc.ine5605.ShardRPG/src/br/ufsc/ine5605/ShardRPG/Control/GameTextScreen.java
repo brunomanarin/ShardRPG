@@ -5,6 +5,8 @@ import java.util.Scanner;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 
 public class GameTextScreen {
+	public static final String ANSI_RED = "\u001B[31m";
+	
 	static Scanner input = new Scanner(System.in);
 	public static void println(String string) {
 		System.out.println(string);
@@ -103,6 +105,36 @@ public class GameTextScreen {
 		System.out.println("     ____--`~    '--~~__            __ ----~    ~`---,              ___");
 		System.out.println("-~--~                   ~---__ ,--~'                  ~~----_____-~'   `~----~~");
 	}
+	
+	public static void werewolf() {
+		System.out.println( "                              __\n" + 
+				"                            .d$$b\n" + 
+				"                          .' TO$;\\\n" + 
+				"                         /  : TP._;\n" + 
+				"                        / _.;  :Tb|\n" + 
+				"                       /   /   ;j$j\n" + 
+				"                   _.-\"       d$$$$\n" + 
+				"                 .' ..       d$$$$;\n" + 
+				"                /  /P'      d$$$$P. |\\\n" + 
+				"               /   \"      .d$$$P' |\\^\"l\n" + 
+				"             .'           `T$P^\"\"\"\"\"  :\n" + 
+				"         ._.'      _.'                ;\n" + 
+				"      `-.-\".-'-' ._.       _.-\"    .-\"\n" + 
+				"    `.-\" _____  ._              .-\"\n" + 
+				"   -(.g$$$$$$$b.              .'\n" + 
+				"     \"\"^^T$$$P^)            .(:\n" + 
+				"       _/  -\"  /.'         /:/;\n" + 
+				"    ._.'-'`-'  \")/         /;/;\n" + 
+				" `-.-\"..--\"\"   \" /         /  ;\n" + 
+				".-\" ..--\"\"        -'          :\n" + 
+				"..--\"\"--.-\"         (\\      .-(\\\n" + 
+				"  ..--\"\"              `-\\(\\/;`\n" + 
+				"    _.                      :\n" + 
+				"                            ;`-\n" + 
+				"                           :\\\n" + 
+				"                           ; ");
+		
+	}
 
 
 	public static void help() {
@@ -146,7 +178,10 @@ public class GameTextScreen {
 		System.out.println("Input:'(look, l)'");
 		System.out.println("2.5 - Quit");
 		System.out.println("This command quits the game. Pretty self explanatory.");
-		System.out.println("Input = '(quit)'");
+		System.out.println("Input: '(quit)'");
+		System.out.println("2.6 - Inventory");
+		System.out.println("You can view your inventory at any time during gameplay.");
+		System.out.println("Input: '(i, inv, inventory)'");
 		System.out.println(
 			"Well that's pretty much it. If you got any more questions I am sorry, figure it out by yourself! I know you can, I believe in you.");
 		System.out.println("----- ABOUT SHARD -----");
@@ -188,7 +223,7 @@ public class GameTextScreen {
 	public static void gameOverScreen(Log log, Player player) {
 		gameOver();
 		System.out.println("---- GAME OVER ----");
-		System.out.println("THESE ARE ALL THE ACTIONS YOU MADE IN THIS PLAYTHROUGH:");
+		System.out.println(player.getName() + ": THESE ARE ALL THE ACTIONS YOU MADE IN THIS PLAYTHROUGH:");
 		System.out.println(log.listAllActions());
 		System.out.println("----------");
 		player.die();

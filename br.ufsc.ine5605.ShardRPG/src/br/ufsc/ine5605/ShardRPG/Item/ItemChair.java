@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.ShardRPG.Item;
 
-import br.ufsc.ine5605.ShardRPG.Info.Room;
+import br.ufsc.ine5605.ShardRPG.Control.GameTextScreen;
+import br.ufsc.ine5605.ShardRPG.Info.Player;
 
 public class ItemChair extends Item implements Breakable {
 
@@ -19,8 +20,9 @@ public class ItemChair extends Item implements Breakable {
 
 
 	@Override
-	public void destroy() {
-		System.out.println(destroyMessage);
+	public void destroy(Player player, Item item) {
+		GameTextScreen.println(destroyMessage);
+		player.getCurrentRoom().remove(item);
 	}
 
 

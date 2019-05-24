@@ -3,6 +3,7 @@ package br.ufsc.ine5605.ShardRPG.Info;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.ufsc.ine5605.ShardRPG.Control.GameTextScreen;
 import br.ufsc.ine5605.ShardRPG.Item.Item;
 
 public class Player {
@@ -39,10 +40,10 @@ public class Player {
 		try {
 			if (currentRoom.getItems().contains(item)) {
 				inventory.put(item.getName(), item);
-				System.out.println(item.getName() + " added to inventory! ");
+				GameTextScreen.println(item.getName() + " added to inventory! ");
 			}
 		} catch (final Exception e) {
-			System.out.println(e);
+			/*GameTextScreen.println(e);*/
 		}
 	}
 
@@ -54,7 +55,7 @@ public class Player {
 				setDead(true);
 			}
 		} else {
-			System.out.println("Ouch! You've just hit a wall! Try changing your directions you goof! \n");
+			GameTextScreen.println("Ouch! You've just hit a wall! Try changing your directions you goof! \n");
 		}
 	}
 
@@ -102,10 +103,26 @@ public class Player {
 	public Map<String, Item> getInventario() {
 		return inventory;
 	}
+	public String listAllItems() {
+		if(this.inventory.keySet().size() != 0) {
+			String allItems = "";
+			for(String item: this.inventory.keySet()) {
+				allItems += "- "+item.toUpperCase()+"\n";
+			}
+			String invIntro = "----------INVENTORY----------/nTHIS ARE YOUR ITEMS:\n";
+			String invEnd = "----------";
+			return invIntro + allItems+ invEnd;
+		} else {
+			return "You have no items.";
+		}
+	}
+	public boolean hasItem(Item item){
+		return this.inventory.containsValue(item);
+	}
 
 
-	public void setInventario(Map<String, Item> invantory) {
-		inventory = invantory;
+	public void setInventario(Map<String, Item> inventory) {
+		this.inventory = inventory;
 	}
 
 
@@ -150,7 +167,7 @@ public class Player {
 
 
 	public void die() {
-		System.out.println("You died a horrible and tragic death. Your score:" + progress + " out of 3 shards.");
+		GameTextScreen.println("You died a horrible and tragic death. Your score:" + progress + " out of 3 shards.");
 		setDead(true);
 		System.exit(0);
 	}

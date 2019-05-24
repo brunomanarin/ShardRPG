@@ -12,6 +12,7 @@ import br.ufsc.ine5605.ShardRPG.Info.MapListRoom;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 import br.ufsc.ine5605.ShardRPG.Item.Breakable;
+import br.ufsc.ine5605.ShardRPG.Item.BreakableWithTool;
 import br.ufsc.ine5605.ShardRPG.Item.CanPickUp;
 import br.ufsc.ine5605.ShardRPG.Item.Inspectable;
 import br.ufsc.ine5605.ShardRPG.Item.Item;
@@ -43,6 +44,7 @@ public class Game {
 		try {
 			GameTextScreen.shardLogoPrint();
 			GameTextScreen.mainMenu();
+
 
 			final File file = new File("PlayersList.json");
 			try {
@@ -204,6 +206,9 @@ public class Game {
 						GameTextScreen.actionError();
 					}
 						break;
+					case ActionViewInventory:{
+						GameTextScreen.println(player.listAllItems());
+					}
 					default:
 
 						break;
@@ -231,6 +236,22 @@ public class Game {
 								player.getCurrentRoom().remove(item);
 								if (item.isShard()) {
 									player.setProgress(player.getProgress() + 1);
+									switch(player.getProgress()) {
+										case 1:{
+											GameTextScreen.println("As you reach for the piece you feel a huge power force run through you.\n the hairs from your arms and legs stand up, strangely, you see some of them grow. What is happening?");
+											break;
+										}
+										case 2:{
+											GameTextScreen.println("The glow from the shard fills your vision as you take it in your hands.\n The rush of the huge force comes back a second time, you feel an urge roaring through your insides.\n Some more hairs are visible on your body. I'd be careful if I were you.");
+											break;
+										}
+										case 3:{
+											GameTextScreen.println("Your blood boils, is if you've just woken a spirit inside of you. You let out a huge scream of pain. You're transforming!");
+											GameTextScreen.werewolf();
+											GameTextScreen.println(player.getName() + " BECAME A WEREWOLF!");
+											break;
+										}
+									}
 								}
 							} catch (final Exception e) {
 							}
@@ -241,10 +262,11 @@ public class Game {
 						break;
 					case ActionBreak: {
 						if (item instanceof Breakable) {
-							((Breakable)item).destroy();
-							player.getCurrentRoom().remove(item);
-							GameTextScreen.println(item.getName() + " is destroyed!");
-						} else {
+								((Breakable)item).destroy(player,item);
+								GameTextScreen.println(item.getName() + " is destroyed!");
+						} else if(item instanceof BreakableWithTool) {
+							((BreakableWithTool)item).destroy(player,item,player.getCurrentRoom());
+						}else {
 							GameTextScreen.println("You can't break this object!");
 						}
 					}
