@@ -52,7 +52,7 @@ java -jar Shard.jar
 
 ```
 
-This should get the gaming running.
+This should get the game running.
 
 Alternatively, you can open up Eclipse (or another compatible IDE)
 and open up the project. If you're using NetBeans, you may want to import the
@@ -92,7 +92,8 @@ it was made.
 
 ## Built with
 
-* [Eclipse framework](http://www.eclipse.org/)
+* [Eclipse](http://www.eclipse.org/)
+* [GSON](https://github.com/google/gson)
 
 
 ## Authors
