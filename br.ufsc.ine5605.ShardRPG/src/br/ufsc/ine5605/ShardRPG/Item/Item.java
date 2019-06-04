@@ -79,7 +79,7 @@ public abstract class Item {
 		final Item chair = new ItemChair("Chair", "A chair, nothing special about it.", new String[] {"chair"});
 		final Item rug = new ItemRug("Rug", "A soft and red rug.", new String[] {"rug"});
 		final Item hammer = new ItemHammer("Hammer","A shiny and big hammer.", new String[] {"hammer"}, false);
-		final Item pieceWood = new ItemPieceWood("A piece of wood","A piece of wood, it's sharp.",new String[] {"woodpiece"}, false);
+		final Item pieceWood = new ItemPieceWood("A piece of wood","A piece of wood, it's sharp.",new String[] {"piece of wood"}, false);
 		final Item table = new ItemDiningTable("A long dining table","The table has a lot of utensils and food spilled all over it.",new String[] {"table"});
 		allItemsList = new LinkedList<>();
 		allItemsList.add(shard);

@@ -7,6 +7,10 @@ import br.ufsc.ine5605.ShardRPG.Info.Player;
 public class GameTextScreen {
 	public static final String ANSI_RED = "\u001B[31m";
 	
+	private GameTextScreen(){
+		
+	}
+	
 	static Scanner input = new Scanner(System.in);
 	public static void println(String string) {
 		System.out.println(string);

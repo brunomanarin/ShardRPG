@@ -10,7 +10,6 @@ public class MapListRoom {
 			"You wake up in a dim and dank room. You're confused and can't remember anything that happened. \n As you gather yourself you notice a source of light coming from a corridor to the east.\n",
 			"This room still gives you chills, the atmosphere feels your body and makes you unconfortable.\n If I were you, i'd get out of here.\n",
 			null);
-		spawn.setItem(Item.getInstance("rug"));
 
 		final Room corridor = new Room(" Dark Corridor",
 			"The walls seems to be made of chipped up stone, carefully avoiding the gaps in the ground you hold yourself against the wall not to fall.\n The light source seems to be brighter here and coming from a door located to the east.",
