@@ -22,7 +22,6 @@ and type:
 
 ```
 git clone https://github.com/brunomanarin/ShardRPG.git
-
 ```
 If everything went right you should see:
 
@@ -34,7 +33,6 @@ remote: Compressing objects: 100% (459/459), done.
 remote: Total 1030 (delta 420), reused 864 (delta 254), pack-reused 0
 Receiving objects: 100% (1030/1030), 670.58 KiB | 146.00 KiB/s, done.
 Resolving deltas: 100% (420/420), done.
-
 ```
 
 Else you can download it as ZIP by clicking the "clone or download button" in the repository,
@@ -49,7 +47,6 @@ folder that the game is in (Shard.jar) and typing the following:
 
 ```
 java -jar Shard.jar
-
 ```
 
 This should get the game running.
@@ -83,7 +80,6 @@ This is what the title screen looks like:
                __                            _||_   |
      ____--`~    '--~~__            __ ----~    ~`---,              ___
 -~--~                   ~---__ ,--~'                  ~~----_____-~'   `~----~~
-
 ```
 
 Also, if you're using the IDE, feel free to modify the game to your liking. Also useful to see how
