@@ -1,6 +1,6 @@
 # SHARD
 
-A RPG text based game prototype that was made as an assignment for 
+An RPG text based game prototype that was made as an assignment for 
 oriented systems development class in UFSC( Federal University of Santa Catarina ).
 As an interactive history, each player can unravel the adventure uniquely. It has
 a variety of items and rooms to discover, even if it's only a proof of concept.
