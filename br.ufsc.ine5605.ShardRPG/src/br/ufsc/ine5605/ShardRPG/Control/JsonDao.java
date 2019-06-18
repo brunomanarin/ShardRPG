@@ -15,13 +15,16 @@ import com.google.gson.Gson;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 
-public class JsonHandler {
+public class JsonDao {
+
+	private final File file = new File("PlayersList.json");
+
 
 	public String playerListing() throws IOException {
 		String text = "";
 		if (checkJsonPlayers()) {
 			try {
-				final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
+				final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
 				final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
 				final Map<String, Player> mapList = playerList.getPlayersList();
 				for (final Player player : mapList.values()) {
@@ -41,36 +44,27 @@ public class JsonHandler {
 
 	public Map<String, Player> allPlayersMap() {
 		try {
-			final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
+			final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
 			final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
 			final Map<String, Player> mapList = playerList.getPlayersList();
 			return mapList;
 		} catch (final Exception e) {
-			/*GameTextScreen.println(e);*/
+			/* GameTextScreen.println(e); */
 		}
 		return null;
-	}
-
-
-	public Map<String, Player> allPlayers() throws IOException {
-		final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
-		final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
-		final Map<String, Player> mapList = playerList.getPlayersList();
-		return mapList;
 	}
 
 
 	public Boolean deletePlayer(String key) throws IOException {
 		try {
 			if (checkJsonPlayers()) {
-				final File path = new File("PlayersList.json");
-				final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
+				final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
 				final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
 				final Map<String, Player> mapList = playerList.getPlayersList();
 				mapList.remove(key);
 
 				playerList.setPlayersList(mapList);
-				setJsonInFile(playerList, path);
+				persist(playerList, file);
 			}
 		} catch (final Exception e) {
 			return false;
@@ -82,8 +76,7 @@ public class JsonHandler {
 	public Boolean changeName(String key, String name) {
 		try {
 			if (checkJsonPlayers()) {
-				final File path = new File("PlayersList.json");
-				final String json = getJasonContent("PlayersList.json", StandardCharsets.UTF_8);
+				final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
 				final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
 				final Map<String, Player> mapList = playerList.getPlayersList();
 
@@ -93,7 +86,7 @@ public class JsonHandler {
 				mapList.put(key, player);
 
 				playerList.setPlayersList(mapList);
-				setJsonInFile(playerList, path);
+				persist(playerList, file);
 			}
 		} catch (final Exception e) {
 			return false;
@@ -105,7 +98,7 @@ public class JsonHandler {
 	public String registerPlayer(Player player) throws IOException {
 		try {
 			if (checkJsonPlayers()) {
-				registerExistingPlayer(player);
+				registerPlayerInFile(player);
 			} else {
 				registerFirstPlayer(player);
 			}
@@ -125,7 +118,7 @@ public class JsonHandler {
 		try {
 			final File file = new File("PlayersList.json");
 			file.createNewFile();
-			setJsonInFile(list, file);
+			persist(list, file);
 		} catch (final Exception e) {
 			return false;
 		}
@@ -133,9 +126,9 @@ public class JsonHandler {
 	}
 
 
-	private void setJsonInFile(final PlayerList list, final File file) throws IOException {
+	private void persist(final PlayerList list, final File file) throws IOException {
 		final FileWriter writer = new FileWriter(file);
-		writer.write(new Gson().toJson(list));
+		writer.write(new Gson().toJson(list, PlayerList.class));
 		writer.flush();
 		writer.close();
 	}
@@ -147,28 +140,27 @@ public class JsonHandler {
 	}
 
 
-	private Boolean registerExistingPlayer(Player player) throws IOException {
-		final File file = new File("PlayersList.json");
-		final String contentJson = getJasonContent(file.getAbsolutePath(), StandardCharsets.UTF_8);
+	private Boolean registerPlayerInFile(Player player) throws IOException {
+		final String contentJson = loadJsonContent(file.getAbsolutePath(), StandardCharsets.UTF_8);
 		final PlayerList list = new Gson().fromJson(contentJson, PlayerList.class);
-		Map<String, Player> mapList;
-		mapList = list.getPlayersList();
+		final Map<String, Player> mapList = list.getPlayersList();
 
 		mapList.put(player.getPassword(), player);
 		list.setPlayersList(mapList);
 
-		setJsonInFile(list, file);
+		persist(list, file);
 
 		return true;
 	}
 
 
 	public void saveGame(Player player) throws IOException {
-
+		deletePlayer(player.getPassword());
+		registerPlayerInFile(player);
 	}
 
 
-	static String getJasonContent(String path, Charset encoding) throws IOException {
+	static String loadJsonContent(String path, Charset encoding) throws IOException {
 		final byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
 	}
