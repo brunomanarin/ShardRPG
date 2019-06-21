@@ -20,9 +20,11 @@ public class Player {
 
 	private boolean isDead;
 
-	private Room currentRoom;
+	private transient Room currentRoom;
 
-	Map<String, Item> inventory;
+	transient Map<String, Item> inventory;
+
+	private String room;
 
 
 	public Player(String name, PlayerType type, PlayerRace race, Integer progress, String password) {
@@ -43,7 +45,7 @@ public class Player {
 				GameTextScreen.println(item.getName() + " added to inventory! ");
 			}
 		} catch (final Exception e) {
-			/*GameTextScreen.println(e);*/
+			/* GameTextScreen.println(e); */
 		}
 	}
 
@@ -90,6 +92,16 @@ public class Player {
 	}
 
 
+	public String getRoom() {
+		return room;
+	}
+
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -103,21 +115,25 @@ public class Player {
 	public Map<String, Item> getInventario() {
 		return inventory;
 	}
+
+
 	public String listAllItems() {
-		if(this.inventory.keySet().size() != 0) {
+		if (inventory.keySet().size() != 0) {
 			String allItems = "";
-			for(String item: this.inventory.keySet()) {
-				allItems += "- "+item.toUpperCase()+"\n";
+			for (final String item : inventory.keySet()) {
+				allItems += "- " + item.toUpperCase() + "\n";
 			}
-			String invIntro = "----------INVENTORY----------/nTHIS ARE YOUR ITEMS:\n";
-			String invEnd = "----------";
-			return invIntro + allItems+ invEnd;
+			final String invIntro = "----------INVENTORY----------/nTHIS ARE YOUR ITEMS:\n";
+			final String invEnd = "----------";
+			return invIntro + allItems + invEnd;
 		} else {
 			return "You have no items.";
 		}
 	}
-	public boolean hasItem(Item item){
-		return this.inventory.containsValue(item);
+
+
+	public boolean hasItem(Item item) {
+		return inventory.containsValue(item);
 	}
 
 

@@ -8,7 +8,6 @@ import br.ufsc.ine5605.ShardRPG.Info.PlayerType;
 
 public class RegisterPlayerHandler {
 
-
 	String playerName;
 
 	String playerRaceInteger;
@@ -27,16 +26,16 @@ public class RegisterPlayerHandler {
 			GameTextScreen.println("First things first, what is your name?");
 			final File file = new File("PlayersList.json");
 			if (!file.exists()) {
-				new JsonHandler().registerPlayer(new Player(null, null, null, null, null));
+				new JsonDao().registerPlayer(new Player(null, null, null, null, null));
 			}
 			while (playerName == null || playerName.length() == 0 || playerName.matches("^\\s+$")
-				|| new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
+				|| new JsonDao().allPlayersMap().containsKey(playerName.toUpperCase())) {
 				GameTextScreen.print("> ");
 				playerName = GameTextScreen.receiveString();
 				if (playerName.length() == 0 || playerName == null || playerName.matches("^\\s+$")) {
 					GameTextScreen.println("Please enter a valid name.");
 				}
-				if (new JsonHandler().allPlayers().containsKey(playerName.toUpperCase())) {
+				if (new JsonDao().allPlayersMap().containsKey(playerName.toUpperCase())) {
 					GameTextScreen.println("\nThis name is already in use, please choose another one!");
 				}
 			}
@@ -68,7 +67,7 @@ public class RegisterPlayerHandler {
 					}
 				} catch (final Exception e) {
 					GameTextScreen.println("The input must be a number between 1 and 2.");
-				
+
 					continue;
 				}
 			} while (playerRace == null);

@@ -19,8 +19,7 @@ import br.ufsc.ine5605.ShardRPG.Item.Item;
 
 public class Game {
 
-
-	private final JsonHandler jsonHandler;
+	private final JsonDao jsonHandler;
 
 	private Player player;
 
@@ -37,7 +36,7 @@ public class Game {
 		intepreter = new Intepreter();
 		Map<String, Player> mapList;
 		playerHandler = new RegisterPlayerHandler();
-		jsonHandler = new JsonHandler();
+		jsonHandler = new JsonDao();
 		listRoom = new MapListRoom();
 
 		int input = 0;
@@ -45,11 +44,10 @@ public class Game {
 			GameTextScreen.shardLogoPrint();
 			GameTextScreen.mainMenu();
 
-
 			final File file = new File("PlayersList.json");
 			try {
 				final PlayerList playerList = new Gson().fromJson(
-					JsonHandler.getJasonContent("PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
+					JsonDao.loadJsonContent("PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
 				if (playerList == null) {
 					file.delete();
 					jsonHandler.registerPlayer(new Player(null, null, null, null, null));
@@ -85,7 +83,7 @@ public class Game {
 								GameTextScreen.println("Choose a key: ");
 								GameTextScreen.print("> ");
 								key = GameTextScreen.receiveString().toUpperCase();
-								mapList = jsonHandler.allPlayers();
+								mapList = jsonHandler.allPlayersMap();
 								if (!mapList.containsKey(key)) {
 									GameTextScreen.println("Invalid key!\n");
 								}
@@ -148,7 +146,7 @@ public class Game {
 				}
 			} while (input != 1 && input != 2);
 		} catch (final Exception e) {
-			/*GameTextScreen.println(e);*/
+			/* GameTextScreen.println(e); */
 		}
 	}
 
@@ -161,15 +159,16 @@ public class Game {
 				GameTextScreen.firstVisit(player);
 				GameTextScreen.newToGame();
 			}
+			player.setRoom(player.getCurrentRoom().getName());
 			while (input.compareToIgnoreCase("quit") != 0) {
-				if(player.getProgress()>=3) {
+				if (player.getProgress() >= 3) {
 					GameTextScreen.youWinScreen(log, player);
 					System.exit(0);
 				}
-				do{
+				do {
 					GameTextScreen.print("> ");
 					input = GameTextScreen.receiveString();
-				}while(input.equalsIgnoreCase(""));
+				} while (input.equalsIgnoreCase(""));
 				Action action = intepreter.stringInterpreter(input);
 				final Item item = action.directObject();
 
@@ -186,6 +185,7 @@ public class Game {
 						GameTextScreen.firstVisit(player);
 						player.getCurrentRoom().setWasVisited(true);
 					}
+					jsonHandler.saveGame(player);
 					break;
 
 				case TYPE_NOOBJECTACTION:
@@ -206,7 +206,7 @@ public class Game {
 						GameTextScreen.actionError();
 					}
 						break;
-					case ActionViewInventory:{
+					case ActionViewInventory: {
 						GameTextScreen.println(player.listAllItems());
 					}
 					default:
@@ -230,27 +230,31 @@ public class Game {
 				case TYPE_HASDIRECTOBJECT:
 					switch (action) {
 					case ActionPickUp: {
-						if(item instanceof CanPickUp) {
+						if (item instanceof CanPickUp) {
 							try {
 								player.pickUpItem(item);
 								player.getCurrentRoom().remove(item);
 								if (item.isShard()) {
 									player.setProgress(player.getProgress() + 1);
-									switch(player.getProgress()) {
-										case 1:{
-											GameTextScreen.println("As you reach for the piece you feel a huge power force run through you.\n the hairs from your arms and legs stand up, strangely, you see some of them grow. What is happening?");
-											break;
-										}
-										case 2:{
-											GameTextScreen.println("The glow from the shard fills your vision as you take it in your hands.\n The rush of the huge force comes back a second time, you feel an urge roaring through your insides.\n Some more hairs are visible on your body. I'd be careful if I were you.");
-											break;
-										}
-										case 3:{
-											GameTextScreen.println("Your blood boils, is if you've just woken a spirit inside of you. You let out a huge scream of pain. You're transforming!");
-											GameTextScreen.werewolf();
-											GameTextScreen.println(player.getName() + " BECAME A WEREWOLF!");
-											break;
-										}
+									switch (player.getProgress()) {
+									case 1: {
+										GameTextScreen.println(
+											"As you reach for the piece you feel a huge power force run through you.\n the hairs from your arms and legs stand up, strangely, you see some of them grow. What is happening?");
+										break;
+									}
+									case 2: {
+										GameTextScreen.println(
+											"The glow from the shard fills your vision as you take it in your hands.\n The rush of the huge force comes back a second time, you feel an urge roaring through your insides.\n Some more hairs are visible on your body. I'd be careful if I were you.");
+										break;
+									}
+									case 3: {
+										GameTextScreen.println(
+											"Your blood boils, is if you've just woken a spirit inside of you. You let out a huge scream of pain. You're transforming!");
+										GameTextScreen.werewolf();
+										GameTextScreen.println(
+											player.getName() + " BECAME A WEREWOLF!");
+										break;
+									}
 									}
 								}
 							} catch (final Exception e) {
@@ -262,21 +266,21 @@ public class Game {
 						break;
 					case ActionBreak: {
 						if (item instanceof Breakable) {
-								((Breakable)item).destroy(player,item);
-								GameTextScreen.println(item.getName() + " is destroyed!");
-						} else if(item instanceof BreakableWithTool) {
-							((BreakableWithTool)item).destroy(player,item,player.getCurrentRoom());
-						}else {
+							((Breakable) item).destroy(player, item);
+							GameTextScreen.println(item.getName() + " is destroyed!");
+						} else if (item instanceof BreakableWithTool) {
+							((BreakableWithTool) item).destroy(player, item, player.getCurrentRoom());
+						} else {
 							GameTextScreen.println("You can't break this object!");
 						}
 					}
 						break;
 					case ActionInspect: {
 						if (player.getCurrentRoom().getItems().contains(item)) {
-							if(item instanceof Inspectable) {
-								((Inspectable)item).inspect();
-							}else {
-							GameTextScreen.println(item.getDescription());
+							if (item instanceof Inspectable) {
+								((Inspectable) item).inspect();
+							} else {
+								GameTextScreen.println(item.getDescription());
 							}
 						} else {
 							GameTextScreen.println("\nI can't see this object!");
@@ -291,7 +295,7 @@ public class Game {
 							if (item.isShard()) {
 								player.setProgress(player.getProgress() - 1);
 							}
-						break;
+							break;
 						}
 					}
 					default:
@@ -302,11 +306,8 @@ public class Game {
 
 			}
 		} catch (final Exception e) {
-			/*GameTextScreen.println(e);*/
+			/* GameTextScreen.println(e); */
 		}
 	}
-
-
-
 
 }
