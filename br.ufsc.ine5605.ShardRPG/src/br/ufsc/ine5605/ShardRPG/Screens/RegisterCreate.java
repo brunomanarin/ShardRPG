@@ -212,7 +212,7 @@ public class RegisterCreate extends JFrame {
 				player = new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
 				try {
 					dao.registerPlayer(player);
-					/////
+
 				} catch (final IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
