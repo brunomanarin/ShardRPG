@@ -44,7 +44,7 @@ public class RegisterCreate extends JFrame {
 
 	ImageIcon register = new ImageIcon("./img/register.png");
 
-	ImageIcon nameImg = new ImageIcon("./img/enterName15.png");
+	ImageIcon nameImg = new ImageIcon("./img/enterName.png");
 
 	ImageIcon raceImg = new ImageIcon("./img/selectRace.png");
 
