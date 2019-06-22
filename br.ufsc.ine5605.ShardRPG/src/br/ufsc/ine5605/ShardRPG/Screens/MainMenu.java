@@ -13,11 +13,24 @@ import java.applet.*;
 
 import javax.swing.*;
 
+import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
+
 public class MainMenu extends JFrame{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5786210545170621619L;
+	
+	
+	private static MainMenu instance;
+	
+	public static MainMenu getInstance() {
+		if(instance == null) {
+			instance = new MainMenu();
+		}
+		return instance;
+	}
+	
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 	Image cursorImage =  toolkit.getImage("./img/cursor.png");
 	Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(this.getX(), this.getY()), "img");
@@ -93,9 +106,6 @@ public class MainMenu extends JFrame{
 		button.setFocusPainted(false);
 	}
 	
-	public static void main(String[] args) {
-		MainMenu menu = new MainMenu();
-	}
 	
 	private class ButtonManager implements ActionListener {
 		
@@ -103,7 +113,8 @@ public class MainMenu extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == newGame) {
 				buttonSound.play();
-				
+				ScreenHandler.getInstance().openRegisterCreate();
+				ScreenHandler.getInstance().closeMainMenu();
 			}else if(e.getSource() == modifyData) {
 				buttonSound.play();
 				

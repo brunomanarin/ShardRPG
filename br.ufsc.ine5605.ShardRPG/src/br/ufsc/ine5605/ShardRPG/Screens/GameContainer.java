@@ -1,10 +1,20 @@
 package br.ufsc.ine5605.ShardRPG.Screens;
 import java.awt.*;
+import java.io.PrintStream;
 
 import javax.swing.*;
 
-public class GameContainer extends JFrame{
+import JFrames.CustomOutputStream;
 
+public class GameContainer extends JFrame{
+	private static GameContainer instance;
+		
+		public static GameContainer getInstance() {
+			if(instance == null) {
+				instance = new GameContainer();
+			}
+			return instance;
+		}
 	/**
 	 * 
 	 */
@@ -21,6 +31,7 @@ public class GameContainer extends JFrame{
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 	Image cursorImage =  toolkit.getImage("./img/cursor.png");
 	Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(this.getX(), this.getY()), "img");
+	PrintStream printStream = new PrintStream(new CustomOutputStream(consoleOutput));
 	public GameContainer() {
 		setTitle("SHARD v0.5");
 		setResizable(false);
@@ -30,6 +41,8 @@ public class GameContainer extends JFrame{
 		setVisible(true);
 		setAlwaysOnTop(true);
 		setCursor(sword);
+		System.setOut(printStream);
+		System.setErr(printStream);
 		add(consoleOutput);
 		consoleOutput.setBounds(50,300,700,200);
 		consoleOutput.setBackground(Color.gray);
@@ -46,11 +59,6 @@ public class GameContainer extends JFrame{
 		gameDisplayScreen.setBounds(150,50,500,225);
 		add(backgroundImg);
 		backgroundImg.setBounds(0,0,800,600);
-		
-		
-	}
-	public static void main(String[] args) {
-		GameContainer menu = new GameContainer();
 	}
 	
 }
