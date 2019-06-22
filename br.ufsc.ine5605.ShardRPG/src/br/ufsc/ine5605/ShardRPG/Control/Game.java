@@ -154,8 +154,13 @@ public class Game {
 	public void start() {
 		String input = "";
 		try {
+			listRoom.shardDungeon();
+			if (player.getRoom() != null) {
+				player.setCurrentRoom(listRoom.getRoom(player.getRoom()));
+				GameTextScreen.posteriorVisits(player);
+			}
 			if (player.getCurrentRoom() == null) {
-				player.setCurrentRoom(listRoom.shardDungeon());
+				player.setCurrentRoom(listRoom.getRoom("Spawn"));
 				GameTextScreen.firstVisit(player);
 				GameTextScreen.newToGame();
 			}
@@ -185,6 +190,7 @@ public class Game {
 						GameTextScreen.firstVisit(player);
 						player.getCurrentRoom().setWasVisited(true);
 					}
+					player.setRoom(player.getCurrentRoom().getName());
 					jsonHandler.saveGame(player);
 					break;
 
