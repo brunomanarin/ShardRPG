@@ -1,9 +1,11 @@
 package br.ufsc.ine5605.ShardRPG.Control;
 
+import java.io.IOException;
+
 import br.ufsc.ine5605.ShardRPG.Screens.GameContainer;
+import br.ufsc.ine5605.ShardRPG.Screens.LoadGame;
 import br.ufsc.ine5605.ShardRPG.Screens.MainMenu;
 import br.ufsc.ine5605.ShardRPG.Screens.RegisterCreate;
-import br.ufsc.ine5605.ShardRPG.Screens.RegisterModify;
 
 public class ScreenHandler {
 
@@ -30,6 +32,10 @@ public class ScreenHandler {
 	public void openGameContainer(int x, int y) {
 		GameContainer.getInstance().setVisible(true);
 		GameContainer.getInstance().setLocation(x,y);
+	}
+	public void openLoadGame(int x, int y) throws IOException {
+		LoadGame.getInstance().setVisible(true);
+		LoadGame.getInstance().setLocation(x,y);
 	}
 	public void closeMainMenu() {
 		MainMenu.getInstance().setVisible(false);

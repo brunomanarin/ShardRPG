@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.ImageIcon;
@@ -153,6 +154,14 @@ public class MainMenu extends JFrame {
 				ScreenHandler.getInstance().closeMainMenu();
 			} else if (e.getSource() == modifyData) {
 				buttonSound.play();
+				try {
+					ScreenHandler.getInstance().openLoadGame(MainMenu.getInstance().getX(),
+						MainMenu.getInstance().getY());
+					ScreenHandler.getInstance().closeMainMenu();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			} else if (e.getSource() == quit) {
 				buttonSound.play();

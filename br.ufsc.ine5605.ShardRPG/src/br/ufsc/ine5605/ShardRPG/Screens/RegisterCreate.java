@@ -158,13 +158,6 @@ public class RegisterCreate extends JFrame {
 		goBack.setContentAreaFilled(false);
 		goBack.setFocusPainted(false);
 		goBack.setOpaque(false);
-		add(toggleSound);
-		toggleSound.setBounds(100, 500, 50, 50);
-		toggleSound.setBackground(null);
-		toggleSound.setBorderPainted(false);
-		toggleSound.setContentAreaFilled(false);
-		toggleSound.setFocusPainted(false);
-		toggleSound.setOpaque(false);
 		add(background);
 		background.setBounds(0, 0, 800, 600);
 		background.setOpaque(true);
