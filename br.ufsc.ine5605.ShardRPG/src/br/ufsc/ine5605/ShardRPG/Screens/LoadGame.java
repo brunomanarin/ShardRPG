@@ -20,6 +20,20 @@ import br.ufsc.ine5605.ShardRPG.Control.JsonDao;
 
 public class LoadGame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static LoadGame instance;
+	
+	public static LoadGame getInstance() throws IOException {
+		if(instance == null) {
+			instance = new LoadGame();
+		}
+		return instance;
+	}
+
 	private final JPanel panel;
 
 	private final JsonDao dao;
@@ -199,10 +213,5 @@ public class LoadGame extends JFrame {
 		add(menuBackground);
 		menuBackground.setBounds(0, 0, 800, 600);
 
-	}
-
-
-	public static void main(String[] args) throws IOException {
-		final LoadGame game = new LoadGame();
 	}
 }
