@@ -3,9 +3,7 @@ package br.ufsc.ine5605.ShardRPG.Screens;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,13 +37,14 @@ public class MainMenu extends JFrame {
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 
 	Image cursorImage = toolkit.getImage("./img/cursor.png");
-	
+
 	ImageIcon sound = new ImageIcon("./img/volume.png");
+
 	ImageIcon mute = new ImageIcon("./img/mute.png");
-	
+
 	JButton toggleSound = new JButton(sound);
 
-	Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
+	// Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
 
 	ImageIcon shardLogo = new ImageIcon("./img/shard2.png");
 
@@ -106,7 +105,7 @@ public class MainMenu extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setAlwaysOnTop(true);
-		setCursor(sword);
+		// setCursor(sword);
 		add(titleLogo);
 		titleLogo.setBounds(135, 90, 530, 180);
 		newGame.setBounds(325, 300, 150, 40);
@@ -116,12 +115,12 @@ public class MainMenu extends JFrame {
 		buttonStyling(modifyData);
 		buttonStyling(quit);
 		add(toggleSound);
-		toggleSound.setBounds(30,500,50,50);
+		toggleSound.setBounds(30, 500, 50, 50);
 		toggleSound.setBackground(null);
-		toggleSound.setBorderPainted(false); 
-        toggleSound.setContentAreaFilled(false); 
-        toggleSound.setFocusPainted(false); 
-        toggleSound.setOpaque(false);
+		toggleSound.setBorderPainted(false);
+		toggleSound.setContentAreaFilled(false);
+		toggleSound.setFocusPainted(false);
+		toggleSound.setOpaque(false);
 		add(newGame);
 		add(modifyData);
 		add(quit);
@@ -149,7 +148,8 @@ public class MainMenu extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == newGame) {
 				buttonSound.play();
-				ScreenHandler.getInstance().openRegisterCreate(MainMenu.getInstance().getX(),MainMenu.getInstance().getY());
+				ScreenHandler.getInstance().openRegisterCreate(MainMenu.getInstance().getX(),
+					MainMenu.getInstance().getY());
 				ScreenHandler.getInstance().closeMainMenu();
 			} else if (e.getSource() == modifyData) {
 				buttonSound.play();
@@ -159,12 +159,12 @@ public class MainMenu extends JFrame {
 				mainAmbience.stop();
 				dispose();
 				System.exit(0);
-			} else if(e.getSource() == toggleSound) {
-				if(toggleSound.getIcon().equals(sound)) {
+			} else if (e.getSource() == toggleSound) {
+				if (toggleSound.getIcon().equals(sound)) {
 					buttonSound.play();
 					mainAmbience.stop();
 					toggleSound.setIcon(mute);
-				}else {
+				} else {
 					buttonSound.play();
 					mainAmbience.play();
 					toggleSound.setIcon(sound);

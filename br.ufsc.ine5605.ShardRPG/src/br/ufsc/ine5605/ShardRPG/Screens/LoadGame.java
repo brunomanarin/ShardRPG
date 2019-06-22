@@ -180,7 +180,7 @@ public class LoadGame extends JFrame {
 
 		font2 = new Font("Segoe Script", Font.BOLD, 25);
 		log = new JLabel();
-		log.setBounds(420, 270, 600, 500);
+		log.setBounds(430, 270, 600, 500);
 		log.setText("");
 		log.setFont(font2);
 		log.setForeground(Color.ORANGE);

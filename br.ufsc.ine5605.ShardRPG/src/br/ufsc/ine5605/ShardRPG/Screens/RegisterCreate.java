@@ -1,13 +1,12 @@
 package br.ufsc.ine5605.ShardRPG.Screens;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import br.ufsc.ine5605.ShardRPG.Control.JsonDao;
 import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
+import br.ufsc.ine5605.ShardRPG.Info.Player;
+import br.ufsc.ine5605.ShardRPG.Info.PlayerRace;
+import br.ufsc.ine5605.ShardRPG.Info.PlayerType;
 
 public class RegisterCreate extends JFrame {
 
@@ -35,6 +38,8 @@ public class RegisterCreate extends JFrame {
 		}
 		return instance;
 	}
+
+	JsonDao dao;
 
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 
@@ -60,7 +65,7 @@ public class RegisterCreate extends JFrame {
 
 	Color brown = new Color(26, 0, 0);
 
-	Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
+	// Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
 
 	JLabel background = new JLabel(backgroundImage);
 
@@ -76,13 +81,9 @@ public class RegisterCreate extends JFrame {
 
 	JTextField name = new JTextField();
 
-	String race[] = {"Human", "Orc"};
+	JComboBox<PlayerRace> selectRace = new JComboBox<>(PlayerRace.values());
 
-	JComboBox<String> selectRace = new JComboBox<>(race);
-
-	String role[] = {"Rogue", "Warrior", "Mage"};
-
-	JComboBox<String> selectRole = new JComboBox<>(role);
+	JComboBox<PlayerType> selectRole = new JComboBox<>(PlayerType.values());
 
 	JLabel characterPlaceHolder = new JLabel(questionMark);
 
@@ -91,11 +92,17 @@ public class RegisterCreate extends JFrame {
 	LineBorder line = new LineBorder(brown, 1, true);
 
 	Font font1 = new Font("SansSerif", Font.TRUETYPE_FONT, 28);
-	
+
+	Player player;
+
 	ImageIcon back = new ImageIcon("./img/back.png");
+
 	JButton goBack = new JButton(back);
+
 	ImageIcon sound = new ImageIcon("./img/volume.png");
+
 	ImageIcon mute = new ImageIcon("./img/mute.png");
+
 	JButton toggleSound = new JButton(sound);
 
 
@@ -107,7 +114,7 @@ public class RegisterCreate extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setAlwaysOnTop(true);
-		setCursor(sword);
+		// setCursor(sword);
 		add(name);
 		add(nameLabel);
 		nameLabel.setBounds(35, 90, 150, 20);
@@ -145,31 +152,74 @@ public class RegisterCreate extends JFrame {
 		submit.setFont(font1);
 		submit.setFocusPainted(false);
 		add(goBack);
-		goBack.setBounds(30,500,50,50);
+		goBack.setBounds(30, 500, 50, 50);
 		goBack.setBackground(null);
-		goBack.setBorderPainted(false); 
-        goBack.setContentAreaFilled(false); 
-        goBack.setFocusPainted(false); 
-        goBack.setOpaque(false);
+		goBack.setBorderPainted(false);
+		goBack.setContentAreaFilled(false);
+		goBack.setFocusPainted(false);
+		goBack.setOpaque(false);
 		add(toggleSound);
 		toggleSound.setBounds(100, 500, 50, 50);
 		toggleSound.setBackground(null);
-		toggleSound.setBorderPainted(false); 
-        toggleSound.setContentAreaFilled(false); 
-        toggleSound.setFocusPainted(false); 
-        toggleSound.setOpaque(false);
+		toggleSound.setBorderPainted(false);
+		toggleSound.setContentAreaFilled(false);
+		toggleSound.setFocusPainted(false);
+		toggleSound.setOpaque(false);
 		add(background);
 		background.setBounds(0, 0, 800, 600);
 		background.setOpaque(true);
 		background.setBackground(brown);
+		dao = new JsonDao();
 
 		final JComboHandler actnMngr = new JComboHandler();
 		selectRole.addActionListener(actnMngr);
-		
-		ButtonsHandler bttnMngr = new ButtonsHandler();
+
+		final ButtonsHandler bttnMngr = new ButtonsHandler();
 		toggleSound.addActionListener(bttnMngr);
 		goBack.addActionListener(bttnMngr);
 
+		submit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PlayerRace playerRace = null;
+				switch (selectRace.getSelectedIndex()) {
+				case 0:
+					playerRace = PlayerRace.orc;
+					break;
+				case 1:
+					playerRace = PlayerRace.human;
+				default:
+					//////////////////
+					break;
+				}
+
+				PlayerType playerType = null;
+				switch (selectRole.getSelectedIndex()) {
+				case 0:
+					playerType = PlayerType.warrior;
+					break;
+				case 1:
+					playerType = PlayerType.mage;
+					break;
+				case 2:
+					playerType = PlayerType.rogue;
+					break;
+				default:
+					///////////
+					break;
+				}
+				player = new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
+				try {
+					dao.registerPlayer(player);
+					/////
+				} catch (final IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		;
 	}
 
 	private class JComboHandler implements ActionListener {
@@ -188,28 +238,28 @@ public class RegisterCreate extends JFrame {
 			}
 		}
 	}
-	
-	private class ButtonsHandler implements ActionListener{
+
+	private class ButtonsHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == toggleSound) {
-				if(toggleSound.getIcon().equals(sound)) {
-					//buttonSound.play();
-					//mainAmbience.stop();
+			if (e.getSource() == toggleSound) {
+				if (toggleSound.getIcon().equals(sound)) {
+					// buttonSound.play();
+					// mainAmbience.stop();
 					toggleSound.setIcon(mute);
-				}else {
-					//buttonSound.play();
-					//mainAmbience.play();
+				} else {
+					// buttonSound.play();
+					// mainAmbience.play();
 					toggleSound.setIcon(sound);
 				}
-			} else if(e.getSource() == goBack) {
+			} else if (e.getSource() == goBack) {
 				ScreenHandler.getInstance().closeRegisterCreate();
-				ScreenHandler.getInstance().openMainMenu(RegisterCreate.getInstance().getX(), RegisterCreate.getInstance().getY());
+				ScreenHandler.getInstance().openMainMenu(RegisterCreate.getInstance().getX(),
+					RegisterCreate.getInstance().getY());
 			}
-			
+
 		}
-		
 	}
 
 }
