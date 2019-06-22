@@ -3,7 +3,9 @@ package br.ufsc.ine5605.ShardRPG.Screens;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
+
 public class MainMenu extends JFrame {
 
 	/**
@@ -22,12 +26,22 @@ public class MainMenu extends JFrame {
 	 */
 	private static final long serialVersionUID = -5786210545170621619L;
 
+	private static MainMenu instance;
+
+
+	public static MainMenu getInstance() {
+		if (instance == null) {
+			instance = new MainMenu();
+		}
+		return instance;
+	}
+
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 
 	Image cursorImage = toolkit.getImage("./img/cursor.png");
 
-	// Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(this.getX(),
-	// this.getY()), "img");
+	Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
+
 	ImageIcon shardLogo = new ImageIcon("./img/shard2.png");
 
 	ImageIcon background = new ImageIcon("./img/menuBG.jpg");
@@ -87,7 +101,7 @@ public class MainMenu extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setAlwaysOnTop(true);
-		// setCursor(sword);
+		setCursor(sword);
 		add(titleLogo);
 		titleLogo.setBounds(135, 90, 530, 180);
 		newGame.setBounds(325, 300, 150, 40);
@@ -116,18 +130,14 @@ public class MainMenu extends JFrame {
 		button.setFocusPainted(false);
 	}
 
-
-	public static void main(String[] args) {
-		final MainMenu menu = new MainMenu();
-	}
-
 	private class ButtonManager implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == newGame) {
 				buttonSound.play();
-
+				ScreenHandler.getInstance().openRegisterCreate();
+				ScreenHandler.getInstance().closeMainMenu();
 			} else if (e.getSource() == modifyData) {
 				buttonSound.play();
 
