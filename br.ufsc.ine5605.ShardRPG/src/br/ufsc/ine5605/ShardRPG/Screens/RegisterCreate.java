@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
+
 public class RegisterCreate extends JFrame {
 
 	/**
@@ -38,23 +40,23 @@ public class RegisterCreate extends JFrame {
 
 	Image cursorImage = toolkit.getImage("./img/cursor.png");
 
-	ImageIcon questionMark = new ImageIcon("./img/questionmark.png");
+	ImageIcon questionMark = new ImageIcon("./img/register-create/questionmark.png");
 
 	ImageIcon backgroundImage = new ImageIcon("./img/menuBG.jpg");
 
-	ImageIcon register = new ImageIcon("./img/register.png");
+	ImageIcon register = new ImageIcon("./img/register-create/register.png");
 
-	ImageIcon nameImg = new ImageIcon("./img/enterName.png");
+	ImageIcon nameImg = new ImageIcon("./img/register-create/enterName.png");
 
-	ImageIcon raceImg = new ImageIcon("./img/selectRace.png");
+	ImageIcon raceImg = new ImageIcon("./img/register-create/selectRace.png");
 
-	ImageIcon classImg = new ImageIcon("./img/selectClass.png");
+	ImageIcon classImg = new ImageIcon("./img/register-create/selectClass.png");
 
-	ImageIcon rogue = new ImageIcon("./img/rogue.png");
+	ImageIcon rogue = new ImageIcon("./img/register-create/rogue.png");
 
-	ImageIcon mage = new ImageIcon("./img/mage.png");
+	ImageIcon mage = new ImageIcon("./img/register-create/mage.png");
 
-	ImageIcon warrior = new ImageIcon("./img/warrior.png");
+	ImageIcon warrior = new ImageIcon("./img/register-create/warrior.png");
 
 	Color brown = new Color(26, 0, 0);
 
@@ -89,6 +91,12 @@ public class RegisterCreate extends JFrame {
 	LineBorder line = new LineBorder(brown, 1, true);
 
 	Font font1 = new Font("SansSerif", Font.TRUETYPE_FONT, 28);
+	
+	ImageIcon back = new ImageIcon("./img/back.png");
+	JButton goBack = new JButton(back);
+	ImageIcon sound = new ImageIcon("./img/volume.png");
+	ImageIcon mute = new ImageIcon("./img/mute.png");
+	JButton toggleSound = new JButton(sound);
 
 
 	public RegisterCreate() {
@@ -136,17 +144,35 @@ public class RegisterCreate extends JFrame {
 		submit.setForeground(Color.white);
 		submit.setFont(font1);
 		submit.setFocusPainted(false);
+		add(goBack);
+		goBack.setBounds(30,500,50,50);
+		goBack.setBackground(null);
+		goBack.setBorderPainted(false); 
+        goBack.setContentAreaFilled(false); 
+        goBack.setFocusPainted(false); 
+        goBack.setOpaque(false);
+		add(toggleSound);
+		toggleSound.setBounds(100, 500, 50, 50);
+		toggleSound.setBackground(null);
+		toggleSound.setBorderPainted(false); 
+        toggleSound.setContentAreaFilled(false); 
+        toggleSound.setFocusPainted(false); 
+        toggleSound.setOpaque(false);
 		add(background);
 		background.setBounds(0, 0, 800, 600);
 		background.setOpaque(true);
 		background.setBackground(brown);
 
-		final ActionManager actnMngr = new ActionManager();
+		final JComboHandler actnMngr = new JComboHandler();
 		selectRole.addActionListener(actnMngr);
+		
+		ButtonsHandler bttnMngr = new ButtonsHandler();
+		toggleSound.addActionListener(bttnMngr);
+		goBack.addActionListener(bttnMngr);
 
 	}
 
-	private class ActionManager implements ActionListener {
+	private class JComboHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -161,6 +187,29 @@ public class RegisterCreate extends JFrame {
 				characterPlaceHolder.setIcon(mage);
 			}
 		}
+	}
+	
+	private class ButtonsHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == toggleSound) {
+				if(toggleSound.getIcon().equals(sound)) {
+					//buttonSound.play();
+					//mainAmbience.stop();
+					toggleSound.setIcon(mute);
+				}else {
+					//buttonSound.play();
+					//mainAmbience.play();
+					toggleSound.setIcon(sound);
+				}
+			} else if(e.getSource() == goBack) {
+				ScreenHandler.getInstance().closeRegisterCreate();
+				ScreenHandler.getInstance().openMainMenu(RegisterCreate.getInstance().getX(), RegisterCreate.getInstance().getY());
+			}
+			
+		}
+		
 	}
 
 }
