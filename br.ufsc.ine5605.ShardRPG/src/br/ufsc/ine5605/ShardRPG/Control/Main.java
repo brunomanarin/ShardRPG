@@ -5,6 +5,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		//final Game game = new Game();
 		//game.start();
-		ScreenHandler.getInstance().openMainMenu();
+		ScreenHandler.getInstance().openMainMenu(0,0);
 	}
 }

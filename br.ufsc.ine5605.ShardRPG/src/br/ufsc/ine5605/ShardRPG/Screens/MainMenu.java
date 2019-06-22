@@ -113,7 +113,7 @@ public class MainMenu extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == newGame) {
 				buttonSound.play();
-				ScreenHandler.getInstance().openRegisterCreate();
+				ScreenHandler.getInstance().openRegisterCreate(MainMenu.getInstance().getX(),MainMenu.getInstance().getY());
 				ScreenHandler.getInstance().closeMainMenu();
 			}else if(e.getSource() == modifyData) {
 				buttonSound.play();
