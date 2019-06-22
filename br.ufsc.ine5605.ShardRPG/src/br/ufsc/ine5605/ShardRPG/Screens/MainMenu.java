@@ -39,6 +39,11 @@ public class MainMenu extends JFrame {
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 
 	Image cursorImage = toolkit.getImage("./img/cursor.png");
+	
+	ImageIcon sound = new ImageIcon("./img/volume.png");
+	ImageIcon mute = new ImageIcon("./img/mute.png");
+	
+	JButton toggleSound = new JButton(sound);
 
 	Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
 
@@ -110,6 +115,13 @@ public class MainMenu extends JFrame {
 		buttonStyling(newGame);
 		buttonStyling(modifyData);
 		buttonStyling(quit);
+		add(toggleSound);
+		toggleSound.setBounds(30,500,50,50);
+		toggleSound.setBackground(null);
+		toggleSound.setBorderPainted(false); 
+        toggleSound.setContentAreaFilled(false); 
+        toggleSound.setFocusPainted(false); 
+        toggleSound.setOpaque(false);
 		add(newGame);
 		add(modifyData);
 		add(quit);
@@ -120,6 +132,7 @@ public class MainMenu extends JFrame {
 		newGame.addActionListener(btnManager);
 		modifyData.addActionListener(btnManager);
 		quit.addActionListener(btnManager);
+		toggleSound.addActionListener(btnManager);
 		mainAmbience.play();
 	}
 
@@ -136,7 +149,7 @@ public class MainMenu extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == newGame) {
 				buttonSound.play();
-				ScreenHandler.getInstance().openRegisterCreate();
+				ScreenHandler.getInstance().openRegisterCreate(MainMenu.getInstance().getX(),MainMenu.getInstance().getY());
 				ScreenHandler.getInstance().closeMainMenu();
 			} else if (e.getSource() == modifyData) {
 				buttonSound.play();
@@ -146,6 +159,16 @@ public class MainMenu extends JFrame {
 				mainAmbience.stop();
 				dispose();
 				System.exit(0);
+			} else if(e.getSource() == toggleSound) {
+				if(toggleSound.getIcon().equals(sound)) {
+					buttonSound.play();
+					mainAmbience.stop();
+					toggleSound.setIcon(mute);
+				}else {
+					buttonSound.play();
+					mainAmbience.play();
+					toggleSound.setIcon(sound);
+				}
 			}
 		}
 	}

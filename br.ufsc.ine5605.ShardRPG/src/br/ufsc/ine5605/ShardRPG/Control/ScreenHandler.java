@@ -19,14 +19,17 @@ public class ScreenHandler {
 		return instance;
 	}
 	
-	public void openMainMenu() {
+	public void openMainMenu(int x, int y) {
 		MainMenu.getInstance().setVisible(true);
+		MainMenu.getInstance().setLocation(x,y);
 	}
-	public void openRegisterCreate() {
+	public void openRegisterCreate(int x, int y) {
 		RegisterCreate.getInstance().setVisible(true);
+		RegisterCreate.getInstance().setLocation(x,y);
 	}
-	public void openGameContainer() {
+	public void openGameContainer(int x, int y) {
 		GameContainer.getInstance().setVisible(true);
+		GameContainer.getInstance().setLocation(x,y);
 	}
 	public void closeMainMenu() {
 		MainMenu.getInstance().setVisible(false);
