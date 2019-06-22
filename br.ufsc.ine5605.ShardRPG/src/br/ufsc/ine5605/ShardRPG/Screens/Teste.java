@@ -2,11 +2,13 @@ package br.ufsc.ine5605.ShardRPG.Screens;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 public class Teste extends JFrame {
@@ -45,20 +47,21 @@ public class Teste extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		final JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 400, 600);
-		contentPane.add(scrollPane);
+		final JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
 
-		final JTextArea jTextArea = new JTextArea();
-		scrollPane.setViewportView(jTextArea);
-		jTextArea.setText("O poeta é um fingidor.\n" + "Finge tão completamente\n" + "Que chega a fingir que é dor\n"
-			+ "A dor que deveras sente.\n" + "\n" + "E os que lêem o que escreve,\n" + "Na dor lida sentem bem,\n"
-			+ "Não as duas que ele teve,\n" + "Mas só a que eles não têm.\n" + "\n" + "E assim nas calhas da roda\n"
-			+ "Gira, a entreter a razão,\n" + "Esse comboio de corda\n" + "Que se chama o coração.O poeta é um fingidor.\n"
-			+ "Finge tão completamente\n" + "Que chega a fingir que é dor\n" + "A dor que deveras sente.\n" + "\n"
-			+ "E os que lêem o que escreve,\n" + "Na dor lida sentem bem,\n" + "Não as duas que ele teve,\n"
-			+ "Mas só a que eles não têm.\n" + "\n" + "E assim nas calhas da roda\n" + "Gira, a entreter a razão,\n"
-			+ "Esse comboio de corda\n" + "Que se chama o coração.");
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton.setBounds(208, 124, 114, 25);
+		contentPane.add(btnNewButton);
+
+		final JLabel lblBomDia = new JLabel("bom dia");
+		lblBomDia.setBackground(Color.GREEN);
+		lblBomDia.setForeground(Color.LIGHT_GRAY);
+		lblBomDia.setBounds(163, 56, 96, 31);
+		contentPane.add(lblBomDia);
 
 	}
 }
