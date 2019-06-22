@@ -46,7 +46,7 @@ public class Teste extends JFrame {
 		contentPane.setLayout(null);
 
 		final JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(201, 12, 128, 267);
+		scrollPane.setBounds(0, 0, 400, 600);
 		contentPane.add(scrollPane);
 
 		final JTextArea jTextArea = new JTextArea();
