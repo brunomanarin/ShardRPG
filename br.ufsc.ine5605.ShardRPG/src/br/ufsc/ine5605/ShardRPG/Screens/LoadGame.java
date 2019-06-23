@@ -69,6 +69,8 @@ public class LoadGame extends JFrame {
 
 	private final JLabel load;
 
+	private String newName;
+
 	private final JLabel key;
 
 	private final JLabel key2;
@@ -132,7 +134,9 @@ public class LoadGame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//////////////
+				if (textField1.getText() != null) {
+					dao.getPlayer(textField1.getText());
+				}
 
 			}
 		});

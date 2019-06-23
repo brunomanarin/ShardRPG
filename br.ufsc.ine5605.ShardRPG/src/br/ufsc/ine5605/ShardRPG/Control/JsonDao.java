@@ -42,6 +42,15 @@ public class JsonDao {
 	}
 
 
+	public Player getPlayer(String key) {
+		final Map<String, Player> players = allPlayersMap();
+		if (players.containsKey(key)) {
+			return players.get(key);
+		}
+		return null;
+	}
+
+
 	public Map<String, Player> allPlayersMap() {
 		try {
 			final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
