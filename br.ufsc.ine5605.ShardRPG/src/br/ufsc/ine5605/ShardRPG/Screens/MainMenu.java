@@ -149,6 +149,7 @@ public class MainMenu extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == newGame) {
 				buttonSound.play();
+				mainAmbience.stop();
 				ScreenHandler.getInstance().openRegisterCreate(MainMenu.getInstance().getX(),
 					MainMenu.getInstance().getY());
 				ScreenHandler.getInstance().closeMainMenu();
@@ -158,7 +159,7 @@ public class MainMenu extends JFrame {
 					ScreenHandler.getInstance().openLoadGame(MainMenu.getInstance().getX(),
 						MainMenu.getInstance().getY());
 					ScreenHandler.getInstance().closeMainMenu();
-				} catch (IOException e1) {
+				} catch (final IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

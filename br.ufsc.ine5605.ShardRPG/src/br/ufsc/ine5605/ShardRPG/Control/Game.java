@@ -16,14 +16,13 @@ import br.ufsc.ine5605.ShardRPG.Item.BreakableWithTool;
 import br.ufsc.ine5605.ShardRPG.Item.CanPickUp;
 import br.ufsc.ine5605.ShardRPG.Item.Inspectable;
 import br.ufsc.ine5605.ShardRPG.Item.Item;
+import br.ufsc.ine5605.ShardRPG.Screens.GameContainer;
 
 public class Game {
 
-	private final JsonDao jsonHandler;
+	private final JsonDao dao;
 
 	private Player player;
-
-	private final RegisterPlayerHandler playerHandler;
 
 	private final Intepreter intepreter;
 
@@ -34,117 +33,27 @@ public class Game {
 
 	public Game() throws Exception {
 		intepreter = new Intepreter();
-		Map<String, Player> mapList;
-		playerHandler = new RegisterPlayerHandler();
-		jsonHandler = new JsonDao();
+		final Map<String, Player> mapList;
+		dao = new JsonDao();
 		listRoom = new MapListRoom();
 
-		int input = 0;
 		try {
-			GameTextScreen.shardLogoPrint();
-			GameTextScreen.mainMenu();
-
 			final File file = new File("PlayersList.json");
 			try {
 				final PlayerList playerList = new Gson().fromJson(
 					JsonDao.loadJsonContent("PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
 				if (playerList == null) {
 					file.delete();
-					jsonHandler.registerPlayer(new Player(null, null, null, null, null));
+					dao.registerPlayer(new Player(null, null, null, null, null));
 				}
 			} catch (final Exception e) {
 				file.delete();
-				jsonHandler.registerPlayer(new Player(null, null, null, null, null));
+				dao.registerPlayer(new Player(null, null, null, null, null));
 			}
 			do {
-				GameTextScreen.print("> ");
-				try {
-					input = GameTextScreen.receiveInteger();
-					final int playerNumbers = jsonHandler.allPlayersMap().size();
-					final String playersList = jsonHandler.playerListing();
-					switch (input) {
-					case 1: {
-						player = playerHandler.registerNewPlayer();
-						GameTextScreen.println(jsonHandler.registerPlayer(player));
-					}
-						break;
-					case 2: {
-						String key;
-						if (playersList == null || !file.exists() || playerNumbers <= 1) {
-							GameTextScreen.println(
-								"\nNo save files exist! Let's have ourselves a new adventure! \n");
-							file.delete();
-							player = playerHandler.registerNewPlayer();
-							GameTextScreen.println(jsonHandler.registerPlayer(player));
-
-						} else {
-							GameTextScreen.println(playersList);
-							do {
-								GameTextScreen.println("Choose a key: ");
-								GameTextScreen.print("> ");
-								key = GameTextScreen.receiveString().toUpperCase();
-								mapList = jsonHandler.allPlayersMap();
-								if (!mapList.containsKey(key)) {
-									GameTextScreen.println("Invalid key!\n");
-								}
-							} while (!mapList.containsKey(key));
-							player = mapList.get(key);
-							GameTextScreen.println("Success! You've just logged in!\n");
-						}
-					}
-						break;
-					case 3: {
-						if (playerNumbers > 1) {
-							String key;
-							do {
-								GameTextScreen.println(playersList);
-								GameTextScreen.println("Choose a valid key: ");
-								GameTextScreen.print("> ");
-								key = GameTextScreen.receiveString().toUpperCase();
-							} while (!jsonHandler.allPlayersMap().containsKey(key));
-							if (jsonHandler.allPlayersMap().containsKey(key)) {
-								jsonHandler.deletePlayer(key);
-								GameTextScreen.println("\nPlayer Deleted!");
-							}
-						} else {
-							GameTextScreen.println("\n No players registered!");
-						}
-					}
-						break;
-					case 4: {
-						if (playerNumbers > 1) {
-							String key;
-							do {
-								GameTextScreen.println(playersList);
-								GameTextScreen.println("Choose a valid key: ");
-								GameTextScreen.print("> ");
-								key = GameTextScreen.receiveString().toUpperCase();
-							} while (!jsonHandler.allPlayersMap().containsKey(key));
-							if (jsonHandler.allPlayersMap().containsKey(key)) {
-								String name;
-								GameTextScreen.println("Choose a new Name: ");
-								GameTextScreen.print("> ");
-								name = GameTextScreen.receiveString().toUpperCase();
-								jsonHandler.changeName(key, name);
-								GameTextScreen.println("Name Changed!");
-							}
-						} else {
-							GameTextScreen.println("\n No players registered!");
-						}
-					}
-						break;
-					default:
-						break;
-					}
-
-					if (input != 1 && input != 2) {
-						GameTextScreen.mainMenuText();
-					}
-				} catch (final Exception e) {
-					GameTextScreen.mainMenuText();
-					GameTextScreen.receiveString();
-				}
-			} while (input != 1 && input != 2);
+				ScreenHandler.getInstance().openMainMenu(0, 0);
+				player = ScreenHandler.getInstance().getPlayer();
+			} while (player == null);
 		} catch (final Exception e) {
 			/* GameTextScreen.println(e); */
 		}
@@ -152,6 +61,8 @@ public class Game {
 
 
 	public void start() {
+		ScreenHandler.getInstance().openGameContainer(0, 0);
+		System.out.println("AQUI");
 		String input = "";
 		try {
 			listRoom.shardDungeon();
@@ -171,6 +82,7 @@ public class Game {
 					System.exit(0);
 				}
 				do {
+					GameContainer.getInstance();
 					GameTextScreen.print("> ");
 					input = GameTextScreen.receiveString();
 				} while (input.equalsIgnoreCase(""));
@@ -191,7 +103,7 @@ public class Game {
 						player.getCurrentRoom().setWasVisited(true);
 					}
 					player.setRoom(player.getCurrentRoom().getName());
-					jsonHandler.saveGame(player);
+					dao.saveGame(player);
 					break;
 
 				case TYPE_NOOBJECTACTION:

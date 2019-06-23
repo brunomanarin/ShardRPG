@@ -2,6 +2,7 @@ package br.ufsc.ine5605.ShardRPG.Control;
 
 import java.io.IOException;
 
+import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Screens.GameContainer;
 import br.ufsc.ine5605.ShardRPG.Screens.LoadGame;
 import br.ufsc.ine5605.ShardRPG.Screens.MainMenu;
@@ -10,42 +11,79 @@ import br.ufsc.ine5605.ShardRPG.Screens.RegisterCreate;
 public class ScreenHandler {
 
 	private static ScreenHandler instance;
-	
-	private ScreenHandler() {
-		
+
+	private Player player;
+
+
+	public Player getPlayer() {
+		return player;
 	}
+
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+
+	private ScreenHandler() {
+
+	}
+
+
 	public static ScreenHandler getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new ScreenHandler();
 		}
 		return instance;
 	}
-	
+
+
 	public void openMainMenu(int x, int y) {
 		MainMenu.getInstance().setVisible(true);
-		MainMenu.getInstance().setLocation(x,y);
+		MainMenu.getInstance().setLocation(x, y);
 	}
+
+
 	public void openRegisterCreate(int x, int y) {
 		RegisterCreate.getInstance().setVisible(true);
-		RegisterCreate.getInstance().setLocation(x,y);
+		RegisterCreate.getInstance().setLocation(x, y);
 	}
+
+
 	public void openGameContainer(int x, int y) {
 		GameContainer.getInstance().setVisible(true);
-		GameContainer.getInstance().setLocation(x,y);
+		GameContainer.getInstance().setLocation(x, y);
 	}
+
+
 	public void openLoadGame(int x, int y) throws IOException {
 		LoadGame.getInstance().setVisible(true);
-		LoadGame.getInstance().setLocation(x,y);
+		LoadGame.getInstance().setLocation(x, y);
 	}
+
+
 	public void closeMainMenu() {
 		MainMenu.getInstance().setVisible(false);
 	}
+
+
 	public void closeRegisterCreate() {
 		RegisterCreate.getInstance().setVisible(false);
 	}
+
+
 	public void closeGameContainer() {
 		GameContainer.getInstance().setVisible(false);
 	}
-	
-	
+
+
+	public MainMenu getMainMenu() {
+		return MainMenu.getInstance();
+	}
+
+
+	public RegisterCreate getRegisterCreate() {
+		return RegisterCreate.getInstance();
+	}
+
 }

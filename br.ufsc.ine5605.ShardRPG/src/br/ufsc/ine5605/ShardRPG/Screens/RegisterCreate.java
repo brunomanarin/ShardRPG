@@ -205,6 +205,8 @@ public class RegisterCreate extends JFrame {
 				player = new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
 				try {
 					dao.registerPlayer(player);
+					ScreenHandler.getInstance().setPlayer(player);
+					ScreenHandler.getInstance().closeRegisterCreate();
 
 				} catch (final IOException e1) {
 					// TODO Auto-generated catch block
