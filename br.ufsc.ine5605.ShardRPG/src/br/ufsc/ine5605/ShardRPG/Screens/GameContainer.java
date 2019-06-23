@@ -3,16 +3,20 @@ package br.ufsc.ine5605.ShardRPG.Screens;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.PrintStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import JFrames.CustomOutputStream;
+import br.ufsc.ine5605.ShardRPG.Control.Game;
 
 public class GameContainer extends JFrame {
 
@@ -50,6 +54,8 @@ public class GameContainer extends JFrame {
 	JButton send = new JButton("Send");
 
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	
+	JScrollPane consoleScroll = new JScrollPane();
 
 	Image cursorImage = toolkit.getImage("./img/cursor.png");
 
@@ -69,8 +75,9 @@ public class GameContainer extends JFrame {
 		// setCursor(sword);
 		System.setOut(printStream);
 		System.setErr(printStream);
-		add(consoleOutput);
-		consoleOutput.setBounds(50, 300, 700, 200);
+		consoleScroll.setViewportView(consoleOutput);
+		add(consoleScroll);
+		consoleScroll.setBounds(50, 300, 700, 200);
 		consoleOutput.setBackground(Color.gray);
 		consoleOutput.setEditable(false);
 		add(inputArea);
@@ -85,6 +92,29 @@ public class GameContainer extends JFrame {
 		gameDisplayScreen.setBounds(150, 50, 500, 225);
 		add(backgroundImg);
 		backgroundImg.setBounds(0, 0, 800, 600);
+		
+		ButtonManager bttnManager = new ButtonManager();
+		
+		send.addActionListener(bttnManager);
+	}	
+	
+	private class ButtonManager implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == send) {
+				try {
+					Game.getInstance().makeAction(inputArea.getText());
+					inputArea.setText("");
+					consoleOutput.update(consoleOutput.getGraphics());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+		
 	}
 
 }

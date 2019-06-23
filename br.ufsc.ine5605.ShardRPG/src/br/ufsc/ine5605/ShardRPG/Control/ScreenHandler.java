@@ -12,19 +12,6 @@ public class ScreenHandler {
 
 	private static ScreenHandler instance;
 
-	private Player player;
-
-
-	public Player getPlayer() {
-		return player;
-	}
-
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-
 	private ScreenHandler() {
 
 	}
@@ -51,7 +38,7 @@ public class ScreenHandler {
 
 
 	public void openGameContainer(int x, int y) {
-		GameContainer.getInstance().setVisible(true);
+		GameContainer.getInstance();
 		GameContainer.getInstance().setLocation(x, y);
 	}
 

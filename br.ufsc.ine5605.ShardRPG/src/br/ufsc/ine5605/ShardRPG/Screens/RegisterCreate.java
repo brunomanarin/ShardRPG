@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import br.ufsc.ine5605.ShardRPG.Control.Game;
 import br.ufsc.ine5605.ShardRPG.Control.JsonDao;
 import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
 import br.ufsc.ine5605.ShardRPG.Info.Player;
@@ -170,53 +171,38 @@ public class RegisterCreate extends JFrame {
 		final ButtonsHandler bttnMngr = new ButtonsHandler();
 		toggleSound.addActionListener(bttnMngr);
 		goBack.addActionListener(bttnMngr);
-
-		submit.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				PlayerRace playerRace = null;
-				switch (selectRace.getSelectedIndex()) {
-				case 0:
-					playerRace = PlayerRace.orc;
-					break;
-				case 1:
-					playerRace = PlayerRace.human;
-				default:
-					//////////////////
-					break;
-				}
-
-				PlayerType playerType = null;
-				switch (selectRole.getSelectedIndex()) {
-				case 0:
-					playerType = PlayerType.warrior;
-					break;
-				case 1:
-					playerType = PlayerType.mage;
-					break;
-				case 2:
-					playerType = PlayerType.rogue;
-					break;
-				default:
-					///////////
-					break;
-				}
-				player = new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
-				try {
-					dao.registerPlayer(player);
-					ScreenHandler.getInstance().setPlayer(player);
-					ScreenHandler.getInstance().closeRegisterCreate();
-
-				} catch (final IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		;
+		submit.addActionListener(bttnMngr);
 	}
+	public Player createNewPlayer() {
+		PlayerRace playerRace = null;
+		switch (selectRace.getSelectedIndex()) {
+		case 0:
+			playerRace = PlayerRace.orc;
+			break;
+		case 1:
+			playerRace = PlayerRace.human;
+		default:
+			//////////////////
+			break;
+		}
 
+		PlayerType playerType = null;
+		switch (selectRole.getSelectedIndex()) {
+		case 0:
+			playerType = PlayerType.warrior;
+			break;
+		case 1:
+			playerType = PlayerType.mage;
+			break;
+		case 2:
+			playerType = PlayerType.rogue;
+			break;
+		default:
+			///////////
+			break;
+		}
+		return new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
+	}
 	private class JComboHandler implements ActionListener {
 
 		@Override
@@ -251,7 +237,22 @@ public class RegisterCreate extends JFrame {
 			} else if (e.getSource() == goBack) {
 				ScreenHandler.getInstance().closeRegisterCreate();
 				ScreenHandler.getInstance().openMainMenu(RegisterCreate.getInstance().getX(),
-					RegisterCreate.getInstance().getY());
+				RegisterCreate.getInstance().getY());
+			}else if(e.getSource() == submit) {
+				try {
+					dao.registerPlayer(RegisterCreate.getInstance().createNewPlayer());
+					try {
+						Game.getInstance().setPlayer(RegisterCreate.getInstance().createNewPlayer());
+						Game.getInstance().start();
+						ScreenHandler.getInstance().closeRegisterCreate();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		}
