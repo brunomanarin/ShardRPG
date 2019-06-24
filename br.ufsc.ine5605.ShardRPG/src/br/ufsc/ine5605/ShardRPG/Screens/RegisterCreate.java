@@ -94,6 +94,8 @@ public class RegisterCreate extends JFrame {
 
 	Font font1 = new Font("SansSerif", Font.TRUETYPE_FONT, 28);
 
+	Font font2 = new Font("SansSerif", Font.BOLD, 28);
+
 	Player player;
 
 	ImageIcon back = new ImageIcon("./img/back.png");
@@ -105,6 +107,8 @@ public class RegisterCreate extends JFrame {
 	ImageIcon mute = new ImageIcon("./img/mute.png");
 
 	JButton toggleSound = new JButton(sound);
+
+	JTextField log = new JTextField();
 
 
 	public RegisterCreate() {
@@ -159,10 +163,17 @@ public class RegisterCreate extends JFrame {
 		goBack.setContentAreaFilled(false);
 		goBack.setFocusPainted(false);
 		goBack.setOpaque(false);
-		add(background);
+		log.setBounds(40, 450, 300, 30);
+		log.setBackground(Color.BLACK);
+		log.setEditable(false);
+		log.setFont(font1);
+		log.setForeground(Color.red);
+		log.setVisible(false);
+		add(log);
 		background.setBounds(0, 0, 800, 600);
 		background.setOpaque(true);
 		background.setBackground(brown);
+		add(background);
 		dao = new JsonDao();
 
 		final JComboHandler actnMngr = new JComboHandler();
@@ -173,6 +184,8 @@ public class RegisterCreate extends JFrame {
 		goBack.addActionListener(bttnMngr);
 		submit.addActionListener(bttnMngr);
 	}
+
+
 	public Player createNewPlayer() {
 		PlayerRace playerRace = null;
 		switch (selectRace.getSelectedIndex()) {
@@ -203,6 +216,7 @@ public class RegisterCreate extends JFrame {
 		}
 		return new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
 	}
+
 	private class JComboHandler implements ActionListener {
 
 		@Override
@@ -237,21 +251,26 @@ public class RegisterCreate extends JFrame {
 			} else if (e.getSource() == goBack) {
 				ScreenHandler.getInstance().closeRegisterCreate();
 				ScreenHandler.getInstance().openMainMenu(RegisterCreate.getInstance().getX(),
-				RegisterCreate.getInstance().getY());
-			}else if(e.getSource() == submit) {
-				try {
-					dao.registerPlayer(RegisterCreate.getInstance().createNewPlayer());
+					RegisterCreate.getInstance().getY());
+			} else if (e.getSource() == submit) {
+				if (name.getText() != null && !name.getText().equalsIgnoreCase("")) {
 					try {
-						Game.getInstance().setPlayer(RegisterCreate.getInstance().createNewPlayer());
-						Game.getInstance().start();
-						ScreenHandler.getInstance().closeRegisterCreate();
-					} catch (Exception e1) {
+						dao.registerPlayer(RegisterCreate.getInstance().createNewPlayer());
+						try {
+							Game.getInstance().setPlayer(RegisterCreate.getInstance().createNewPlayer());
+							Game.getInstance().start();
+							ScreenHandler.getInstance().closeRegisterCreate();
+						} catch (final Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (final IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} else {
+					log.setText("Name Invalid!");
+					log.setVisible(true);
 				}
 			}
 
