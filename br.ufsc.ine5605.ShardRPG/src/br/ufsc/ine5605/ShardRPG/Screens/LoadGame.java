@@ -134,6 +134,8 @@ public class LoadGame extends JFrame {
 
 		loadButton = new JButton("Load");
 		loadButton.addActionListener(new ActionListener() {
+			//juntarEventos
+			//dao para o Game
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

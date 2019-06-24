@@ -59,8 +59,8 @@ public class GameContainer extends JFrame {
 
 	Image cursorImage = toolkit.getImage("./img/cursor.png");
 
-	// Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(this.getX(),
-	// this.getY()), "img");
+	//Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(this.getX(),
+	 //this.getY()), "img");
 	PrintStream printStream = new PrintStream(new CustomOutputStream(consoleOutput));
 
 
@@ -72,7 +72,7 @@ public class GameContainer extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setAlwaysOnTop(true);
-		// setCursor(sword);
+		//setCursor(sword);
 		System.setOut(printStream);
 		System.setErr(printStream);
 		consoleScroll.setViewportView(consoleOutput);

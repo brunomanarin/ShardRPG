@@ -222,13 +222,13 @@ public class RegisterCreate extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			@SuppressWarnings("unchecked")
-			final JComboBox<String> cb = (JComboBox<String>) e.getSource();
-			final String role = (String) cb.getSelectedItem();
-			if (role.equals("Rogue")) {
+			final JComboBox<PlayerType> cb = (JComboBox<PlayerType>) e.getSource();
+			PlayerType type = (PlayerType) cb.getSelectedItem();
+			if (type.equals(PlayerType.rogue)) {
 				characterPlaceHolder.setIcon(rogue);
-			} else if (role.equals("Warrior")) {
+			} else if (type.equals(PlayerType.warrior)) {
 				characterPlaceHolder.setIcon(warrior);
-			} else if (role.equals("Mage")) {
+			} else if (type.equals(PlayerType.mage)) {
 				characterPlaceHolder.setIcon(mage);
 			}
 		}

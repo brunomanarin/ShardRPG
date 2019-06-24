@@ -3,7 +3,9 @@ package br.ufsc.ine5605.ShardRPG.Screens;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +47,7 @@ public class MainMenu extends JFrame {
 
 	JButton toggleSound = new JButton(sound);
 
-	// Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
+	 Cursor sword = toolkit.createCustomCursor(cursorImage, new Point(getX(), getY()), "img");
 
 	ImageIcon shardLogo = new ImageIcon("./img/shard2.png");
 
@@ -106,7 +108,7 @@ public class MainMenu extends JFrame {
 		setLayout(null);
 		setVisible(true);
 		setAlwaysOnTop(true);
-		// setCursor(sword);
+		setCursor(sword);
 		add(titleLogo);
 		titleLogo.setBounds(135, 90, 530, 180);
 		newGame.setBounds(325, 300, 150, 40);

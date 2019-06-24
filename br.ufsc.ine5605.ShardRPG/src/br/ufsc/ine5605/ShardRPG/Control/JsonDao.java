@@ -172,7 +172,7 @@ public class JsonDao {
 		registerPlayerInFile(player);
 	}
 
-
+	//todo Static
 	static String loadJsonContent(String path, Charset encoding) throws IOException {
 		final byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
