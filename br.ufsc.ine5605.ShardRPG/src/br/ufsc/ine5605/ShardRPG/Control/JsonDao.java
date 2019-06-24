@@ -43,6 +43,8 @@ public class JsonDao {
 
 
 	public Player getPlayer(String key) {
+		key = key.toUpperCase();
+		;
 		final Map<String, Player> players = allPlayersMap();
 		if (players.containsKey(key)) {
 			return players.get(key);
@@ -66,6 +68,7 @@ public class JsonDao {
 
 	public Boolean deletePlayer(String key) throws IOException {
 		try {
+			key = key.toUpperCase();
 			if (checkJsonPlayers()) {
 				final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
 				final PlayerList playerList = new Gson().fromJson(json, PlayerList.class);
@@ -83,6 +86,7 @@ public class JsonDao {
 
 
 	public Boolean changeName(String key, String name) {
+		key = key.toUpperCase();
 		try {
 			if (checkJsonPlayers()) {
 				final String json = loadJsonContent("PlayersList.json", StandardCharsets.UTF_8);
