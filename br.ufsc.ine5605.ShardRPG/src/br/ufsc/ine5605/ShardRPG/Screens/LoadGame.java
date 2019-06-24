@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.ufsc.ine5605.ShardRPG.Control.Game;
 import br.ufsc.ine5605.ShardRPG.Control.JsonDao;
 
 public class LoadGame extends JFrame {
@@ -69,8 +70,6 @@ public class LoadGame extends JFrame {
 
 	private final JLabel load;
 
-	private String newName;
-
 	private final JLabel key;
 
 	private final JLabel key2;
@@ -92,6 +91,10 @@ public class LoadGame extends JFrame {
 	private final JButton delButton;
 
 	private final JButton chanButton;
+
+	private final JButton chanButton2;
+
+	private String keyName;
 
 
 	public LoadGame() throws IOException {
@@ -135,7 +138,18 @@ public class LoadGame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (textField1.getText() != null) {
-					dao.getPlayer(textField1.getText());
+					try {
+						Game.getInstance().setPlayer(dao.getPlayer(textField1.getText()));
+						if (Game.getInstance().getPlayer() != null) {
+							Game.getInstance().start();
+						} else {
+							log.setText("Invalid Player!");
+						}
+					} catch (final Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					;
 				}
 
 			}
@@ -163,7 +177,18 @@ public class LoadGame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				try {
+					if (textField2.getText() != null) {
+						if (dao.deletePlayer(textField2.getText())) {
+							jTextArea.setText(dao.playerListing());
+							log.setText("Updated List.");
+						} else {
+							log.setText("Invalid User!");
+						}
+					}
+				} catch (final IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		delButton.setBounds(510, 275, 114, 25);
@@ -189,13 +214,44 @@ public class LoadGame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				key3.setIcon(nameImg);
-				key3.setBounds(340, 145, 600, 500);
-				log.setText("Enter the new name!");
+				if (textField3.getText() != null) {
+					keyName = textField3.getText();
+					key3.setIcon(nameImg);
+					key3.setBounds(340, 145, 600, 500);
+					log.setText("Enter the new name!");
+					textField3.setText("");
+					panel.remove(chanButton);
+					chanButton2.setEnabled(true);
+				}
 			}
 		});
 		chanButton.setBounds(510, 420, 114, 25);
 		panel.add(chanButton);
+
+		chanButton2 = new JButton("Change");
+		chanButton2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textField3.getText() != null) {
+					if (dao.changeName(keyName, textField3.getText())) {
+						try {
+							jTextArea.setText(dao.playerListing());
+						} catch (final IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						log.setText("Updated List.");
+					} else {
+						log.setText("Invalid User!");
+						log.setForeground(Color.RED);
+					}
+				}
+			}
+		});
+		chanButton2.setBounds(510, 420, 114, 25);
+		chanButton2.setEnabled(false);
+		panel.add(chanButton2);
 
 		font2 = new Font("Segoe Script", Font.BOLD, 25);
 		log = new JLabel();
@@ -218,10 +274,5 @@ public class LoadGame extends JFrame {
 		add(menuBackground);
 		menuBackground.setBounds(0, 0, 800, 600);
 
-	}
-
-
-	public static void main(String[] args) throws IOException {
-		final LoadGame game = new LoadGame();
 	}
 }
