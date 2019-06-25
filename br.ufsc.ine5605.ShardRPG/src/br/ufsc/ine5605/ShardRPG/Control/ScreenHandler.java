@@ -2,7 +2,6 @@ package br.ufsc.ine5605.ShardRPG.Control;
 
 import java.io.IOException;
 
-import br.ufsc.ine5605.ShardRPG.Info.Player;
 import br.ufsc.ine5605.ShardRPG.Screens.GameContainer;
 import br.ufsc.ine5605.ShardRPG.Screens.LoadGame;
 import br.ufsc.ine5605.ShardRPG.Screens.MainMenu;
@@ -51,6 +50,10 @@ public class ScreenHandler {
 
 	public void closeMainMenu() {
 		MainMenu.getInstance().setVisible(false);
+	}
+	
+	public void closeLoadGame() throws IOException {
+		LoadGame.getInstance().setVisible(false);
 	}
 
 
