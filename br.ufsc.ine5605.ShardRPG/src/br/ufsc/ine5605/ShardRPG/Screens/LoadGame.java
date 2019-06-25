@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.ufsc.ine5605.ShardRPG.Control.Game;
 import br.ufsc.ine5605.ShardRPG.Control.JsonDao;
+import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
 
 public class LoadGame extends JFrame {
 
@@ -95,6 +96,8 @@ public class LoadGame extends JFrame {
 	private final JButton chanButton2;
 
 	private String keyName;
+	
+	private ButtonsHandler buttonsHandler = new ButtonsHandler();
 
 
 	public LoadGame() throws IOException {
@@ -133,29 +136,9 @@ public class LoadGame extends JFrame {
 		panel.add(textField1);
 
 		loadButton = new JButton("Load");
-		loadButton.addActionListener(new ActionListener() {
-			//juntarEventos
+		loadButton.addActionListener(buttonsHandler);
 			//dao para o Game
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textField1.getText() != null) {
-					try {
-						Game.getInstance().setPlayer(dao.getPlayer(textField1.getText()));
-						if (Game.getInstance().getPlayer() != null) {
-							Game.getInstance().start();
-						} else {
-							log.setText("Invalid Player!");
-						}
-					} catch (final Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					;
-				}
-
-			}
-		});
 		loadButton.setBounds(510, 123, 114, 25);
 		panel.add(loadButton);
 
@@ -175,24 +158,7 @@ public class LoadGame extends JFrame {
 		panel.add(textField2);
 
 		delButton = new JButton("Delete");
-		delButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (textField2.getText() != null) {
-						if (dao.deletePlayer(textField2.getText())) {
-							jTextArea.setText(dao.playerListing());
-							log.setText("Updated List.");
-						} else {
-							log.setText("Invalid User!");
-						}
-					}
-				} catch (final IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		delButton.addActionListener(buttonsHandler);
 		delButton.setBounds(510, 275, 114, 25);
 		panel.add(delButton);
 
@@ -212,45 +178,12 @@ public class LoadGame extends JFrame {
 		panel.add(textField3);
 
 		chanButton = new JButton("Change");
-		chanButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textField3.getText() != null) {
-					keyName = textField3.getText();
-					key3.setIcon(nameImg);
-					key3.setBounds(340, 145, 600, 500);
-					log.setText("Enter the new name!");
-					textField3.setText("");
-					panel.remove(chanButton);
-					chanButton2.setEnabled(true);
-				}
-			}
-		});
+		chanButton.addActionListener(buttonsHandler);
 		chanButton.setBounds(510, 420, 114, 25);
 		panel.add(chanButton);
 
 		chanButton2 = new JButton("Change");
-		chanButton2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textField3.getText() != null) {
-					if (dao.changeName(keyName, textField3.getText())) {
-						try {
-							jTextArea.setText(dao.playerListing());
-						} catch (final IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						log.setText("Updated List.");
-					} else {
-						log.setText("Invalid User!");
-						log.setForeground(Color.RED);
-					}
-				}
-			}
-		});
+		chanButton2.addActionListener(buttonsHandler);
 		chanButton2.setBounds(510, 420, 114, 25);
 		chanButton2.setEnabled(false);
 		panel.add(chanButton2);
@@ -276,5 +209,72 @@ public class LoadGame extends JFrame {
 		add(menuBackground);
 		menuBackground.setBounds(0, 0, 800, 600);
 
+	}
+	private class ButtonsHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == loadButton) {
+				if (textField1.getText() != null) {
+					try {
+						Game.getInstance().setPlayer(dao.getPlayer(textField1.getText()));
+						if (Game.getInstance().getPlayer() != null) {
+							Game.getInstance().loadingGame(textField1.getText());
+						} else {
+							log.setText("Invalid Player!");
+						}
+					} catch (final Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					;
+				}
+			}else if(e.getSource() == delButton) {
+				try {
+					if (textField2.getText() != null) {
+						if (dao.deletePlayer(textField2.getText())) {
+							jTextArea.setText(dao.playerListing());
+							log.setText("Updated List.");
+						} else {
+							log.setText("Invalid User!");
+						}
+					}
+				} catch (final IOException e1) {
+					e1.printStackTrace();
+				}
+			}else if (e.getSource() == chanButton) {
+				if (textField3.getText() != null) {
+					if (dao.changeName(keyName, textField3.getText())) {
+						try {
+							jTextArea.setText(dao.playerListing());
+						} catch (final IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						log.setText("Updated List.");
+					} else {
+						log.setText("Invalid User!");
+						log.setForeground(Color.RED);
+					}
+				}
+			}else{
+				if (textField3.getText() != null) {
+					if (dao.changeName(keyName, textField3.getText())) {
+						try {
+							jTextArea.setText(dao.playerListing());
+						} catch (final IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						log.setText("Updated List.");
+					} else {
+						log.setText("Invalid User!");
+						log.setForeground(Color.RED);
+					}
+				}
+			}
+			
+		}
+		
 	}
 }
