@@ -18,7 +18,15 @@ import br.ufsc.ine5605.ShardRPG.Info.PlayerList;
 public class JsonDao {
 
 	private final File file = new File("PlayersList.json");
-
+	
+	private static JsonDao instance;
+	
+	public static JsonDao getInstance() throws Exception {
+		if (instance == null) {
+			instance = new JsonDao();
+		}
+		return instance;
+	}
 
 	public String playerListing() throws IOException {
 		String text = "";
@@ -172,8 +180,7 @@ public class JsonDao {
 		registerPlayerInFile(player);
 	}
 
-	//todo Static
-	static String loadJsonContent(String path, Charset encoding) throws IOException {
+	public String loadJsonContent(String path, Charset encoding) throws IOException {
 		final byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
 	}
