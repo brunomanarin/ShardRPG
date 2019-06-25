@@ -195,7 +195,6 @@ public class RegisterCreate extends JFrame {
 		case 1:
 			playerRace = PlayerRace.human;
 		default:
-			//////////////////
 			break;
 		}
 
@@ -211,7 +210,6 @@ public class RegisterCreate extends JFrame {
 			playerType = PlayerType.rogue;
 			break;
 		default:
-			///////////
 			break;
 		}
 		return new Player(name.getText(), playerType, playerRace, 0, name.getText().toUpperCase());
