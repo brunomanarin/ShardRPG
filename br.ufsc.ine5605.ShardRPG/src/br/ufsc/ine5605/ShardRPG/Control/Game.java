@@ -3,7 +3,6 @@ package br.ufsc.ine5605.ShardRPG.Control;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -55,7 +54,6 @@ public class Game {
 
 	public Game() throws Exception {
 		intepreter = new Intepreter();
-		final Map<String, Player> mapList;
 		dao = new JsonDao();
 		listRoom = new MapListRoom();
 
@@ -63,7 +61,7 @@ public class Game {
 			final File file = new File("PlayersList.json");
 			try {
 				final PlayerList playerList = new Gson().fromJson(
-					JsonDao.loadJsonContent("PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
+					JsonDao.getInstance().loadJsonContent("PlayersList.json", StandardCharsets.UTF_8), PlayerList.class);
 				if (playerList == null) {
 					file.delete();
 					dao.registerPlayer(new Player(null, null, null, null, null));
@@ -95,6 +93,12 @@ public class Game {
 		} catch (final Exception e) {
 			/* GameTextScreen.println(e); */
 		}
+	}
+	
+	public void loadingGame(String playerKey) throws Exception {
+		this.player = JsonDao.getInstance().getPlayer(playerKey);
+			ScreenHandler.getInstance().closeLoadGame();
+			Game.getInstance().start();
 	}
 
 
