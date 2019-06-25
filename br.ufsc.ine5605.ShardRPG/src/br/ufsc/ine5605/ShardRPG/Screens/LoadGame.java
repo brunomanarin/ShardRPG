@@ -18,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 
 import br.ufsc.ine5605.ShardRPG.Control.Game;
 import br.ufsc.ine5605.ShardRPG.Control.JsonDao;
-import br.ufsc.ine5605.ShardRPG.Control.ScreenHandler;
 
 public class LoadGame extends JFrame {
 
@@ -244,18 +243,13 @@ public class LoadGame extends JFrame {
 				}
 			}else if (e.getSource() == chanButton) {
 				if (textField3.getText() != null) {
-					if (dao.changeName(keyName, textField3.getText())) {
-						try {
-							jTextArea.setText(dao.playerListing());
-						} catch (final IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						log.setText("Updated List.");
-					} else {
-						log.setText("Invalid User!");
-						log.setForeground(Color.RED);
-					}
+					keyName = textField3.getText();
+					key3.setIcon(nameImg);
+					key3.setBounds(340, 145, 600, 500);
+					log.setText("Enter the new name!");
+					textField3.setText("");
+					panel.remove(chanButton);
+					chanButton2.setEnabled(true);
 				}
 			}else{
 				if (textField3.getText() != null) {
